@@ -11,6 +11,8 @@ export function execMenu(onClick: (event: MouseEvent) => void) {
   menu.style.position = "absolute";
   menu.style.left = "-2em";
   menu.style.zIndex = "1";
+  menu.style.display = "flex";
+  menu.style.flexFlow = "column";
   menu.append(execButton(onClick), status);
   return { menu, setStatus };
 }

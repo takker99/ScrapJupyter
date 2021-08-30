@@ -1,8 +1,14 @@
 import { build, httpFetch, initialize } from "./deps/esbuild-wasm.ts";
 
-await initialize({
-  wasmURL: "https://scrapbox.io/files/61231ff40ef655001d6f7109.wasm",
-});
+let initialized: Promise<void> | undefined;
+export async function loadWasm() {
+  if (initialized === undefined) {
+    initialized = initialize({
+      wasmURL: "https://scrapbox.io/files/61231ff40ef655001d6f7109.wasm",
+    });
+  }
+  return await initialized;
+}
 
 export type AvailableExtensions =
   | "ts"
@@ -30,6 +36,7 @@ export async function bundle(
   contents: string,
   { extension, fileName, resolveDir }: BundleOptions,
 ) {
+  await loadWasm();
   const { outputFiles } = await build({
     stdin: {
       contents,

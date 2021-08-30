@@ -1,5 +1,5 @@
-import { build, stop } from "https://deno.land/x/esbuild@v0.12.6/mod.js";
-import { ensureDir } from "https://deno.land/std@0.106.0/fs/mod.ts";
+import { build, stop } from "./src/deps/esbuild.ts";
+import { ensureDir } from "./src/deps/fs.ts";
 
 const { files } = await Deno.emit("./src/app.ts", {
   bundle: "module",

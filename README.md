@@ -24,4 +24,4 @@ $ deno run -A --unstable https://raw.githubusercontent.com/takker99/ScrapJupyter
 ## Credit
 
 - The idea of ScrapJupyter comes from [@miyamonz](https://github.com/miyamonz)
-  see <https://scrapbox.io/miyamonz/ScrapJupyter>
+  - see <https://scrapbox.io/miyamonz/ScrapJupyter>

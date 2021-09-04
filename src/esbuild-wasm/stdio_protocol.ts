@@ -24,7 +24,10 @@ import * as types from "./types.ts";
 export interface BuildRequest {
   command: "build";
   key: number;
-  entries: [string, string][]; // Use an array instead of a map to preserve order
+  /** Use an array instead of a map to preserve order */ entries: [
+    string,
+    string,
+  ][];
   flags: string[];
   write: boolean;
   stdinContents: string | null;

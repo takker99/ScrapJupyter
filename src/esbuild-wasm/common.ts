@@ -123,20 +123,6 @@ function checkForInvalidFlags<T>(
   }
 }
 
-export function validateInitializeOptions(
-  options: types.InitializeOptions,
-): types.InitializeOptions {
-  const keys: OptionKeys = Object.create(null);
-  const wasmURL = getFlag(options, keys, "wasmURL", mustBeString);
-  const workerURL = getFlag(options, keys, "workerURL", mustBeString);
-  const worker = getFlag(options, keys, "worker", mustBeBoolean);
-  checkForInvalidFlags(options, keys, "in startService() call");
-  return {
-    wasmURL,
-    workerURL,
-    worker,
-  };
-}
 
 type CommonOptions = types.BuildOptions | types.TransformOptions;
 

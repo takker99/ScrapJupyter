@@ -67,18 +67,14 @@ const ensureServiceIsRunning = (): Service => {
   throw new Error('You need to call "initialize" before calling this');
 };
 
-export const initialize: typeof types.initialize = (options) => {
-  options = common.validateInitializeOptions(options || {});
-  let wasmURL = options.wasmURL;
-  const workerURL = options.workerURL;
-  const useWorker = options.worker !== false;
-  if (!wasmURL) throw new Error('Must provide the "wasmURL" option');
-  if (!workerURL) throw new Error('Must provide the "workerURL" option');
+export const initialize: typeof types.initialize = (
+  { wasmURL, workerURL, worker },
+) => {
   wasmURL += "";
   if (initializePromise) {
     throw new Error('Cannot call "initialize" more than once');
   }
-  initializePromise = startRunningService(wasmURL, workerURL, useWorker);
+  initializePromise = startRunningService(wasmURL, workerURL, worker);
   initializePromise.catch(() => {
     // Let the caller try again if this fails
     initializePromise = void 0;

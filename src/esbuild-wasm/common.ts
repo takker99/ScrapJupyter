@@ -14,8 +14,7 @@
 // This code is copied from https://raw.githubusercontent.com/evanw/esbuild/v0.12.25/lib/shared/common.ts
 import * as types from "./types.ts";
 import * as protocol from "./stdio_protocol.ts";
-
-declare const ESBUILD_VERSION: string;
+import { ESBUILD_VERSION } from "./version.ts";
 
 function validateTarget(target: string): string {
   target += "";

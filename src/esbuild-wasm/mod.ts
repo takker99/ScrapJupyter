@@ -16,9 +16,7 @@
 // -$ deno fmt
 import * as types from "./types.ts";
 import * as common from "./common.ts";
-
-declare const ESBUILD_VERSION: string;
-declare let WEB_WORKER_SOURCE_CODE: string;
+import { ESBUILD_VERSION } from "./version.ts";
 
 export let version = ESBUILD_VERSION;
 

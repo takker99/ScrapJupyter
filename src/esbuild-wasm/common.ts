@@ -128,10 +128,12 @@ export function validateInitializeOptions(
 ): types.InitializeOptions {
   let keys: OptionKeys = Object.create(null);
   let wasmURL = getFlag(options, keys, "wasmURL", mustBeString);
+  let workerURL = getFlag(options, keys, "workerURL", mustBeString);
   let worker = getFlag(options, keys, "worker", mustBeBoolean);
   checkForInvalidFlags(options, keys, "in startService() call");
   return {
     wasmURL,
+    workerURL,
     worker,
   };
 }

@@ -18,11 +18,11 @@ import * as types from "./types.ts";
 import * as common from "./common.ts";
 import { ESBUILD_VERSION } from "./version.ts";
 
-export let version = ESBUILD_VERSION;
+export const version = ESBUILD_VERSION;
 
-export let build: typeof types.build = (
+export const build: typeof types.build = (
   options: types.BuildOptions,
-): Promise<any> => ensureServiceIsRunning().build(options);
+) => ensureServiceIsRunning().build(options);
 
 export const serve: typeof types.serve = () => {
   throw new Error(`The "serve" API only works in node`);
@@ -57,7 +57,7 @@ interface Service {
 let initializePromise: Promise<void> | undefined;
 let longLivedService: Service | undefined;
 
-let ensureServiceIsRunning = (): Service => {
+const ensureServiceIsRunning = (): Service => {
   if (longLivedService) return longLivedService;
   if (initializePromise) {
     throw new Error(
@@ -71,7 +71,7 @@ export const initialize: typeof types.initialize = (options) => {
   options = common.validateInitializeOptions(options || {});
   let wasmURL = options.wasmURL;
   const workerURL = options.workerURL;
-  let useWorker = options.worker !== false;
+  const useWorker = options.worker !== false;
   if (!wasmURL) throw new Error('Must provide the "wasmURL" option');
   if (!workerURL) throw new Error('Must provide the "workerURL" option');
   wasmURL += "";
@@ -91,11 +91,11 @@ const startRunningService = async (
   workerURL: string,
   useWorker: boolean,
 ): Promise<void> => {
-  let res = await fetch(wasmURL);
+  const res = await fetch(wasmURL);
   if (!res.ok) throw new Error(`Failed to download ${JSON.stringify(wasmURL)}`);
-  let wasm = await res.arrayBuffer();
+  const wasm = await res.arrayBuffer();
   let worker: {
-    onmessage: ((event: any) => void) | null;
+    onmessage: ((event: unknown) => void) | null;
     postMessage: (data: Uint8Array | ArrayBuffer) => void;
     terminate: () => void;
   } | Worker;
@@ -109,12 +109,12 @@ const startRunningService = async (
     if (!workerRes.ok) {
       throw new Error(`Failed to download ${JSON.stringify(wasmURL)}`);
     }
-    let fn = new Function(
+    const fn = new Function(
       "postMessage",
-      await workerRes.text() + `var onmessage; return m => onmessage(m)`,
+      `${await workerRes.text()}var onmessage; return m => onmessage(m)`,
     );
     //@ts-ignore delete later
-    let onmessage = fn((data: Uint8Array) => worker.onmessage!({ data }));
+    const onmessage = fn((data: Uint8Array) => worker.onmessage!({ data }));
     worker = {
       onmessage: null,
       postMessage: (data: unknown) => onmessage({ data }),
@@ -124,19 +124,19 @@ const startRunningService = async (
   }
 
   worker.postMessage(wasm);
-  worker.onmessage = ({ data }: MessageEvent<Uint8Array>) =>
-    readFromStdout(data);
 
-  let { readFromStdout, service } = common.createChannel({
+  const { readFromStdout, service } = common.createChannel({
     writeToStdin(bytes) {
       worker.postMessage(bytes);
     },
     isSync: false,
     isBrowser: true,
   });
+  worker.onmessage = ({ data }: MessageEvent<Uint8Array>) =>
+    readFromStdout(data);
 
   longLivedService = {
-    build: (options: types.BuildOptions): Promise<any> =>
+    build: (options: types.BuildOptions) =>
       new Promise<types.BuildResult>((resolve, reject) =>
         service.buildOrServe({
           callName: "build",

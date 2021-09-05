@@ -226,7 +226,7 @@ export type Value =
   | { [key: string]: Value };
 
 export function encodePacket(packet: Packet): Uint8Array {
-  let visit = (value: Value) => {
+  const visit = (value: Value) => {
     if (value === null) {
       bb.write8(0);
     } else if (typeof value === "boolean") {
@@ -244,21 +244,21 @@ export function encodePacket(packet: Packet): Uint8Array {
     } else if (value instanceof Array) {
       bb.write8(5);
       bb.write32(value.length);
-      for (let item of value) {
+      for (const item of value) {
         visit(item);
       }
     } else {
-      let keys = Object.keys(value);
+      const keys = Object.keys(value);
       bb.write8(6);
       bb.write32(keys.length);
-      for (let key of keys) {
+      for (const key of keys) {
         bb.write(encodeUTF8(key));
         visit(value[key]);
       }
     }
   };
 
-  let bb = new ByteBuffer();
+  const bb = new ByteBuffer();
   bb.write32(0); // Reserve space for the length
   bb.write32((packet.id << 1) | +!packet.isRequest);
   visit(packet.value);
@@ -267,7 +267,7 @@ export function encodePacket(packet: Packet): Uint8Array {
 }
 
 export function decodePacket(bytes: Uint8Array): Packet {
-  let visit = (): Value => {
+  const visit = (): Value => {
     switch (bb.read8()) {
       case 0: // null
         return null;
@@ -280,16 +280,16 @@ export function decodePacket(bytes: Uint8Array): Packet {
       case 4: // Uint8Array
         return bb.read();
       case 5: { // Value[]
-        let count = bb.read32();
-        let value: Value[] = [];
+        const count = bb.read32();
+        const value: Value[] = [];
         for (let i = 0; i < count; i++) {
           value.push(visit());
         }
         return value;
       }
       case 6: { // { [key: string]: Value }
-        let count = bb.read32();
-        let value: { [key: string]: Value } = {};
+        const count = bb.read32();
+        const value: { [key: string]: Value } = {};
         for (let i = 0; i < count; i++) {
           value[decodeUTF8(bb.read())] = visit();
         }
@@ -300,11 +300,11 @@ export function decodePacket(bytes: Uint8Array): Packet {
     }
   };
 
-  let bb = new ByteBuffer(bytes);
+  const bb = new ByteBuffer(bytes);
   let id = bb.read32();
-  let isRequest = (id & 1) === 0;
+  const isRequest = (id & 1) === 0;
   id >>>= 1;
-  let value = visit();
+  const value = visit();
   if (bb.ptr !== bytes.length) {
     throw new Error("Invalid packet");
   }
@@ -320,7 +320,7 @@ class ByteBuffer {
 
   private _write(delta: number): number {
     if (this.len + delta > this.buf.length) {
-      let clone = new Uint8Array((this.len + delta) * 2);
+      const clone = new Uint8Array((this.len + delta) * 2);
       clone.set(this.buf);
       this.buf = clone;
     }
@@ -329,17 +329,17 @@ class ByteBuffer {
   }
 
   write8(value: number): void {
-    let offset = this._write(1);
+    const offset = this._write(1);
     this.buf[offset] = value;
   }
 
   write32(value: number): void {
-    let offset = this._write(4);
+    const offset = this._write(4);
     writeUInt32LE(this.buf, value, offset);
   }
 
   write(bytes: Uint8Array): void {
-    let offset = this._write(4 + bytes.length);
+    const offset = this._write(4 + bytes.length);
     writeUInt32LE(this.buf, bytes.length, offset);
     this.buf.set(bytes, offset + 4);
   }
@@ -361,9 +361,9 @@ class ByteBuffer {
   }
 
   read(): Uint8Array {
-    let length = this.read32();
-    let bytes = new Uint8Array(length);
-    let ptr = this._read(bytes.length);
+    const length = this.read32();
+    const bytes = new Uint8Array(length);
+    const ptr = this._read(bytes.length);
     bytes.set(this.buf.subarray(ptr, ptr + length));
     return bytes;
   }
@@ -374,8 +374,8 @@ export let decodeUTF8: (bytes: Uint8Array) => string;
 
 // For the browser and node 12.x
 if (typeof TextEncoder !== "undefined" && typeof TextDecoder !== "undefined") {
-  let encoder = new TextEncoder();
-  let decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
   encodeUTF8 = (text) => encoder.encode(text);
   decodeUTF8 = (bytes) => decoder.decode(bytes);
 } else {

@@ -99,7 +99,7 @@ export interface BuildOptions extends CommonOptions {
   stdin?: StdinOptions;
   plugins?: Plugin[];
   absWorkingDir?: string;
-  /** The "NODE_PATH" variable from Node.js */nodePaths?: string[];
+  /** The "NODE_PATH" variable from Node.js */ nodePaths?: string[];
   watch?: boolean | WatchMode;
 }
 
@@ -134,9 +134,9 @@ export interface Note {
 export interface Location {
   file: string;
   namespace: string;
-  /** 1-based */line: number;
-  /** 0-based, in bytes */column: number;
-  /** in bytes */length: number;
+  /** 1-based */ line: number;
+  /** 0-based, in bytes */ column: number;
+  /** in bytes */ length: number;
   lineText: string;
   suggestion: string;
 }

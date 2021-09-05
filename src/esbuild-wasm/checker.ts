@@ -1,4 +1,10 @@
-import * as types from "./types.ts";
+import {
+  BuildOptions,
+  LogLevel,
+  TransformOptions,
+  WatchMode,
+} from "./types.ts";
+import { isBoolean, isString } from "../deps/unknownutil.ts";
 
 function validateTarget(target: string): string {
   target += "";
@@ -9,7 +15,7 @@ function validateTarget(target: string): string {
 export const canBeAnything = () => null;
 
 export const mustBeBoolean = (value: boolean | undefined): string | null =>
-  typeof value === "boolean" ? null : "a boolean";
+  isBoolean(value) ? null : "a boolean";
 
 export const mustBeBooleanOrObject = (
   value: unknown,
@@ -44,7 +50,9 @@ export const mustBeArrayOrRecord = <T extends string>(
 ): string | null =>
   typeof value === "object" && value !== null ? null : "an array or an object";
 
-export const mustBeObjectOrNull = (value: unknown | null | undefined): string | null =>
+export const mustBeObjectOrNull = (
+  value: unknown | null | undefined,
+): string | null =>
   typeof value === "object" && !Array.isArray(value)
     ? null
     : "an object or null";
@@ -106,15 +114,14 @@ export function checkForInvalidFlags<T>(
   }
 }
 
-
-type CommonOptions = types.BuildOptions | types.TransformOptions;
+type CommonOptions = BuildOptions | TransformOptions;
 
 export function pushLogFlags(
   flags: string[],
   options: CommonOptions,
   keys: OptionKeys,
   isTTY: boolean,
-  logLevelDefault: types.LogLevel,
+  logLevelDefault: LogLevel,
 ): void {
   const color = getFlag(options, keys, "color", mustBeBoolean);
   const logLevel = getFlag(options, keys, "logLevel", mustBeString);
@@ -210,9 +217,9 @@ function pushCommonFlags(
 
 export function flagsForBuildOptions(
   callName: string,
-  options: types.BuildOptions,
+  options: BuildOptions,
   isTTY: boolean,
-  logLevelDefault: types.LogLevel,
+  logLevelDefault: LogLevel,
   writeDefault: boolean,
 ): {
   entries: [string, string][];
@@ -223,14 +230,14 @@ export function flagsForBuildOptions(
   absWorkingDir: string | undefined;
   incremental: boolean;
   nodePaths: string[];
-  watch: types.WatchMode | null;
+  watch: WatchMode | null;
 } {
   const flags: string[] = [];
   const entries: [string, string][] = [];
   const keys: OptionKeys = Object.create(null);
   let stdinContents: string | null = null;
   let stdinResolveDir: string | null = null;
-  let watchMode: types.WatchMode | null = null;
+  let watchMode: WatchMode | null = null;
   pushLogFlags(flags, options, keys, isTTY, logLevelDefault);
   pushCommonFlags(flags, options, keys);
 
@@ -438,9 +445,9 @@ export function flagsForBuildOptions(
 
 export function flagsForTransformOptions(
   callName: string,
-  options: types.TransformOptions,
+  options: TransformOptions,
   isTTY: boolean,
-  logLevelDefault: types.LogLevel,
+  logLevelDefault: LogLevel,
 ): string[] {
   const flags: string[] = [];
   const keys: OptionKeys = Object.create(null);

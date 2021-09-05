@@ -19,7 +19,13 @@
 // additional byte array primitive. You must send a response after receiving a
 // request because the other end is blocking on the response coming back.
 
-import * as types from "./types.ts";
+import {
+  BuildResult,
+  ImportKind,
+  Message,
+  PartialMessage,
+  ServeOnRequestArgs,
+} from "./types.ts";
 
 export interface BuildRequest {
   command: "build";
@@ -63,8 +69,8 @@ export interface BuildPlugin {
 }
 
 export interface BuildResponse {
-  errors: types.Message[];
-  warnings: types.Message[];
+  errors: Message[];
+  warnings: Message[];
   outputFiles: BuildOutputFile[];
   metafile: string;
   writeToStdout?: Uint8Array;
@@ -99,7 +105,7 @@ export interface WatchStopRequest {
 export interface OnRequestRequest {
   command: "serve-request";
   serveID: number;
-  args: types.ServeOnRequestArgs;
+  args: ServeOnRequestArgs;
 }
 
 export interface OnWaitRequest {
@@ -111,7 +117,7 @@ export interface OnWaitRequest {
 export interface OnWatchRebuildRequest {
   command: "watch-rebuild";
   watchID: number;
-  args: types.BuildResult;
+  args: BuildResult;
 }
 
 export interface TransformRequest {
@@ -122,8 +128,8 @@ export interface TransformRequest {
 }
 
 export interface TransformResponse {
-  errors: types.Message[];
-  warnings: types.Message[];
+  errors: Message[];
+  warnings: Message[];
 
   code: string;
   codeFS: boolean;
@@ -134,7 +140,7 @@ export interface TransformResponse {
 
 export interface FormatMsgsRequest {
   command: "format-msgs";
-  messages: types.Message[];
+  messages: Message[];
   isWarning: boolean;
   color?: boolean;
   terminalWidth?: number;
@@ -150,8 +156,8 @@ export interface OnStartRequest {
 }
 
 export interface OnStartResponse {
-  errors?: types.PartialMessage[];
-  warnings?: types.PartialMessage[];
+  errors?: PartialMessage[];
+  warnings?: PartialMessage[];
 }
 
 export interface OnResolveRequest {
@@ -162,7 +168,7 @@ export interface OnResolveRequest {
   importer: string;
   namespace: string;
   resolveDir: string;
-  kind: types.ImportKind;
+  kind: ImportKind;
   pluginData: number;
 }
 
@@ -170,8 +176,8 @@ export interface OnResolveResponse {
   id?: number;
   pluginName?: string;
 
-  errors?: types.PartialMessage[];
-  warnings?: types.PartialMessage[];
+  errors?: PartialMessage[];
+  warnings?: PartialMessage[];
 
   path?: string;
   external?: boolean;
@@ -196,8 +202,8 @@ export interface OnLoadResponse {
   id?: number;
   pluginName?: string;
 
-  errors?: types.PartialMessage[];
-  warnings?: types.PartialMessage[];
+  errors?: PartialMessage[];
+  warnings?: PartialMessage[];
 
   contents?: Uint8Array;
   resolveDir?: string;

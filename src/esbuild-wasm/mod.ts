@@ -14,44 +14,35 @@
 // This code is copied from https://raw.githubusercontent.com/evanw/esbuild/v0.12.25/lib/npm/browser.ts and modified below:
 // - load worker src from URL instead of embedded code
 // -$ deno fmt
-import * as types from "./types.ts";
-import * as common from "./common.ts";
+import {
+  build as buildBase,
+  BuildOptions,
+  BuildResult,
+  formatMessages as formatMessagesBase,
+  initialize as initializeBase,
+  transform as transformBase,
+} from "./types.ts";
+import { createChannel } from "./common.ts";
 import { ESBUILD_VERSION } from "./version.ts";
 
 export const version = ESBUILD_VERSION;
 
-export const build: typeof types.build = (
-  options: types.BuildOptions,
+export const build: typeof buildBase = (
+  options: BuildOptions,
 ) => ensureServiceIsRunning().build(options);
 
-export const serve: typeof types.serve = () => {
-  throw new Error(`The "serve" API only works in node`);
-};
-
-export const transform: typeof types.transform = (input, options) =>
+export const transform: typeof transformBase = (input, options) =>
   ensureServiceIsRunning().transform(input, options);
 
-export const formatMessages: typeof types.formatMessages = (
+export const formatMessages: typeof formatMessagesBase = (
   messages,
   options,
 ) => ensureServiceIsRunning().formatMessages(messages, options);
 
-export const buildSync: typeof types.buildSync = () => {
-  throw new Error(`The "buildSync" API only works in node`);
-};
-
-export const transformSync: typeof types.transformSync = () => {
-  throw new Error(`The "transformSync" API only works in node`);
-};
-
-export const formatMessagesSync: typeof types.formatMessagesSync = () => {
-  throw new Error(`The "formatMessagesSync" API only works in node`);
-};
-
 interface Service {
-  build: typeof types.build;
-  transform: typeof types.transform;
-  formatMessages: typeof types.formatMessages;
+  build: typeof buildBase;
+  transform: typeof transformBase;
+  formatMessages: typeof formatMessagesBase;
 }
 
 let initializePromise: Promise<void> | undefined;
@@ -67,7 +58,7 @@ const ensureServiceIsRunning = (): Service => {
   throw new Error('You need to call "initialize" before calling this');
 };
 
-export const initialize: typeof types.initialize = (
+export const initialize: typeof initializeBase = (
   { wasmURL, workerURL, worker },
 ) => {
   wasmURL += "";
@@ -121,7 +112,7 @@ const startRunningService = async (
 
   worker.postMessage(wasm);
 
-  const { readFromStdout, service } = common.createChannel({
+  const { readFromStdout, service } = createChannel({
     writeToStdin(bytes) {
       worker.postMessage(bytes);
     },
@@ -132,8 +123,8 @@ const startRunningService = async (
     readFromStdout(data);
 
   longLivedService = {
-    build: (options: types.BuildOptions) =>
-      new Promise<types.BuildResult>((resolve, reject) =>
+    build: (options: BuildOptions) =>
+      new Promise<BuildResult>((resolve, reject) =>
         service.buildOrServe({
           callName: "build",
           refs: null,
@@ -142,7 +133,7 @@ const startRunningService = async (
           isTTY: false,
           defaultWD: "/",
           callback: (err, res) =>
-            err ? reject(err) : resolve(res as types.BuildResult),
+            err ? reject(err) : resolve(res as BuildResult),
         })
       ),
     transform: (input, options) =>

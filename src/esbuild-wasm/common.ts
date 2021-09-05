@@ -24,6 +24,7 @@ import {
   OnResolveArgs,
   OnResolveResult,
   OnStartResult,
+  OutputFile,
   PartialMessage,
   Plugin,
   ServeOptions,
@@ -69,21 +70,10 @@ import {
   ensureString,
 } from "../deps/unknownutil.ts";
 import {
-  canBeAnything,
-  checkForInvalidFlags,
   flagsForBuildOptions,
   flagsForTransformOptions,
-  getFlag,
-  mustBeArray,
-  mustBeBoolean,
-  mustBeFunction,
-  mustBeInteger,
-  mustBeRegExp,
-  mustBeString,
-  mustBeStringOrUint8Array,
-  OptionKeys,
   pushLogFlags,
-} from "./checker.ts";
+} from "./flags.ts";
 
 export interface StreamIn {
   writeToStdin: (data: Uint8Array) => void;
@@ -470,22 +460,8 @@ export function createChannel(streamIn: StreamIn): StreamOut {
     // Clone the plugin array to guard against mutation during iteration
     plugins = [...plugins];
 
-    for (const item of plugins) {
-      const keys: OptionKeys = {};
-      if (typeof item !== "object") {
-        throw new Error(`Plugin at index ${i} must be an object`);
-      }
-      const name = getFlag(item, keys, "name", mustBeString);
-      if (typeof name !== "string" || name === "") {
-        throw new Error(`Plugin at index ${i} is missing a name`);
-      }
+    for (const { name, setup } of plugins) {
       try {
-        const setup = getFlag(item, keys, "setup", mustBeFunction);
-        if (typeof setup !== "function") {
-          throw new Error(`Plugin is missing a setup function`);
-        }
-        checkForInvalidFlags(item, keys, `on plugin ${JSON.stringify(name)}`);
-
         const plugin: BuildPlugin = {
           name,
           onResolve: [],
@@ -526,7 +502,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
             });
           },
 
-          onResolve(options, callback) {
+          onResolve({ filter, namespace }, callback) {
             const registeredText =
               `This error came from the "onResolve" callback registered here`;
             const registeredNote = extractCallerV8(
@@ -534,17 +510,6 @@ export function createChannel(streamIn: StreamIn): StreamOut {
               streamIn,
               "onResolve",
             );
-            const keys: OptionKeys = {};
-            const filter = getFlag(options, keys, "filter", mustBeRegExp);
-            const namespace = getFlag(options, keys, "namespace", mustBeString);
-            checkForInvalidFlags(
-              options,
-              keys,
-              `in onResolve() call for plugin ${JSON.stringify(name)}`,
-            );
-            if (filter == null) {
-              throw new Error(`onResolve() call is missing a filter`);
-            }
             const id = nextCallbackID++;
             onResolveCallbacks[id] = {
               name: name!,
@@ -558,7 +523,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
             });
           },
 
-          onLoad(options, callback) {
+          onLoad({ filter, namespace }, callback) {
             const registeredText =
               `This error came from the "onLoad" callback registered here`;
             const registeredNote = extractCallerV8(
@@ -566,17 +531,6 @@ export function createChannel(streamIn: StreamIn): StreamOut {
               streamIn,
               "onLoad",
             );
-            const keys: OptionKeys = {};
-            const filter = getFlag(options, keys, "filter", mustBeRegExp);
-            const namespace = getFlag(options, keys, "namespace", mustBeString);
-            checkForInvalidFlags(
-              options,
-              keys,
-              `in onLoad() call for plugin ${JSON.stringify(name)}`,
-            );
-            if (filter == null) {
-              throw new Error(`onLoad() call is missing a filter`);
-            }
             const id = nextCallbackID++;
             onLoadCallbacks[id] = {
               name: name!,
@@ -624,19 +578,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
                       } to return an object`,
                     );
                   }
-                  const keys: OptionKeys = {};
-                  const errors = getFlag(result, keys, "errors", mustBeArray);
-                  const warnings = getFlag(
-                    result,
-                    keys,
-                    "warnings",
-                    mustBeArray,
-                  );
-                  checkForInvalidFlags(
-                    result,
-                    keys,
-                    `from onStart() callback in plugin ${JSON.stringify(name)}`,
-                  );
+                  const { errors, warnings } = result;
 
                   if (errors != null) {
                     response.errors!.push(
@@ -690,57 +632,18 @@ export function createChannel(streamIn: StreamIn): StreamOut {
                     } to return an object`,
                   );
                 }
-                const keys: OptionKeys = {};
-                const pluginName = getFlag(
-                  result,
-                  keys,
-                  "pluginName",
-                  mustBeString,
-                );
-                const path = getFlag(result, keys, "path", mustBeString);
-                const namespace = getFlag(
-                  result,
-                  keys,
-                  "namespace",
-                  mustBeString,
-                );
-                const external = getFlag(
-                  result,
-                  keys,
-                  "external",
-                  mustBeBoolean,
-                );
-                const sideEffects = getFlag(
-                  result,
-                  keys,
-                  "sideEffects",
-                  mustBeBoolean,
-                );
-                const pluginData = getFlag(
-                  result,
-                  keys,
-                  "pluginData",
-                  canBeAnything,
-                );
-                const errors = getFlag(result, keys, "errors", mustBeArray);
-                const warnings = getFlag(result, keys, "warnings", mustBeArray);
-                const watchFiles = getFlag(
-                  result,
-                  keys,
-                  "watchFiles",
-                  mustBeArray,
-                );
-                const watchDirs = getFlag(
-                  result,
-                  keys,
-                  "watchDirs",
-                  mustBeArray,
-                );
-                checkForInvalidFlags(
-                  result,
-                  keys,
-                  `from onResolve() callback in plugin ${JSON.stringify(name)}`,
-                );
+                const {
+                  pluginName,
+                  path,
+                  namespace,
+                  external,
+                  sideEffects,
+                  pluginData,
+                  errors,
+                  warnings,
+                  watchFiles,
+                  watchDirs,
+                } = result;
 
                 response.id = id;
                 if (pluginName != null) response.pluginName = pluginName;
@@ -821,51 +724,18 @@ export function createChannel(streamIn: StreamIn): StreamOut {
                     } to return an object`,
                   );
                 }
-                const keys: OptionKeys = {};
-                const pluginName = getFlag(
-                  result,
-                  keys,
-                  "pluginName",
-                  mustBeString,
-                );
-                const contents = getFlag(
-                  result,
-                  keys,
-                  "contents",
-                  mustBeStringOrUint8Array,
-                );
-                const resolveDir = getFlag(
-                  result,
-                  keys,
-                  "resolveDir",
-                  mustBeString,
-                );
-                const pluginData = getFlag(
-                  result,
-                  keys,
-                  "pluginData",
-                  canBeAnything,
-                );
-                const loader = getFlag(result, keys, "loader", mustBeString);
-                const errors = getFlag(result, keys, "errors", mustBeArray);
-                const warnings = getFlag(result, keys, "warnings", mustBeArray);
-                const watchFiles = getFlag(
-                  result,
-                  keys,
-                  "watchFiles",
-                  mustBeArray,
-                );
-                const watchDirs = getFlag(
-                  result,
-                  keys,
-                  "watchDirs",
-                  mustBeArray,
-                );
-                checkForInvalidFlags(
-                  result,
-                  keys,
-                  `from onLoad() callback in plugin ${JSON.stringify(name)}`,
-                );
+
+                const {
+                  pluginName,
+                  pluginData,
+                  contents,
+                  resolveDir,
+                  loader,
+                  errors,
+                  warnings,
+                  watchFiles,
+                  watchDirs,
+                } = result;
 
                 response.id = id;
                 if (pluginName != null) response.pluginName = pluginName;
@@ -986,11 +856,6 @@ export function createChannel(streamIn: StreamIn): StreamOut {
     options: ServeOptions,
     request: BuildRequest,
   ): ServeData => {
-    const keys: OptionKeys = {};
-    const port = getFlag(options, keys, "port", mustBeInteger);
-    const host = getFlag(options, keys, "host", mustBeString);
-    const servedir = getFlag(options, keys, "servedir", mustBeString);
-    const onRequest = getFlag(options, keys, "onRequest", mustBeFunction);
     const serveID = nextServeID++;
     let onWait: ServeCallbacks["onWait"];
     const wait = new Promise<void>((resolve, reject) => {
@@ -1001,7 +866,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
       };
     });
     request.serve = { serveID };
-    checkForInvalidFlags(options, keys, `in serve() call`);
+    const { port, host, servedir, onRequest } = options;
     if (port !== void 0) request.serve.port = port;
     if (host !== void 0) request.serve.host = host;
     if (servedir !== void 0) request.serve.servedir = servedir;
@@ -1047,7 +912,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
     ) => {
       const flags: string[] = [];
       try {
-        pushLogFlags(flags, options, {}, isTTY, buildLogLevelDefault);
+        pushLogFlags(flags, options, isTTY, buildLogLevelDefault);
       } catch {}
       const message = extractErrorMessageV8(
         e,
@@ -1062,7 +927,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
         done(message);
       });
     };
-    const handleError = (e: any, pluginName: string) => {
+    const handleError = (e: unknown, pluginName: string) => {
       logPluginError(e, pluginName, void 0, (error) => {
         callback(failureErrorWithLog("Build failed", [error], []), null);
       });
@@ -1106,7 +971,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
           details,
           logPluginError,
           requestPlugins: null,
-          runOnEndCallbacks: (result, logPluginError, done) => done(),
+          runOnEndCallbacks: (_result, _logPluginError, done) => done(),
           pluginRefs: null,
         });
       } catch (e) {
@@ -1121,7 +986,6 @@ export function createChannel(streamIn: StreamIn): StreamOut {
   // nested closure because this function is already huge and I didn't want to
   // make it any bigger.
   const buildOrServeContinue = ({
-    callName,
     refs: callerRefs,
     serveOptions,
     options,
@@ -1135,7 +999,6 @@ export function createChannel(streamIn: StreamIn): StreamOut {
     runOnEndCallbacks,
     pluginRefs,
   }: {
-    callName: string;
     refs: Refs | null;
     serveOptions: ServeOptions | null;
     options: BuildOptions;
@@ -1174,7 +1037,6 @@ export function createChannel(streamIn: StreamIn): StreamOut {
       nodePaths,
       watch,
     } = flagsForBuildOptions(
-      callName,
       options,
       isTTY,
       buildLogLevelDefault,
@@ -1400,7 +1262,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
   };
 
   const transform: StreamService["transform"] = (
-    { callName, refs, input, options, isTTY, fs, callback },
+    { callName: _, refs, input, options, isTTY, fs, callback },
   ) => {
     const details = createObjectStash();
 
@@ -1425,7 +1287,6 @@ export function createChannel(streamIn: StreamIn): StreamOut {
           throw new Error('The input to "transform" must be a string');
         }
         const flags = flagsForTransformOptions(
-          callName,
           options,
           isTTY,
           transformLogLevelDefault,
@@ -1493,7 +1354,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
       } catch (e) {
         const flags: string[] = [];
         try {
-          pushLogFlags(flags, options, {}, isTTY, transformLogLevelDefault);
+          pushLogFlags(flags, options, isTTY, transformLogLevelDefault);
         } catch {}
         const error = extractErrorMessageV8(e, streamIn, details, void 0, "");
         sendRequest(refs, { command: "error", flags, error }, () => {
@@ -1517,16 +1378,7 @@ export function createChannel(streamIn: StreamIn): StreamOut {
     if (!options) {
       throw new Error(`Missing second argument in ${callName}() call`);
     }
-    const keys: OptionKeys = {};
-    const kind = getFlag(options, keys, "kind", mustBeString);
-    const color = getFlag(options, keys, "color", mustBeBoolean);
-    const terminalWidth = getFlag(
-      options,
-      keys,
-      "terminalWidth",
-      mustBeInteger,
-    );
-    checkForInvalidFlags(options, keys, `in ${callName}() call`);
+    const { kind, color, terminalWidth } = options;
     if (kind === void 0) {
       throw new Error(`Missing "kind" in ${callName}() call`);
     }
@@ -1569,12 +1421,12 @@ export function createChannel(streamIn: StreamIn): StreamOut {
 // even if the JavaScript objects aren't serializable. And we also avoid
 // the overhead of serializing large JavaScript objects.
 interface ObjectStash {
-  load(id: number): any;
-  store(value: any): number;
+  load(id: number): unknown;
+  store(value: unknown): number;
 }
 
 function createObjectStash(): ObjectStash {
-  const map = new Map<number, any>();
+  const map = new Map<number, unknown>();
   let nextID = 0;
   return {
     load(id) {
@@ -1613,7 +1465,7 @@ function extractCallerV8(
 }
 
 function extractErrorMessageV8(
-  e: any,
+  e: unknown,
   streamIn: StreamIn,
   stash: ObjectStash | null,
   note: Note | undefined,
@@ -1722,7 +1574,7 @@ function failureErrorWithLog(
         const pluginText = e.pluginName ? `[plugin: ${e.pluginName}] ` : "";
         return `\n${file}:${line}:${column}: error: ${pluginText}${e.text}`;
       }).join("");
-  const error: any = new Error(`${text}${summary}`);
+  const error = new Error(`${text}${summary}`);
   error.errors = errors;
   error.warnings = warnings;
   return error;
@@ -1741,19 +1593,10 @@ function replaceDetailsInMessages(
 
 function sanitizeLocation(
   location: PartialMessage["location"],
-  where: string,
 ): Message["location"] {
   if (location == null) return null;
-
-  const keys: OptionKeys = {};
-  const file = getFlag(location, keys, "file", mustBeString);
-  const namespace = getFlag(location, keys, "namespace", mustBeString);
-  const line = getFlag(location, keys, "line", mustBeInteger);
-  const column = getFlag(location, keys, "column", mustBeInteger);
-  const length = getFlag(location, keys, "length", mustBeInteger);
-  const lineText = getFlag(location, keys, "lineText", mustBeString);
-  const suggestion = getFlag(location, keys, "suggestion", mustBeString);
-  checkForInvalidFlags(location, keys, where);
+  const { file, namespace, line, column, length, lineText, suggestion } =
+    location;
 
   return {
     file: file || "",
@@ -1768,38 +1611,20 @@ function sanitizeLocation(
 
 function sanitizeMessages(
   messages: PartialMessage[],
-  property: string,
+  _property: string,
   stash: ObjectStash | null,
   fallbackPluginName: string,
 ): Message[] {
   const messagesClone: Message[] = [];
   let index = 0;
 
-  for (const message of messages) {
-    const keys: OptionKeys = {};
-    const pluginName = getFlag(message, keys, "pluginName", mustBeString);
-    const text = getFlag(message, keys, "text", mustBeString);
-    const location = getFlag(message, keys, "location", mustBeObjectOrNull);
-    const notes = getFlag(message, keys, "notes", mustBeArray);
-    const detail = getFlag(message, keys, "detail", canBeAnything);
-    const where = `in element ${index} of "${property}"`;
-    checkForInvalidFlags(message, keys, where);
-
+  for (const { pluginName, text, location, notes, detail } of messages) {
     const notesClone: Note[] = [];
     if (notes) {
-      for (const note of notes) {
-        const noteKeys: OptionKeys = {};
-        const noteText = getFlag(note, noteKeys, "text", mustBeString);
-        const noteLocation = getFlag(
-          note,
-          noteKeys,
-          "location",
-          mustBeObjectOrNull,
-        );
-        checkForInvalidFlags(note, noteKeys, where);
+      for (const { text: noteText, location: noteLocation } of notes) {
         notesClone.push({
           text: noteText || "",
-          location: sanitizeLocation(noteLocation, where),
+          location: sanitizeLocation(noteLocation),
         });
       }
     }
@@ -1807,7 +1632,7 @@ function sanitizeMessages(
     messagesClone.push({
       pluginName: pluginName || fallbackPluginName,
       text: text || "",
-      location: sanitizeLocation(location, where),
+      location: sanitizeLocation(location),
       notes: notesClone,
       detail: stash ? stash.store(detail) : -1,
     });

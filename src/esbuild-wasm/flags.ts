@@ -118,16 +118,11 @@ type CommonOptions = BuildOptions | TransformOptions;
 
 export function pushLogFlags(
   flags: string[],
-  options: CommonOptions,
-  keys: OptionKeys,
+  { color, logLevel, logLimit }: CommonOptions,
   isTTY: boolean,
   logLevelDefault: LogLevel,
 ): void {
-  const color = getFlag(options, keys, "color", mustBeBoolean);
-  const logLevel = getFlag(options, keys, "logLevel", mustBeString);
-  const logLimit = getFlag(options, keys, "logLimit", mustBeInteger);
-
-  if (color !== void 0) flags.push(`--color=${color}`);
+  if (color !== undefined) flags.push(`--color=${color}`);
   else if (isTTY) flags.push(`--color=true`); // This is needed to fix "execFileSync" which buffers stderr
   flags.push(`--log-level=${logLevel || logLevelDefault}`);
   flags.push(`--log-limit=${logLimit || 0}`);
@@ -135,51 +130,30 @@ export function pushLogFlags(
 
 function pushCommonFlags(
   flags: string[],
-  options: CommonOptions,
-  keys: OptionKeys,
+  {
+    legalComments,
+    sourceRoot,
+    sourcesContent,
+    target,
+    format,
+    globalName,
+    minify,
+    minifySyntax,
+    minifyWhitespace,
+    minifyIdentifiers,
+    charset,
+    treeShaking,
+    jsx,
+    jsxFactory,
+    jsxFragment,
+    define,
+    pure,
+    keepNames,
+  }: CommonOptions,
 ): void {
-  const legalComments = getFlag(options, keys, "legalComments", mustBeString);
-  const sourceRoot = getFlag(options, keys, "sourceRoot", mustBeString);
-  const sourcesContent = getFlag(
-    options,
-    keys,
-    "sourcesContent",
-    mustBeBoolean,
-  );
-  const target = getFlag(options, keys, "target", mustBeStringOrArray);
-  const format = getFlag(options, keys, "format", mustBeString);
-  const globalName = getFlag(options, keys, "globalName", mustBeString);
-  const minify = getFlag(options, keys, "minify", mustBeBoolean);
-  const minifySyntax = getFlag(options, keys, "minifySyntax", mustBeBoolean);
-  const minifyWhitespace = getFlag(
-    options,
-    keys,
-    "minifyWhitespace",
-    mustBeBoolean,
-  );
-  const minifyIdentifiers = getFlag(
-    options,
-    keys,
-    "minifyIdentifiers",
-    mustBeBoolean,
-  );
-  const charset = getFlag(options, keys, "charset", mustBeString);
-  const treeShaking = getFlag(
-    options,
-    keys,
-    "treeShaking",
-    mustBeStringOrBoolean,
-  );
-  const jsx = getFlag(options, keys, "jsx", mustBeString);
-  const jsxFactory = getFlag(options, keys, "jsxFactory", mustBeString);
-  const jsxFragment = getFlag(options, keys, "jsxFragment", mustBeString);
-  const define = getFlag(options, keys, "define", mustBeObject);
-  const pure = getFlag(options, keys, "pure", mustBeArray);
-  const keepNames = getFlag(options, keys, "keepNames", mustBeBoolean);
-
   if (legalComments) flags.push(`--legal-comments=${legalComments}`);
-  if (sourceRoot !== void 0) flags.push(`--source-root=${sourceRoot}`);
-  if (sourcesContent !== void 0) {
+  if (sourceRoot !== undefined) flags.push(`--source-root=${sourceRoot}`);
+  if (sourcesContent !== undefined) {
     flags.push(`--sources-content=${sourcesContent}`);
   }
   if (target) {
@@ -197,7 +171,7 @@ function pushCommonFlags(
   if (minifyWhitespace) flags.push("--minify-whitespace");
   if (minifyIdentifiers) flags.push("--minify-identifiers");
   if (charset) flags.push(`--charset=${charset}`);
-  if (treeShaking !== void 0 && treeShaking !== true) {
+  if (treeShaking !== undefined && treeShaking !== true) {
     flags.push(`--tree-shaking=${treeShaking}`);
   }
 
@@ -216,7 +190,6 @@ function pushCommonFlags(
 }
 
 export function flagsForBuildOptions(
-  callName: string,
   options: BuildOptions,
   isTTY: boolean,
   logLevelDefault: LogLevel,
@@ -234,67 +207,44 @@ export function flagsForBuildOptions(
 } {
   const flags: string[] = [];
   const entries: [string, string][] = [];
-  const keys: OptionKeys = Object.create(null);
   let stdinContents: string | null = null;
   let stdinResolveDir: string | null = null;
   let watchMode: WatchMode | null = null;
-  pushLogFlags(flags, options, keys, isTTY, logLevelDefault);
-  pushCommonFlags(flags, options, keys);
-
-  const sourcemap = getFlag(options, keys, "sourcemap", mustBeStringOrBoolean);
-  const bundle = getFlag(options, keys, "bundle", mustBeBoolean);
-  const watch = getFlag(options, keys, "watch", mustBeBooleanOrObject);
-  const splitting = getFlag(options, keys, "splitting", mustBeBoolean);
-  const preserveSymlinks = getFlag(
-    options,
-    keys,
-    "preserveSymlinks",
-    mustBeBoolean,
-  );
-  const metafile = getFlag(options, keys, "metafile", mustBeBoolean);
-  const outfile = getFlag(options, keys, "outfile", mustBeString);
-  const outdir = getFlag(options, keys, "outdir", mustBeString);
-  const outbase = getFlag(options, keys, "outbase", mustBeString);
-  const platform = getFlag(options, keys, "platform", mustBeString);
-  const tsconfig = getFlag(options, keys, "tsconfig", mustBeString);
-  const resolveExtensions = getFlag(
-    options,
-    keys,
-    "resolveExtensions",
-    mustBeArray,
-  );
-  const nodePathsInput = getFlag(options, keys, "nodePaths", mustBeArray);
-  const mainFields = getFlag(options, keys, "mainFields", mustBeArray);
-  const conditions = getFlag(options, keys, "conditions", mustBeArray);
-  const external = getFlag(options, keys, "external", mustBeArray);
-  const loader = getFlag(options, keys, "loader", mustBeObject);
-  const outExtension = getFlag(options, keys, "outExtension", mustBeObject);
-  const publicPath = getFlag(options, keys, "publicPath", mustBeString);
-  const entryNames = getFlag(options, keys, "entryNames", mustBeString);
-  const chunkNames = getFlag(options, keys, "chunkNames", mustBeString);
-  const assetNames = getFlag(options, keys, "assetNames", mustBeString);
-  const inject = getFlag(options, keys, "inject", mustBeArray);
-  const banner = getFlag(options, keys, "banner", mustBeObject);
-  const footer = getFlag(options, keys, "footer", mustBeObject);
-  const entryPoints = getFlag(
-    options,
-    keys,
-    "entryPoints",
-    mustBeArrayOrRecord,
-  );
-  const absWorkingDir = getFlag(options, keys, "absWorkingDir", mustBeString);
-  const stdin = getFlag(options, keys, "stdin", mustBeObject);
-  const write = getFlag(options, keys, "write", mustBeBoolean) ?? writeDefault; // Default to true if not specified
-  const allowOverwrite = getFlag(
-    options,
-    keys,
-    "allowOverwrite",
-    mustBeBoolean,
-  );
-  const incremental =
-    getFlag(options, keys, "incremental", mustBeBoolean) === true;
-  keys.plugins = true; // "plugins" has already been read earlier
-  checkForInvalidFlags(options, keys, `in ${callName}() call`);
+  pushLogFlags(flags, options, isTTY, logLevelDefault);
+  pushCommonFlags(flags, options);
+  const {
+    sourcemap,
+    bundle,
+    allowOverwrite,
+    absWorkingDir,
+    watch,
+    splitting,
+    preserveSymlinks,
+    metafile,
+    outfile,
+    outdir,
+    outbase,
+    platform,
+    resolveExtensions,
+    publicPath,
+    entryNames,
+    chunkNames,
+    assetNames,
+    tsconfig,
+    mainFields,
+    conditions,
+    external,
+    banner,
+    footer,
+    inject,
+    loader,
+    outExtension,
+    entryPoints,
+    stdin,
+    nodePaths: nodePathsInput,
+    write = writeDefault,
+    incremental = false,
+  } = options;
 
   if (sourcemap) {
     flags.push(`--sourcemap${sourcemap === true ? "" : `=${sourcemap}`}`);
@@ -303,17 +253,10 @@ export function flagsForBuildOptions(
   if (allowOverwrite) flags.push("--allow-overwrite");
   if (watch) {
     flags.push("--watch");
-    if (typeof watch === "boolean") {
+    if (isBoolean(watch)) {
       watchMode = {};
     } else {
-      const watchKeys: OptionKeys = Object.create(null);
-      const onRebuild = getFlag(watch, watchKeys, "onRebuild", mustBeFunction);
-      checkForInvalidFlags(
-        watch,
-        watchKeys,
-        `on "watch" in ${callName}() call`,
-      );
-      watchMode = { onRebuild };
+      watchMode = { onRebuild:watch.onRebuild };
     }
   }
   if (splitting) flags.push("--splitting");
@@ -409,12 +352,7 @@ export function flagsForBuildOptions(
   }
 
   if (stdin) {
-    const stdinKeys: OptionKeys = Object.create(null);
-    const contents = getFlag(stdin, stdinKeys, "contents", mustBeString);
-    const resolveDir = getFlag(stdin, stdinKeys, "resolveDir", mustBeString);
-    const sourcefile = getFlag(stdin, stdinKeys, "sourcefile", mustBeString);
-    const loader = getFlag(stdin, stdinKeys, "loader", mustBeString);
-    checkForInvalidFlags(stdin, stdinKeys, 'in "stdin" object');
+    const { sourcefile, resolveDir, loader, contents } = stdin;
 
     if (sourcefile) flags.push(`--sourcefile=${sourcefile}`);
     if (loader) flags.push(`--loader=${loader}`);
@@ -444,28 +382,16 @@ export function flagsForBuildOptions(
 }
 
 export function flagsForTransformOptions(
-  callName: string,
   options: TransformOptions,
   isTTY: boolean,
   logLevelDefault: LogLevel,
 ): string[] {
   const flags: string[] = [];
-  const keys: OptionKeys = Object.create(null);
-  pushLogFlags(flags, options, keys, isTTY, logLevelDefault);
-  pushCommonFlags(flags, options, keys);
+  pushLogFlags(flags, options, isTTY, logLevelDefault);
+  pushCommonFlags(flags, options);
 
-  const sourcemap = getFlag(options, keys, "sourcemap", mustBeStringOrBoolean);
-  const tsconfigRaw = getFlag(
-    options,
-    keys,
-    "tsconfigRaw",
-    mustBeStringOrObject,
-  );
-  const sourcefile = getFlag(options, keys, "sourcefile", mustBeString);
-  const loader = getFlag(options, keys, "loader", mustBeString);
-  const banner = getFlag(options, keys, "banner", mustBeString);
-  const footer = getFlag(options, keys, "footer", mustBeString);
-  checkForInvalidFlags(options, keys, `in ${callName}() call`);
+  const { sourcemap, tsconfigRaw, sourcefile, loader, banner, footer } =
+    options;
 
   if (sourcemap) {
     flags.push(`--sourcemap=${sourcemap === true ? "external" : sourcemap}`);

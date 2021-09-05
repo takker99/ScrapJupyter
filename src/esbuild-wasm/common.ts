@@ -475,11 +475,13 @@ function flagsForTransformOptions(
     flags.push(`--sourcemap=${sourcemap === true ? "external" : sourcemap}`);
   }
   if (tsconfigRaw) {
-    flags.push(`--tsconfig-raw=${
-      typeof tsconfigRaw === "string"
-        ? tsconfigRaw
-        : JSON.stringify(tsconfigRaw)
-    }`);
+    flags.push(
+      `--tsconfig-raw=${
+        typeof tsconfigRaw === "string"
+          ? tsconfigRaw
+          : JSON.stringify(tsconfigRaw)
+      }`,
+    );
   }
   if (sourcefile) flags.push(`--sourcefile=${sourcefile}`);
   if (loader) flags.push(`--loader=${loader}`);
@@ -802,13 +804,12 @@ export function createChannel(streamIn: StreamIn): StreamOut {
     let onStartCallbacks: {
       name: string;
       note: () => types.Note | undefined;
-      callback: () =>
-        (
-          | types.OnStartResult
-          | null
-          | void
-          | Promise<types.OnStartResult | null | void>
-        );
+      callback: () => (
+        | types.OnStartResult
+        | null
+        | void
+        | Promise<types.OnStartResult | null | void>
+      );
     }[] = [];
 
     let onEndCallbacks: {
@@ -823,13 +824,12 @@ export function createChannel(streamIn: StreamIn): StreamOut {
         note: () => types.Note | undefined;
         callback: (
           args: types.OnResolveArgs,
-        ) =>
-          (
-            | types.OnResolveResult
-            | null
-            | undefined
-            | Promise<types.OnResolveResult | null | undefined>
-          );
+        ) => (
+          | types.OnResolveResult
+          | null
+          | undefined
+          | Promise<types.OnResolveResult | null | undefined>
+        );
       };
     } = {};
 
@@ -839,13 +839,12 @@ export function createChannel(streamIn: StreamIn): StreamOut {
         note: () => types.Note | undefined;
         callback: (
           args: types.OnLoadArgs,
-        ) =>
-          (
-            | types.OnLoadResult
-            | null
-            | undefined
-            | Promise<types.OnLoadResult | null | undefined>
-          );
+        ) => (
+          | types.OnLoadResult
+          | null
+          | undefined
+          | Promise<types.OnLoadResult | null | undefined>
+        );
       };
     } = {};
 
@@ -2038,9 +2037,8 @@ function parseStackLinesV8(
             namespace: "file",
             line: +match[2],
             column: protocol.encodeUTF8(lineText.slice(0, column)).length,
-            length:
-              protocol.encodeUTF8(lineText.slice(column, column + length))
-                .length,
+            length: protocol.encodeUTF8(lineText.slice(column, column + length))
+              .length,
             lineText: lineText + "\n" + lines.slice(1).join("\n"),
             suggestion: "",
           };

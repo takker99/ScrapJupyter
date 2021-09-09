@@ -4,7 +4,9 @@ let initialized: Promise<void> | undefined;
 export async function loadWasm() {
   if (initialized === undefined) {
     initialized = initialize({
-      wasmURL: "https://scrapbox.io/files/61231ff40ef655001d6f7109.wasm",
+      wasmURL: "https://scrapbox.io/files/613405865f15ce002394c919.wasm",
+      workerURL:
+        "https://scrapbox.io/api/code/takker/esbuild-wasm@0.12.25/wasm_exec.js",
     });
   }
   return await initialized;

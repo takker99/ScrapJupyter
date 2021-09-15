@@ -1,12 +1,13 @@
 import { build, httpFetch, initialize } from "./deps/esbuild-wasm.ts";
 
+declare const WORKER_URL: string;
+declare const WASM_URL: string;
 let initialized: Promise<void> | undefined;
 export async function loadWasm() {
   if (initialized === undefined) {
     initialized = initialize({
-      wasmURL: "https://scrapbox.io/files/613405865f15ce002394c919.wasm",
-      workerURL:
-        "https://scrapbox.io/api/code/takker/esbuild-wasm@0.12.25/wasm_exec.js",
+      wasmURL: WASM_URL,
+      workerURL: WORKER_URL,
     });
   }
   return await initialized;

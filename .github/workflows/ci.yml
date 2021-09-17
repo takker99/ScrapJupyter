@@ -16,6 +16,3 @@ jobs:
       - name: Run lint
         run: |
           deno lint
-      - name: Build
-        run: |
-          deno run -A --unstable build.ts

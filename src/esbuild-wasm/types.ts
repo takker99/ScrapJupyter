@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 /** esbuild-wasm@0.12.25
  *
  * MIT License

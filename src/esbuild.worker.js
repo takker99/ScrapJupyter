@@ -1,5 +1,5 @@
 // deno-fmt-ignore-file
-// // deno-lint-ignore-file\n
+// deno-lint-ignore-file
 /** esbuild-wasm@0.12.25 */
 let global={};for(let o=self;o;o=Object.getPrototypeOf(o))for(let k of Object.getOwnPropertyNames(o))if(!(k in global))Object.defineProperty(global,k,{get:()=>self[k]});
 // Copyright 2018 The Go Authors. All rights reserved.

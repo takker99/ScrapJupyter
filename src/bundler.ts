@@ -1,4 +1,5 @@
-import { build, httpFetch, initialize } from "./deps/esbuild-wasm.ts";
+import { build, initialize } from "./deps/esbuild-wasm.ts";
+import { httpFetch } from "./esbuild-wasm/plugin.ts";
 
 declare const WORKER_URL: string;
 declare const WASM_URL: string;

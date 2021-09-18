@@ -3,8 +3,10 @@
 /// <reference lib="dom"/>
 import { getCodeFiles } from "./codeFile.ts";
 import { bundle, isAvailableExtensions } from "./bundler.ts";
-import { eventName, scrapbox } from "./deps/scrapbox.ts";
+import { eventName } from "./deps/scrapbox.ts";
+import { Scrapbox } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
+declare const scrapbox: Scrapbox;
 
 const menus = [] as ReturnType<typeof execMenu>[];
 

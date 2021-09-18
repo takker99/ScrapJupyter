@@ -1,5 +1,6 @@
-import { scrapbox } from "./deps/scrapbox.ts";
+import { Scrapbox } from "./deps/scrapbox.ts";
 import { toLc } from "./utils.ts";
+declare const scrapbox: Scrapbox;
 
 type File = {
   filename?: string;

@@ -16,9 +16,11 @@ For more information about the UserSript, see
 
 ## Build script
 
+Run the following command and import `import.json` to your project.
+
+Noto that you must replace `title` and `project` with a favorite page title and your project name.
 ```sh
-$ deno run -A --unstable https://raw.githubusercontent.com/takker99/ScrapJupyter/main/build.ts && cat dist/index.min.js | xsel
-# subdivide text in the clipboard and paste text chunks in order
+$ deno run -A --unstable https://github.com/takker99/ScrapJupyter/raw/v1.2.0/build.ts -t title -p project > import.json
 ```
 
 ## Credit

@@ -47,6 +47,9 @@ const update = async () => {
   });
   await Promise.resolve();
 };
-const callback = throttle(update);
+const callback = throttle(update, {
+  interval: 100,
+  trailing: true,
+});
 await callback();
 scrapbox.addListener("lines:changed" as eventName, callback);

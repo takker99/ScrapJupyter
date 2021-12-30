@@ -40,13 +40,14 @@ export async function bundle(
   { extension, fileName, dirURL }: BundleOptions,
 ) {
   await loadWasm();
-  fileName ??= `<stdin>.${getLoader(extension)}`;
+  fileName ??= `codeblock-${
+    Math.floor(0xFFFFFE * Math.random()).toString(16)
+  }.${getLoader(extension)}`;
   const baseURL = `${dirURL}${fileName}`;
   const { outputFiles } = await build({
     stdin: {
       contents: `import "${baseURL}";`,
       loader: getLoader(extension),
-      sourcefile: fileName,
     },
     format: "esm",
     bundle: true,

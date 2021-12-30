@@ -31,7 +31,7 @@ const update = async () => {
             const code = await bundle(file.lines.join("\n"), {
               extension,
               fileName: file.filename,
-              dirURL: file.dir,
+              dirURL: `${file.dir}/`,
             });
             console.log("execute:", code);
             await Function(`return (async()=>{${code}})()`)();

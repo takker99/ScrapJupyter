@@ -1,10 +1,10 @@
 /// <reference lib="deno.ns"/>
 /// <reference lib="deno.unstable"/>
 import { Command } from "https://deno.land/x/cliffy@v0.19.2/command/mod.ts";
-import { build, stop } from "./src/deps/esbuild.ts";
-import { fromFileUrl, relative } from "./src/deps/path.ts";
-import { exists } from "./src/deps/fs.ts";
-import { toLc } from "./src/utils.ts";
+import { build, stop } from "./deps/esbuild.ts";
+import { fromFileUrl, relative } from "./deps/path.ts";
+import { exists } from "./deps/fs.ts";
+import { toLc } from "./utils.ts";
 import { cache } from "https://deno.land/x/esbuild_plugin_cache@v0.2.8/mod.ts";
 
 const { options } = await new Command()
@@ -33,7 +33,7 @@ const { options } = await new Command()
 
 const { title, wasmUrl, project, sourceMap } = options;
 
-const url = new URL("./src/app.ts", import.meta.url);
+const url = new URL("./app.ts", import.meta.url);
 const input = /https?:\/\//.test(url.href)
   ? ({
     stdin: {
@@ -64,7 +64,7 @@ const { outputFiles } = await build({
 const mainSrc = outputFiles[0].text;
 
 const workerSrc = await Deno.readTextFile(
-  new URL("./src/esbuild.worker.js", import.meta.url),
+  new URL("./esbuild.worker.js", import.meta.url),
 );
 const { outputFiles: [{ text: workerBundledSrc }] } = await build({
   stdin: {

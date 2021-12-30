@@ -1,5 +1,5 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
-import { httpFetch } from "./esbuild-wasm/plugin.ts";
+import { remoteLoader } from "./plugin.ts";
 
 declare const WORKER_URL: string;
 declare const WASM_URL: string;
@@ -33,26 +33,35 @@ export function isAvailableExtensions(
 export type BundleOptions = {
   extension: AvailableExtensions;
   fileName?: string;
-  resolveDir: string;
+  dirURL: string;
 };
-
 export async function bundle(
   contents: string,
-  { extension, fileName, resolveDir }: BundleOptions,
+  { extension, fileName, dirURL }: BundleOptions,
 ) {
   await loadWasm();
+  fileName ??= `<stdin>.${getLoader(extension)}`;
+  const baseURL = `${dirURL}${fileName}`;
   const { outputFiles } = await build({
     stdin: {
-      contents,
+      contents: `import "${baseURL}";`,
       loader: getLoader(extension),
-      resolveDir,
       sourcefile: fileName,
     },
     format: "esm",
     bundle: true,
     minify: true,
     charset: "utf8",
-    plugins: [httpFetch],
+    plugins: [
+      remoteLoader({
+        baseURL: new URL(baseURL),
+        sources: [{
+          path: baseURL,
+          contents,
+          loader: getLoader(extension),
+        }],
+      }),
+    ],
     write: false,
   });
   return outputFiles[0].text;

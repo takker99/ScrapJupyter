@@ -84,7 +84,7 @@ export const remoteLoader = (
             type: "cache",
             url: path,
           });
-          return source;
+          return { contents: source.contents, loader: source.loader };
         }
         const response = await fetch(path);
         progressCallback?.({

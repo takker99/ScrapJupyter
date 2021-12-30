@@ -22,7 +22,7 @@ export function getCodeFiles() {
     if (codeBlock.start && sameFileIndex < 0) {
       return [...acc, {
         filename: codeBlock.filename,
-        dir: `https://scrpabox.io/api/code/${scrapbox.Project.name}/${
+        dir: `https://scrapbox.io/api/code/${scrapbox.Project.name}/${
           encodeTitle(scrapbox.Page.title ?? "")
         }`,
         lang: codeBlock.lang,

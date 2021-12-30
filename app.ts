@@ -4,9 +4,9 @@
 import { getCodeFiles } from "./codeFile.ts";
 import { bundle, isAvailableExtensions } from "./bundler.ts";
 import { eventName } from "./deps/scrapbox.ts";
-import type { Scrapbox } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
 import { throttle } from "./deps/throttle.ts";
+import type { Scrapbox } from "./deps/scrapbox.ts";
 declare const scrapbox: Scrapbox;
 
 const menus = [] as ReturnType<typeof execMenu>[];
@@ -31,7 +31,7 @@ const update = async () => {
             const code = await bundle(file.lines.join("\n"), {
               extension,
               fileName: file.filename,
-              resolveDir: file.dir,
+              dirURL: `${file.dir}/`,
             });
             console.log("execute:", code);
             await Function(`return (async()=>{${code}})()`)();

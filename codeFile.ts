@@ -1,5 +1,5 @@
 import { Scrapbox } from "./deps/scrapbox.ts";
-import { toLc } from "./utils.ts";
+import { encodeTitle } from "./utils.ts";
 declare const scrapbox: Scrapbox;
 
 type File = {
@@ -22,8 +22,8 @@ export function getCodeFiles() {
     if (codeBlock.start && sameFileIndex < 0) {
       return [...acc, {
         filename: codeBlock.filename,
-        dir: `https://scrpabox.io/api/code/${scrapbox.Project.name}/${
-          toLc(scrapbox.Page.title ?? "")
+        dir: `https://scrapbox.io/api/code/${scrapbox.Project.name}/${
+          encodeTitle(scrapbox.Page.title ?? "")
         }`,
         lang: codeBlock.lang,
         startIds: [id],

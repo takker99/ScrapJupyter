@@ -4,13 +4,14 @@
 import { getCodeFiles } from "./codeFile.ts";
 import { bundle, isAvailableExtensions } from "./bundler.ts";
 import { eventName } from "./deps/scrapbox.ts";
-import { Scrapbox } from "./deps/scrapbox.ts";
+import type { Scrapbox } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
+import { throttle } from "./deps/throttle.ts";
 declare const scrapbox: Scrapbox;
 
 const menus = [] as ReturnType<typeof execMenu>[];
 
-const callback = () => {
+const update = async () => {
   const files = getCodeFiles();
   // ボタンを全部リセットする
   menus.forEach(({ menu, setStatus }) => {
@@ -44,6 +45,11 @@ const callback = () => {
       line?.insertBefore?.(menu, line?.firstElementChild);
     });
   });
+  await Promise.resolve();
 };
-callback();
+const callback = throttle(update, {
+  interval: 100,
+  trailing: true,
+});
+await callback();
 scrapbox.addListener("lines:changed" as eventName, callback);

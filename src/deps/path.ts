@@ -1,1 +1,5 @@
-export { extname } from "https://deno.land/std@0.107.0/path/mod.ts";
+export {
+  extname,
+  fromFileUrl,
+  relative,
+} from "https://deno.land/std@0.111.0/path/mod.ts";

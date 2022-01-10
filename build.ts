@@ -1,11 +1,11 @@
 /// <reference lib="deno.ns"/>
 /// <reference lib="deno.unstable"/>
-import { Command } from "https://deno.land/x/cliffy@v0.20.1/command/mod.ts";
+import { Command } from "./deps/cliffy.ts";
 import { build, stop } from "./deps/esbuild.ts";
 import { fromFileUrl, relative } from "./deps/path.ts";
 import { exists } from "./deps/fs.ts";
 import { toLc } from "./utils.ts";
-import { cache } from "https://deno.land/x/esbuild_plugin_cache@v0.2.8/mod.ts";
+import { cache } from "./deps/esbuild-plugin-cache.ts";
 
 const { options } = await new Command()
   .name("builder")

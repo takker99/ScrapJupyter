@@ -1,1 +1,1 @@
-export { extension } from "https://deno.land/x/media_types@v2.10.2/mod.ts";
+export { extension } from "https://deno.land/x/media_types@v2.11.1/mod.ts";

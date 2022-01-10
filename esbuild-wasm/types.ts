@@ -647,5 +647,3 @@ export interface InitializeOptions {
   /** The URL of the web worker src */
   workerURL: string;
 }
-
-export let version: string;

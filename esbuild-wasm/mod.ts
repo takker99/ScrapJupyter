@@ -19,7 +19,7 @@ import { ESBUILD_VERSION } from "./version.ts";
 
 declare let WEB_WORKER_SOURCE_CODE: string;
 
-export let version = ESBUILD_VERSION;
+export const version = ESBUILD_VERSION;
 
 export let build: typeof types.build = (
   options: types.BuildOptions,

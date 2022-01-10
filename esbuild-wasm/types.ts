@@ -336,7 +336,7 @@ export interface PluginBuild {
     analyzeMetafile: typeof analyzeMetafile;
     analyzeMetafileSync: typeof analyzeMetafileSync;
     initialize: typeof initialize;
-    version: typeof version;
+    version: string;
   };
 }
 

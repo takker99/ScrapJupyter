@@ -12,13 +12,22 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+
+// Modified: remove codes for node
+
 // The JavaScript API communicates with the Go child process over stdin/stdout
 // using this protocol. It's a very simple binary protocol that uses primitives
 // and nested arrays and maps. It's basically JSON with UTF-8 encoding and an
 // additional byte array primitive. You must send a response after receiving a
 // request because the other end is blocking on the response coming back.
 
-import * as types from "./types.ts";
+import type {
+  BuildResult,
+  ImportKind,
+  Message,
+  PartialMessage,
+  ServeOnRequestArgs,
+} from "./types.ts";
 
 export interface BuildRequest {
   command: "build";
@@ -58,8 +67,8 @@ export interface BuildPlugin {
 }
 
 export interface BuildResponse {
-  errors: types.Message[];
-  warnings: types.Message[];
+  errors: Message[];
+  warnings: Message[];
   rebuild: boolean;
   watch: boolean;
   outputFiles?: BuildOutputFile[];
@@ -94,7 +103,7 @@ export interface WatchStopRequest {
 export interface OnRequestRequest {
   command: "serve-request";
   key: number;
-  args: types.ServeOnRequestArgs;
+  args: ServeOnRequestArgs;
 }
 
 export interface OnWaitRequest {
@@ -106,7 +115,7 @@ export interface OnWaitRequest {
 export interface OnWatchRebuildRequest {
   command: "watch-rebuild";
   key: number;
-  args: types.BuildResult;
+  args: BuildResult;
 }
 
 export interface TransformRequest {
@@ -117,8 +126,8 @@ export interface TransformRequest {
 }
 
 export interface TransformResponse {
-  errors: types.Message[];
-  warnings: types.Message[];
+  errors: Message[];
+  warnings: Message[];
 
   code: string;
   codeFS: boolean;
@@ -129,7 +138,7 @@ export interface TransformResponse {
 
 export interface FormatMsgsRequest {
   command: "format-msgs";
-  messages: types.Message[];
+  messages: Message[];
   isWarning: boolean;
   color?: boolean;
   terminalWidth?: number;
@@ -156,8 +165,8 @@ export interface OnStartRequest {
 }
 
 export interface OnStartResponse {
-  errors?: types.PartialMessage[];
-  warnings?: types.PartialMessage[];
+  errors?: PartialMessage[];
+  warnings?: PartialMessage[];
 }
 
 export interface ResolveRequest {
@@ -173,8 +182,8 @@ export interface ResolveRequest {
 }
 
 export interface ResolveResponse {
-  errors: types.Message[];
-  warnings: types.Message[];
+  errors: Message[];
+  warnings: Message[];
 
   path: string;
   external: boolean;
@@ -192,7 +201,7 @@ export interface OnResolveRequest {
   importer: string;
   namespace: string;
   resolveDir: string;
-  kind: types.ImportKind;
+  kind: ImportKind;
   pluginData: number;
 }
 
@@ -200,8 +209,8 @@ export interface OnResolveResponse {
   id?: number;
   pluginName?: string;
 
-  errors?: types.PartialMessage[];
-  warnings?: types.PartialMessage[];
+  errors?: PartialMessage[];
+  warnings?: PartialMessage[];
 
   path?: string;
   external?: boolean;
@@ -228,8 +237,8 @@ export interface OnLoadResponse {
   id?: number;
   pluginName?: string;
 
-  errors?: types.PartialMessage[];
-  warnings?: types.PartialMessage[];
+  errors?: PartialMessage[];
+  warnings?: PartialMessage[];
 
   contents?: Uint8Array;
   resolveDir?: string;
@@ -401,41 +410,10 @@ class ByteBuffer {
   }
 }
 
-export let encodeUTF8: (text: string) => Uint8Array;
-export let decodeUTF8: (bytes: Uint8Array) => string;
-
-// For the browser and node 12.x
-if (typeof TextEncoder !== "undefined" && typeof TextDecoder !== "undefined") {
-  let encoder = new TextEncoder();
-  let decoder = new TextDecoder();
-  encodeUTF8 = (text) => encoder.encode(text);
-  decodeUTF8 = (bytes) => decoder.decode(bytes);
-} // For node 10.x
-else if (typeof Buffer !== "undefined") {
-  encodeUTF8 = (text) => {
-    let buffer: Uint8Array = Buffer.from(text);
-
-    // The test framework called "Jest" breaks node's Buffer API. Normally
-    // instances of Buffer are also instances of Uint8Array, but not when
-    // esbuild is run inside of whatever weird environment Jest uses. More
-    // info: https://github.com/facebook/jest/issues/4422.
-    if (!(buffer instanceof Uint8Array)) {
-      // Construct a new Uint8Array with the contents of the buffer to force
-      // it to be a Uint8Array instance. This is wasteful since it's slower
-      // than just using the Buffer, but this should only happen when esbuild
-      // is run inside of Jest.
-      buffer = new Uint8Array(buffer);
-    }
-
-    return buffer;
-  };
-  decodeUTF8 = (bytes) => {
-    let { buffer, byteOffset, byteLength } = bytes;
-    return Buffer.from(buffer, byteOffset, byteLength).toString();
-  };
-} else {
-  throw new Error("No UTF-8 codec found");
-}
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
+export const encodeUTF8 = (text: string) => encoder.encode(text);
+export const decodeUTF8 = (bytes: Uint8Array) => decoder.decode(bytes);
 
 export function readUInt32LE(buffer: Uint8Array, offset: number): number {
   return buffer[offset++] |

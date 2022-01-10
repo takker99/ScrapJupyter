@@ -644,6 +644,8 @@ export interface InitializeOptions {
    * to false.
    */
   worker?: boolean;
+  /** The URL of the web worker src */
+  workerURL: string;
 }
 
 export let version: string;

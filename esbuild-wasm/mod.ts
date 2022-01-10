@@ -1,5 +1,5 @@
 // deno-lint-ignore-file
-/** esbuild-wasm@0.14.11
+/*! ported from https://github.com/evanw/esbuild/blob/v0.14.11/LICENSE.md
  *
  * MIT License
  *
@@ -10,13 +10,14 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
  */
-// This code is ported from https://raw.githubusercontent.com/evanw/esbuild/v0.12.25/lib/npm/browser.ts and modified below:
-// - load worker src from URL instead of embedded code
-// -$ deno fmt
 import * as types from "./types.ts";
 import * as common from "./common.ts";
+import * as ourselves from "./mod.ts";
 import { ESBUILD_VERSION } from "./version.ts";
+
+declare let WEB_WORKER_SOURCE_CODE: string;
 
 export let version = ESBUILD_VERSION;
 
@@ -36,6 +37,11 @@ export const formatMessages: typeof types.formatMessages = (
   options,
 ) => ensureServiceIsRunning().formatMessages(messages, options);
 
+export const analyzeMetafile: typeof types.analyzeMetafile = (
+  metafile,
+  options,
+) => ensureServiceIsRunning().analyzeMetafile(metafile, options);
+
 export const buildSync: typeof types.buildSync = () => {
   throw new Error(`The "buildSync" API only works in node`);
 };
@@ -48,10 +54,15 @@ export const formatMessagesSync: typeof types.formatMessagesSync = () => {
   throw new Error(`The "formatMessagesSync" API only works in node`);
 };
 
+export const analyzeMetafileSync: typeof types.analyzeMetafileSync = () => {
+  throw new Error(`The "analyzeMetafileSync" API only works in node`);
+};
+
 interface Service {
   build: typeof types.build;
   transform: typeof types.transform;
   formatMessages: typeof types.formatMessages;
+  analyzeMetafile: typeof types.analyzeMetafile;
 }
 
 let initializePromise: Promise<void> | undefined;
@@ -70,15 +81,13 @@ let ensureServiceIsRunning = (): Service => {
 export const initialize: typeof types.initialize = (options) => {
   options = common.validateInitializeOptions(options || {});
   let wasmURL = options.wasmURL;
-  const workerURL = options.workerURL;
   let useWorker = options.worker !== false;
   if (!wasmURL) throw new Error('Must provide the "wasmURL" option');
-  if (!workerURL) throw new Error('Must provide the "workerURL" option');
   wasmURL += "";
   if (initializePromise) {
     throw new Error('Cannot call "initialize" more than once');
   }
-  initializePromise = startRunningService(wasmURL, workerURL, useWorker);
+  initializePromise = startRunningService(wasmURL, useWorker);
   initializePromise.catch(() => {
     // Let the caller try again if this fails
     initializePromise = void 0;
@@ -88,44 +97,46 @@ export const initialize: typeof types.initialize = (options) => {
 
 const startRunningService = async (
   wasmURL: string,
-  workerURL: string,
   useWorker: boolean,
 ): Promise<void> => {
   let res = await fetch(wasmURL);
   if (!res.ok) throw new Error(`Failed to download ${JSON.stringify(wasmURL)}`);
   let wasm = await res.arrayBuffer();
+  let code = `{` +
+    `let global={};` +
+    `for(let o=self;o;o=Object.getPrototypeOf(o))` +
+    `for(let k of Object.getOwnPropertyNames(o))` +
+    `if(!(k in global))` +
+    `Object.defineProperty(global,k,{get:()=>self[k]});` +
+    WEB_WORKER_SOURCE_CODE +
+    `}`;
   let worker: {
     onmessage: ((event: any) => void) | null;
     postMessage: (data: Uint8Array | ArrayBuffer) => void;
     terminate: () => void;
-  } | Worker;
+  };
 
   if (useWorker) {
     // Run esbuild off the main thread
-    worker = new Worker(workerURL);
+    let blob = new Blob([code], { type: "text/javascript" });
+    worker = new Worker(URL.createObjectURL(blob));
   } else {
     // Run esbuild on the main thread
-    const workerRes = await fetch(workerURL);
-    if (!workerRes.ok) {
-      throw new Error(`Failed to download ${JSON.stringify(wasmURL)}`);
-    }
     let fn = new Function(
       "postMessage",
-      await workerRes.text() + `var onmessage; return m => onmessage(m)`,
+      code + `var onmessage; return m => onmessage(m)`,
     );
-    //@ts-ignore delete later
     let onmessage = fn((data: Uint8Array) => worker.onmessage!({ data }));
     worker = {
       onmessage: null,
-      postMessage: (data: unknown) => onmessage({ data }),
+      postMessage: (data) => onmessage({ data }),
       terminate() {
       },
     };
   }
 
   worker.postMessage(wasm);
-  worker.onmessage = ({ data }: MessageEvent<Uint8Array>) =>
-    readFromStdout(data);
+  worker.onmessage = ({ data }) => readFromStdout(data);
 
   let { readFromStdout, service } = common.createChannel({
     writeToStdin(bytes) {
@@ -133,6 +144,7 @@ const startRunningService = async (
     },
     isSync: false,
     isBrowser: true,
+    esbuild: ourselves,
   });
 
   longLivedService = {
@@ -174,6 +186,18 @@ const startRunningService = async (
           callName: "formatMessages",
           refs: null,
           messages,
+          options,
+          callback: (err, res) => err ? reject(err) : resolve(res!),
+        })
+      ),
+    analyzeMetafile: (metafile, options) =>
+      new Promise((resolve, reject) =>
+        service.analyzeMetafile({
+          callName: "analyzeMetafile",
+          refs: null,
+          metafile: typeof metafile === "string"
+            ? metafile
+            : JSON.stringify(metafile),
           options,
           callback: (err, res) => err ? reject(err) : resolve(res!),
         })

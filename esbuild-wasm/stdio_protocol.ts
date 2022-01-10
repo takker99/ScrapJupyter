@@ -1,5 +1,5 @@
 // deno-lint-ignore-file
-/** esbuild-wasm@0.14.11
+/*! ported from https://github.com/evanw/esbuild/blob/v0.14.11/LICENSE.md
  *
  * MIT License
  *
@@ -10,9 +10,8 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
  */
-// This code is ported from https://raw.githubusercontent.com/evanw/esbuild/v0.12.25/lib/shared/stdio_protocol.ts
-
 // The JavaScript API communicates with the Go child process over stdin/stdout
 // using this protocol. It's a very simple binary protocol that uses primitives
 // and nested arrays and maps. It's basically JSON with UTF-8 encoding and an
@@ -24,10 +23,7 @@ import * as types from "./types.ts";
 export interface BuildRequest {
   command: "build";
   key: number;
-  /** Use an array instead of a map to preserve order */ entries: [
-    string,
-    string,
-  ][];
+  entries: [string, string][]; // Use an array instead of a map to preserve order
   flags: string[];
   write: boolean;
   stdinContents: string | null;
@@ -40,7 +36,6 @@ export interface BuildRequest {
 }
 
 export interface ServeRequest {
-  serveID: number;
   port?: number;
   host?: string;
   servedir?: string;
@@ -53,7 +48,7 @@ export interface ServeResponse {
 
 export interface ServeStopRequest {
   command: "serve-stop";
-  serveID: number;
+  key: number;
 }
 
 export interface BuildPlugin {
@@ -65,11 +60,11 @@ export interface BuildPlugin {
 export interface BuildResponse {
   errors: types.Message[];
   warnings: types.Message[];
-  outputFiles: BuildOutputFile[];
-  metafile: string;
+  rebuild: boolean;
+  watch: boolean;
+  outputFiles?: BuildOutputFile[];
+  metafile?: string;
   writeToStdout?: Uint8Array;
-  rebuildID?: number;
-  watchID?: number;
 }
 
 export interface BuildOutputFile {
@@ -83,34 +78,34 @@ export interface PingRequest {
 
 export interface RebuildRequest {
   command: "rebuild";
-  rebuildID: number;
+  key: number;
 }
 
 export interface RebuildDisposeRequest {
   command: "rebuild-dispose";
-  rebuildID: number;
+  key: number;
 }
 
 export interface WatchStopRequest {
   command: "watch-stop";
-  watchID: number;
+  key: number;
 }
 
 export interface OnRequestRequest {
   command: "serve-request";
-  serveID: number;
+  key: number;
   args: types.ServeOnRequestArgs;
 }
 
 export interface OnWaitRequest {
   command: "serve-wait";
-  serveID: number;
+  key: number;
   error: string | null;
 }
 
 export interface OnWatchRebuildRequest {
   command: "watch-rebuild";
-  watchID: number;
+  key: number;
   args: types.BuildResult;
 }
 
@@ -144,8 +139,19 @@ export interface FormatMsgsResponse {
   messages: string[];
 }
 
+export interface AnalyzeMetafileRequest {
+  command: "analyze-metafile";
+  metafile: string;
+  color?: boolean;
+  verbose?: boolean;
+}
+
+export interface AnalyzeMetafileResponse {
+  result: string;
+}
+
 export interface OnStartRequest {
-  command: "start";
+  command: "on-start";
   key: number;
 }
 
@@ -154,8 +160,32 @@ export interface OnStartResponse {
   warnings?: types.PartialMessage[];
 }
 
-export interface OnResolveRequest {
+export interface ResolveRequest {
   command: "resolve";
+  key: number;
+  path: string;
+  pluginName: string;
+  importer?: string;
+  namespace?: string;
+  resolveDir?: string;
+  kind?: string;
+  pluginData?: number;
+}
+
+export interface ResolveResponse {
+  errors: types.Message[];
+  warnings: types.Message[];
+
+  path: string;
+  external: boolean;
+  sideEffects: boolean;
+  namespace: string;
+  suffix: string;
+  pluginData: number;
+}
+
+export interface OnResolveRequest {
+  command: "on-resolve";
   key: number;
   ids: number[];
   path: string;
@@ -177,6 +207,7 @@ export interface OnResolveResponse {
   external?: boolean;
   sideEffects?: boolean;
   namespace?: string;
+  suffix?: string;
   pluginData?: number;
 
   watchFiles?: string[];
@@ -184,11 +215,12 @@ export interface OnResolveResponse {
 }
 
 export interface OnLoadRequest {
-  command: "load";
+  command: "on-load";
   key: number;
   ids: number[];
   path: string;
   namespace: string;
+  suffix: string;
   pluginData: number;
 }
 
@@ -378,6 +410,29 @@ if (typeof TextEncoder !== "undefined" && typeof TextDecoder !== "undefined") {
   let decoder = new TextDecoder();
   encodeUTF8 = (text) => encoder.encode(text);
   decodeUTF8 = (bytes) => decoder.decode(bytes);
+} // For node 10.x
+else if (typeof Buffer !== "undefined") {
+  encodeUTF8 = (text) => {
+    let buffer: Uint8Array = Buffer.from(text);
+
+    // The test framework called "Jest" breaks node's Buffer API. Normally
+    // instances of Buffer are also instances of Uint8Array, but not when
+    // esbuild is run inside of whatever weird environment Jest uses. More
+    // info: https://github.com/facebook/jest/issues/4422.
+    if (!(buffer instanceof Uint8Array)) {
+      // Construct a new Uint8Array with the contents of the buffer to force
+      // it to be a Uint8Array instance. This is wasteful since it's slower
+      // than just using the Buffer, but this should only happen when esbuild
+      // is run inside of Jest.
+      buffer = new Uint8Array(buffer);
+    }
+
+    return buffer;
+  };
+  decodeUTF8 = (bytes) => {
+    let { buffer, byteOffset, byteLength } = bytes;
+    return Buffer.from(buffer, byteOffset, byteLength).toString();
+  };
 } else {
   throw new Error("No UTF-8 codec found");
 }

@@ -1,6 +1,6 @@
 // deno-fmt-ignore-file
 // deno-lint-ignore-file
-/** esbuild-wasm@0.12.25 */
+/** esbuild-wasm@0.14.11 */
 let global={};for(let o=self;o;o=Object.getPrototypeOf(o))for(let k of Object.getOwnPropertyNames(o))if(!(k in global))Object.defineProperty(global,k,{get:()=>self[k]});
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
@@ -703,6 +703,6 @@ onmessage = ({ data: wasm }) => {
     callback(null, count);
   };
   let go = new global.Go();
-  go.argv = ["", `--service=${"0.12.25"}`];
+  go.argv = ["", `--service=${"0.14.11"}`];
   WebAssembly.instantiate(wasm, go.importObject).then(({ instance }) => go.run(instance));
 };

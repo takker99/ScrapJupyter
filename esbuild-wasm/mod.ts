@@ -1,4 +1,3 @@
-// deno-lint-ignore-file
 /*! ported from https://github.com/evanw/esbuild/blob/v0.14.11/LICENSE.md
  *
  * MIT License
@@ -12,7 +11,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-import * as types from "./types.ts";
+import {
+  AnalyzeMetafile,
+  Build,
+  BuildResult,
+  FormatMessages,
+  InitializeOptions,
+  Transform,
+} from "./types.ts";
 import * as common from "./common.ts";
 import * as ourselves from "./mod.ts";
 import { ESBUILD_VERSION } from "./version.ts";
@@ -21,34 +27,33 @@ declare let WEB_WORKER_SOURCE_CODE: string;
 
 export const version = ESBUILD_VERSION;
 
-export let build: typeof types.build = (
-  options: types.BuildOptions,
-): Promise<any> => ensureServiceIsRunning().build(options);
+export const build: Build = (options) =>
+  ensureServiceIsRunning().build(options);
 
-export const transform: typeof types.transform = (input, options) =>
+export const transform: Transform = (input, options) =>
   ensureServiceIsRunning().transform(input, options);
 
-export const formatMessages: typeof types.formatMessages = (
+export const formatMessages: FormatMessages = (
   messages,
   options,
 ) => ensureServiceIsRunning().formatMessages(messages, options);
 
-export const analyzeMetafile: typeof types.analyzeMetafile = (
+export const analyzeMetafile: AnalyzeMetafile = (
   metafile,
   options,
 ) => ensureServiceIsRunning().analyzeMetafile(metafile, options);
 
 interface Service {
-  build: typeof types.build;
-  transform: typeof types.transform;
-  formatMessages: typeof types.formatMessages;
-  analyzeMetafile: typeof types.analyzeMetafile;
+  build: Build;
+  transform: Transform;
+  formatMessages: FormatMessages;
+  analyzeMetafile: AnalyzeMetafile;
 }
 
 let initializePromise: Promise<void> | undefined;
 let longLivedService: Service | undefined;
 
-let ensureServiceIsRunning = (): Service => {
+const ensureServiceIsRunning = (): Service => {
   if (longLivedService) return longLivedService;
   if (initializePromise) {
     throw new Error(
@@ -58,7 +63,17 @@ let ensureServiceIsRunning = (): Service => {
   throw new Error('You need to call "initialize" before calling this');
 };
 
-export const initialize: typeof types.initialize = (options) => {
+/**
+ * This configures the browser-based version of esbuild. It is necessary to
+ * call this first and wait for the returned promise to be resolved before
+ * making other API calls when using esbuild in the browser.
+ *
+ * - Works in node: yes
+ * - Works in browser: yes ("options" is required)
+ *
+ * Documentation: https://esbuild.github.io/api/#running-in-the-browser
+ */
+export function initialize(options: InitializeOptions): Promise<void> {
   options = common.validateInitializeOptions(options || {});
   let wasmURL = options.wasmURL;
   if (!wasmURL) throw new Error('Must provide the "wasmURL" option');
@@ -72,21 +87,21 @@ export const initialize: typeof types.initialize = (options) => {
     initializePromise = void 0;
   });
   return initializePromise;
-};
+}
 
 const startRunningService = async (
   wasmURL: string,
 ): Promise<void> => {
-  let res = await fetch(wasmURL);
+  const res = await fetch(wasmURL);
   if (!res.ok) throw new Error(`Failed to download ${JSON.stringify(wasmURL)}`);
-  let wasm = await res.arrayBuffer();
+  const wasm = await res.arrayBuffer();
   // Run esbuild off the main thread
   const worker = new Worker(WEB_WORKER_SOURCE_CODE);
 
   worker.postMessage(wasm);
   worker.onmessage = ({ data }) => readFromStdout(data);
 
-  let { readFromStdout, service } = common.createChannel({
+  const { readFromStdout, service } = common.createChannel({
     writeToStdin(bytes) {
       worker.postMessage(bytes);
     },
@@ -96,8 +111,8 @@ const startRunningService = async (
   });
 
   longLivedService = {
-    build: (options: types.BuildOptions): Promise<any> =>
-      new Promise<types.BuildResult>((resolve, reject) =>
+    build: (options) =>
+      new Promise<BuildResult>((resolve, reject) =>
         service.buildOrServe({
           callName: "build",
           refs: null,
@@ -106,7 +121,7 @@ const startRunningService = async (
           isTTY: false,
           defaultWD: "/",
           callback: (err, res) =>
-            err ? reject(err) : resolve(res as types.BuildResult),
+            err ? reject(err) : resolve(res as BuildResult),
         })
       ),
     transform: (input, options) =>

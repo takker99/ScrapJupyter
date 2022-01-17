@@ -1,4 +1,3 @@
-// deno-lint-ignore-file
 /*! ported from https://github.com/evanw/esbuild/blob/v0.14.11/LICENSE.md
  *
  * MIT License
@@ -13,7 +12,10 @@
  *
  */
 
-// Modified: remove codes for node
+// ported from https://github.com/evanw/esbuild/blob/v0.14.11/lib/shared/stdio_protocol.ts and modified
+// Modified:
+// - remove codes for node
+// - remove type errors
 
 // The JavaScript API communicates with the Go child process over stdin/stdout
 // using this protocol. It's a very simple binary protocol that uses primitives
@@ -24,9 +26,10 @@
 import type {
   BuildResult,
   ImportKind,
+  Location,
   Message,
   PartialMessage,
-  ServeOnRequestArgs,
+  PartialNote,
 } from "./types.ts";
 
 export interface BuildRequest {
@@ -103,7 +106,6 @@ export interface WatchStopRequest {
 export interface OnRequestRequest {
   command: "serve-request";
   key: number;
-  args: ServeOnRequestArgs;
 }
 
 export interface OnWaitRequest {
@@ -251,10 +253,10 @@ export interface OnLoadResponse {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export interface Packet {
+export interface Packet<T> {
   id: number;
   isRequest: boolean;
-  value: Value;
+  value: Data<T>;
 }
 
 export type Value =
@@ -265,9 +267,43 @@ export type Value =
   | Uint8Array
   | Value[]
   | { [key: string]: Value };
+export type Data<T> = T extends null | boolean | number | string | Uint8Array
+  ? T
+  : T extends Value[] ? T
+  : T extends Record<string, Value> ? T
+  : T[keyof T] extends Value ? T
+  : never;
 
-export function encodePacket(packet: Packet): Uint8Array {
-  let visit = (value: Value) => {
+type TTT = Data<{ location: Location }>;
+function isNotNullish(data: unknown): data is Record<string, unknown> {
+  return data != null;
+}
+export function ensureValue(value: unknown): asserts value is Value {
+  if (!isNotNullish(value)) return;
+  if (value instanceof Uint8Array) return;
+  switch (typeof value) {
+    case "boolean":
+    case "number":
+    case "string":
+      return;
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      ensureValue(item);
+    }
+  }
+  for (const key in value) {
+    if (typeof key !== "string") {
+      throw TypeError("all key of Value must be string");
+    }
+    ensureValue(value[key]);
+  }
+
+  throw TypeError(`value "${value}" is not Value`);
+}
+
+export function encodePacket<T>(packet: Packet<T>): Uint8Array {
+  const visit = (value: Data<T>) => {
     if (value === null) {
       bb.write8(0);
     } else if (typeof value === "boolean") {
@@ -285,21 +321,22 @@ export function encodePacket(packet: Packet): Uint8Array {
     } else if (value instanceof Array) {
       bb.write8(5);
       bb.write32(value.length);
-      for (let item of value) {
+      for (const item of value) {
         visit(item);
       }
     } else {
-      let keys = Object.keys(value);
+      const keys = Object.keys(value);
       bb.write8(6);
       bb.write32(keys.length);
-      for (let key of keys) {
+      for (const key in value) {
         bb.write(encodeUTF8(key));
+        //@ts-ignore 型を解決できなかった
         visit(value[key]);
       }
     }
   };
 
-  let bb = new ByteBuffer();
+  const bb = new ByteBuffer();
   bb.write32(0); // Reserve space for the length
   bb.write32((packet.id << 1) | +!packet.isRequest);
   visit(packet.value);
@@ -307,8 +344,8 @@ export function encodePacket(packet: Packet): Uint8Array {
   return bb.buf.subarray(0, bb.len);
 }
 
-export function decodePacket(bytes: Uint8Array): Packet {
-  let visit = (): Value => {
+export function decodePacket(bytes: Uint8Array) {
+  const visit = (): Value => {
     switch (bb.read8()) {
       case 0: // null
         return null;
@@ -321,16 +358,16 @@ export function decodePacket(bytes: Uint8Array): Packet {
       case 4: // Uint8Array
         return bb.read();
       case 5: { // Value[]
-        let count = bb.read32();
-        let value: Value[] = [];
+        const count = bb.read32();
+        const value: Value[] = [];
         for (let i = 0; i < count; i++) {
           value.push(visit());
         }
         return value;
       }
       case 6: { // { [key: string]: Value }
-        let count = bb.read32();
-        let value: { [key: string]: Value } = {};
+        const count = bb.read32();
+        const value: { [key: string]: Value } = {};
         for (let i = 0; i < count; i++) {
           value[decodeUTF8(bb.read())] = visit();
         }
@@ -341,11 +378,11 @@ export function decodePacket(bytes: Uint8Array): Packet {
     }
   };
 
-  let bb = new ByteBuffer(bytes);
+  const bb = new ByteBuffer(bytes);
   let id = bb.read32();
-  let isRequest = (id & 1) === 0;
+  const isRequest = (id & 1) === 0;
   id >>>= 1;
-  let value = visit();
+  const value = visit();
   if (bb.ptr !== bytes.length) {
     throw new Error("Invalid packet");
   }
@@ -361,7 +398,7 @@ class ByteBuffer {
 
   private _write(delta: number): number {
     if (this.len + delta > this.buf.length) {
-      let clone = new Uint8Array((this.len + delta) * 2);
+      const clone = new Uint8Array((this.len + delta) * 2);
       clone.set(this.buf);
       this.buf = clone;
     }
@@ -370,17 +407,17 @@ class ByteBuffer {
   }
 
   write8(value: number): void {
-    let offset = this._write(1);
+    const offset = this._write(1);
     this.buf[offset] = value;
   }
 
   write32(value: number): void {
-    let offset = this._write(4);
+    const offset = this._write(4);
     writeUInt32LE(this.buf, value, offset);
   }
 
   write(bytes: Uint8Array): void {
-    let offset = this._write(4 + bytes.length);
+    const offset = this._write(4 + bytes.length);
     writeUInt32LE(this.buf, bytes.length, offset);
     this.buf.set(bytes, offset + 4);
   }
@@ -402,9 +439,9 @@ class ByteBuffer {
   }
 
   read(): Uint8Array {
-    let length = this.read32();
-    let bytes = new Uint8Array(length);
-    let ptr = this._read(bytes.length);
+    const length = this.read32();
+    const bytes = new Uint8Array(length);
+    const ptr = this._read(bytes.length);
     bytes.set(this.buf.subarray(ptr, ptr + length));
     return bytes;
   }

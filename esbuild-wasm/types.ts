@@ -1,3 +1,4 @@
+// ported from https://github.com/evanw/esbuild/blob/v0.14.11/lib/shared/types.ts and modified
 /*! ported from https://github.com/evanw/esbuild/blob/v0.14.11/LICENSE.md
  *
  * MIT License
@@ -11,6 +12,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+import type { Value } from "./stdio_protocol.ts";
 export type Platform = "browser" | "node" | "neutral";
 export type Format = "iife" | "cjs" | "esm";
 export type Loader =
@@ -118,12 +120,6 @@ export interface BuildOptions extends CommonOptions {
   mainFields?: string[];
   /** Documentation: https://esbuild.github.io/api/#conditions */
   conditions?: string[];
-  /** Documentation: https://esbuild.github.io/api/#write */
-  write?: boolean;
-  /** Documentation: https://esbuild.github.io/api/#allow-overwrite */
-  allowOverwrite?: boolean;
-  /** Documentation: https://esbuild.github.io/api/#tsconfig */
-  tsconfig?: string;
   /** Documentation: https://esbuild.github.io/api/#out-extension */
   outExtension?: { [ext: string]: string };
   /** Documentation: https://esbuild.github.io/api/#public-path */
@@ -142,18 +138,12 @@ export interface BuildOptions extends CommonOptions {
   footer?: { [type: string]: string };
   /** Documentation: https://esbuild.github.io/api/#incremental */
   incremental?: boolean;
-  /** Documentation: https://esbuild.github.io/api/#entry-points */
-  entryPoints?: string[] | Record<string, string>;
   /** Documentation: https://esbuild.github.io/api/#stdin */
   stdin?: StdinOptions;
   /** Documentation: https://esbuild.github.io/plugins/ */
   plugins?: Plugin[];
   /** Documentation: https://esbuild.github.io/api/#working-directory */
   absWorkingDir?: string;
-  /** Documentation: https://esbuild.github.io/api/#node-paths */
-  nodePaths?: string[]; // The "NODE_PATH" variable from Node.js
-  /** Documentation: https://esbuild.github.io/api/#watch */
-  watch?: boolean | WatchMode;
 }
 
 export interface WatchMode {
@@ -222,8 +212,6 @@ export interface BuildResult {
   outputFiles?: OutputFile[];
   /** Only when "incremental: true" */
   rebuild?: BuildInvalidate;
-  /** Only when "watch: true" */
-  stop?: () => void;
   /** Only when "metafile: true" */
   metafile?: Metafile;
 }
@@ -231,31 +219,6 @@ export interface BuildResult {
 export interface BuildFailure extends Error {
   errors: Message[];
   warnings: Message[];
-}
-
-/** Documentation: https://esbuild.github.io/api/#serve-arguments */
-export interface ServeOptions {
-  port?: number;
-  host?: string;
-  servedir?: string;
-  onRequest?: (args: ServeOnRequestArgs) => void;
-}
-
-export interface ServeOnRequestArgs {
-  remoteAddress: string;
-  method: string;
-  path: string;
-  status: number;
-  /** The time to generate the response, not to send it */
-  timeInMS: number;
-}
-
-/** Documentation: https://esbuild.github.io/api/#serve-return-values */
-export interface ServeResult {
-  port: number;
-  host: string;
-  wait: Promise<void>;
-  stop: () => void;
 }
 
 export interface TransformOptions extends CommonOptions {
@@ -434,7 +397,7 @@ export interface PartialMessage {
   text?: string;
   location?: Partial<Location> | null;
   notes?: PartialNote[];
-  detail?: unknown;
+  detail?: Value;
 }
 
 export interface PartialNote {
@@ -491,19 +454,16 @@ export interface AnalyzeMetafileOptions {
  *
  * Documentation: https://esbuild.github.io/api/#build-api
  */
-export declare function build(
-  options: BuildOptions & { write: false },
-): Promise<BuildResult & { outputFiles: OutputFile[] }>;
-export declare function build(
-  options: BuildOptions & { incremental: true; metafile: true },
-): Promise<BuildIncremental & { metafile: Metafile }>;
-export declare function build(
-  options: BuildOptions & { incremental: true },
-): Promise<BuildIncremental>;
-export declare function build(
-  options: BuildOptions & { metafile: true },
-): Promise<BuildResult & { metafile: Metafile }>;
-export declare function build(options: BuildOptions): Promise<BuildResult>;
+export interface Build {
+  (options: BuildOptions): Promise<BuildResult & { outputFiles: OutputFile[] }>;
+  (
+    options: BuildOptions & { incremental: true; metafile: true },
+  ): Promise<BuildIncremental & { metafile: Metafile }>;
+  (options: BuildOptions & { incremental: true }): Promise<BuildIncremental>;
+  (
+    options: BuildOptions & { metafile: true },
+  ): Promise<BuildResult & { metafile: Metafile }>;
+}
 
 /**
  * This function transforms a single JavaScript file. It can be used to minify
@@ -516,10 +476,9 @@ export declare function build(options: BuildOptions): Promise<BuildResult>;
  *
  * Documentation: https://esbuild.github.io/api/#transform-api
  */
-export declare function transform(
-  input: string,
-  options?: TransformOptions,
-): Promise<TransformResult>;
+export interface Transform {
+  (input: string, options?: TransformOptions): Promise<TransformResult>;
+}
 
 /**
  * Converts log messages to formatted message strings suitable for printing in
@@ -529,10 +488,12 @@ export declare function transform(
  * - Works in node: yes
  * - Works in browser: yes
  */
-export declare function formatMessages(
-  messages: PartialMessage[],
-  options: FormatMessagesOptions,
-): Promise<string[]>;
+export interface FormatMessages {
+  (
+    messages: PartialMessage[],
+    options: FormatMessagesOptions,
+  ): Promise<string[]>;
+}
 
 /**
  * Pretty-prints an analysis of the metafile JSON to a string. This is just for
@@ -544,22 +505,12 @@ export declare function formatMessages(
  *
  * Documentation: https://esbuild.github.io/api/#analyze
  */
-export declare function analyzeMetafile(
-  metafile: Metafile | string,
-  options?: AnalyzeMetafileOptions,
-): Promise<string>;
-
-/**
- * This configures the browser-based version of esbuild. It is necessary to
- * call this first and wait for the returned promise to be resolved before
- * making other API calls when using esbuild in the browser.
- *
- * - Works in node: yes
- * - Works in browser: yes ("options" is required)
- *
- * Documentation: https://esbuild.github.io/api/#running-in-the-browser
- */
-export declare function initialize(options: InitializeOptions): Promise<void>;
+export interface AnalyzeMetafile {
+  (
+    metafile: Metafile | string,
+    options?: AnalyzeMetafileOptions,
+  ): Promise<string>;
+}
 
 export interface InitializeOptions {
   /**

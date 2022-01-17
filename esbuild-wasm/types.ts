@@ -325,7 +325,6 @@ export interface PluginBuild {
 
   // This is a full copy of the esbuild library in case you need it
   esbuild: {
-    serve: typeof serve;
     build: typeof build;
     transform: typeof transform;
     formatMessages: typeof formatMessages;
@@ -505,20 +504,6 @@ export declare function build(
   options: BuildOptions & { metafile: true },
 ): Promise<BuildResult & { metafile: Metafile }>;
 export declare function build(options: BuildOptions): Promise<BuildResult>;
-
-/**
- * This function is similar to "build" but it serves the resulting files over
- * HTTP on a localhost address with the specified port.
- *
- * - Works in node: yes
- * - Works in browser: no
- *
- * Documentation: https://esbuild.github.io/api/#serve
- */
-export declare function serve(
-  serveOptions: ServeOptions,
-  buildOptions: BuildOptions,
-): Promise<ServeResult>;
 
 /**
  * This function transforms a single JavaScript file. It can be used to minify

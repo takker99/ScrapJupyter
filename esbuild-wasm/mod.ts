@@ -61,13 +61,12 @@ let ensureServiceIsRunning = (): Service => {
 export const initialize: typeof types.initialize = (options) => {
   options = common.validateInitializeOptions(options || {});
   let wasmURL = options.wasmURL;
-  let useWorker = options.worker !== false;
   if (!wasmURL) throw new Error('Must provide the "wasmURL" option');
   wasmURL += "";
   if (initializePromise) {
     throw new Error('Cannot call "initialize" more than once');
   }
-  initializePromise = startRunningService(wasmURL, useWorker);
+  initializePromise = startRunningService(wasmURL);
   initializePromise.catch(() => {
     // Let the caller try again if this fails
     initializePromise = void 0;
@@ -77,43 +76,12 @@ export const initialize: typeof types.initialize = (options) => {
 
 const startRunningService = async (
   wasmURL: string,
-  useWorker: boolean,
 ): Promise<void> => {
   let res = await fetch(wasmURL);
   if (!res.ok) throw new Error(`Failed to download ${JSON.stringify(wasmURL)}`);
   let wasm = await res.arrayBuffer();
-  let code = `{` +
-    `let global={};` +
-    `for(let o=self;o;o=Object.getPrototypeOf(o))` +
-    `for(let k of Object.getOwnPropertyNames(o))` +
-    `if(!(k in global))` +
-    `Object.defineProperty(global,k,{get:()=>self[k]});` +
-    WEB_WORKER_SOURCE_CODE +
-    `}`;
-  let worker: {
-    onmessage: ((event: any) => void) | null;
-    postMessage: (data: Uint8Array | ArrayBuffer) => void;
-    terminate: () => void;
-  };
-
-  if (useWorker) {
-    // Run esbuild off the main thread
-    let blob = new Blob([code], { type: "text/javascript" });
-    worker = new Worker(URL.createObjectURL(blob));
-  } else {
-    // Run esbuild on the main thread
-    let fn = new Function(
-      "postMessage",
-      code + `var onmessage; return m => onmessage(m)`,
-    );
-    let onmessage = fn((data: Uint8Array) => worker.onmessage!({ data }));
-    worker = {
-      onmessage: null,
-      postMessage: (data) => onmessage({ data }),
-      terminate() {
-      },
-    };
-  }
+  // Run esbuild off the main thread
+  const worker = new Worker(WEB_WORKER_SOURCE_CODE);
 
   worker.postMessage(wasm);
   worker.onmessage = ({ data }) => readFromStdout(data);

@@ -25,10 +25,6 @@ export let build: typeof types.build = (
   options: types.BuildOptions,
 ): Promise<any> => ensureServiceIsRunning().build(options);
 
-export const serve: typeof types.serve = () => {
-  throw new Error(`The "serve" API only works in node`);
-};
-
 export const transform: typeof types.transform = (input, options) =>
   ensureServiceIsRunning().transform(input, options);
 
@@ -41,22 +37,6 @@ export const analyzeMetafile: typeof types.analyzeMetafile = (
   metafile,
   options,
 ) => ensureServiceIsRunning().analyzeMetafile(metafile, options);
-
-export const buildSync: typeof types.buildSync = () => {
-  throw new Error(`The "buildSync" API only works in node`);
-};
-
-export const transformSync: typeof types.transformSync = () => {
-  throw new Error(`The "transformSync" API only works in node`);
-};
-
-export const formatMessagesSync: typeof types.formatMessagesSync = () => {
-  throw new Error(`The "formatMessagesSync" API only works in node`);
-};
-
-export const analyzeMetafileSync: typeof types.analyzeMetafileSync = () => {
-  throw new Error(`The "analyzeMetafileSync" API only works in node`);
-};
 
 interface Service {
   build: typeof types.build;

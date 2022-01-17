@@ -327,13 +327,9 @@ export interface PluginBuild {
   esbuild: {
     serve: typeof serve;
     build: typeof build;
-    buildSync: typeof buildSync;
     transform: typeof transform;
-    transformSync: typeof transformSync;
     formatMessages: typeof formatMessages;
-    formatMessagesSync: typeof formatMessagesSync;
     analyzeMetafile: typeof analyzeMetafile;
-    analyzeMetafileSync: typeof analyzeMetafileSync;
     initialize: typeof initialize;
     version: string;
   };
@@ -567,56 +563,6 @@ export declare function analyzeMetafile(
   metafile: Metafile | string,
   options?: AnalyzeMetafileOptions,
 ): Promise<string>;
-
-/**
- * A synchronous version of "build".
- *
- * - Works in node: yes
- * - Works in browser: no
- *
- * Documentation: https://esbuild.github.io/api/#build-api
- */
-export declare function buildSync(
-  options: BuildOptions & { write: false },
-): BuildResult & { outputFiles: OutputFile[] };
-export declare function buildSync(options: BuildOptions): BuildResult;
-
-/**
- * A synchronous version of "transform".
- *
- * - Works in node: yes
- * - Works in browser: no
- *
- * Documentation: https://esbuild.github.io/api/#transform-api
- */
-export declare function transformSync(
-  input: string,
-  options?: TransformOptions,
-): TransformResult;
-
-/**
- * A synchronous version of "formatMessages".
- *
- * - Works in node: yes
- * - Works in browser: no
- */
-export declare function formatMessagesSync(
-  messages: PartialMessage[],
-  options: FormatMessagesOptions,
-): string[];
-
-/**
- * A synchronous version of "analyzeMetafile".
- *
- * - Works in node: yes
- * - Works in browser: no
- *
- * Documentation: https://esbuild.github.io/api/#analyze
- */
-export declare function analyzeMetafileSync(
-  metafile: Metafile | string,
-  options?: AnalyzeMetafileOptions,
-): string;
 
 /**
  * This configures the browser-based version of esbuild. It is necessary to

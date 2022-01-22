@@ -23,14 +23,7 @@
 // additional byte array primitive. You must send a response after receiving a
 // request because the other end is blocking on the response coming back.
 
-import type {
-  BuildResult,
-  ImportKind,
-  Location,
-  Message,
-  PartialMessage,
-  PartialNote,
-} from "./types.ts";
+import type { ImportKind, Message, PartialMessage } from "./types.ts";
 
 export interface BuildRequest {
   command: "build";
@@ -73,8 +66,7 @@ export interface BuildResponse {
   errors: Message[];
   warnings: Message[];
   rebuild: boolean;
-  watch: boolean;
-  outputFiles?: BuildOutputFile[];
+  outputFiles: BuildOutputFile[];
   metafile?: string;
   writeToStdout?: Uint8Array;
 }
@@ -106,18 +98,6 @@ export interface WatchStopRequest {
 export interface OnRequestRequest {
   command: "serve-request";
   key: number;
-}
-
-export interface OnWaitRequest {
-  command: "serve-wait";
-  key: number;
-  error: string | null;
-}
-
-export interface OnWatchRebuildRequest {
-  command: "watch-rebuild";
-  key: number;
-  args: BuildResult;
 }
 
 export interface TransformRequest {
@@ -256,7 +236,7 @@ export interface OnLoadResponse {
 export interface Packet<T> {
   id: number;
   isRequest: boolean;
-  value: Data<T>;
+  value: AsValue<T>;
 }
 
 export type Value =
@@ -267,43 +247,27 @@ export type Value =
   | Uint8Array
   | Value[]
   | { [key: string]: Value };
+export type AsValue<T> = T extends null | boolean | number | string | Uint8Array
+  ? T
+  : T extends (infer U)[] ? U[]
+  : { [K in keyof T]: K extends string ? AsValue<T[K]> : never };
+
 export type Data<T> = T extends null | boolean | number | string | Uint8Array
   ? T
-  : T extends Value[] ? T
-  : T extends Record<string, Value> ? T
+  : T extends [] ? T
+  : T extends { [key: string]: Value } ? T
   : T[keyof T] extends Value ? T
   : never;
 
-type TTT = Data<{ location: Location }>;
-function isNotNullish(data: unknown): data is Record<string, unknown> {
-  return data != null;
-}
-export function ensureValue(value: unknown): asserts value is Value {
-  if (!isNotNullish(value)) return;
-  if (value instanceof Uint8Array) return;
-  switch (typeof value) {
-    case "boolean":
-    case "number":
-    case "string":
-      return;
-  }
-  if (Array.isArray(value)) {
-    for (const item of value) {
-      ensureValue(item);
-    }
-  }
-  for (const key in value) {
-    if (typeof key !== "string") {
-      throw TypeError("all key of Value must be string");
-    }
-    ensureValue(value[key]);
-  }
-
-  throw TypeError(`value "${value}" is not Value`);
-}
+export type RequestType =
+  | PingRequest
+  | OnResolveRequest
+  | OnLoadRequest
+  | OnStartRequest
+  | OnRequestRequest;
 
 export function encodePacket<T>(packet: Packet<T>): Uint8Array {
-  const visit = (value: Data<T>) => {
+  const visit = <U>(value: AsValue<U>) => {
     if (value === null) {
       bb.write8(0);
     } else if (typeof value === "boolean") {
@@ -318,7 +282,7 @@ export function encodePacket<T>(packet: Packet<T>): Uint8Array {
     } else if (value instanceof Uint8Array) {
       bb.write8(4);
       bb.write(value);
-    } else if (value instanceof Array) {
+    } else if (Array.isArray(value)) {
       bb.write8(5);
       bb.write32(value.length);
       for (const item of value) {
@@ -330,7 +294,7 @@ export function encodePacket<T>(packet: Packet<T>): Uint8Array {
       bb.write32(keys.length);
       for (const key in value) {
         bb.write(encodeUTF8(key));
-        //@ts-ignore 型を解決できなかった
+        //@ts-ignore 型エラーを解決できない
         visit(value[key]);
       }
     }
@@ -344,7 +308,14 @@ export function encodePacket<T>(packet: Packet<T>): Uint8Array {
   return bb.buf.subarray(0, bb.len);
 }
 
-export function decodePacket(bytes: Uint8Array) {
+export function decodePacket(
+  bytes: Uint8Array,
+):
+  & { id: number }
+  & ({ isRequest: true; value: AsValue<RequestType> } | {
+    isRequest: false;
+    value: { error: string };
+  }) {
   const visit = (): Value => {
     switch (bb.read8()) {
       case 0: // null
@@ -382,11 +353,14 @@ export function decodePacket(bytes: Uint8Array) {
   let id = bb.read32();
   const isRequest = (id & 1) === 0;
   id >>>= 1;
-  const value = visit();
   if (bb.ptr !== bytes.length) {
     throw new Error("Invalid packet");
   }
-  return { id, isRequest, value };
+  if (isRequest) {
+    return { id, isRequest, value: (visit() as AsValue<RequestType>) };
+  } else {
+    return { id, isRequest, value: (visit() as { error: string }) };
+  }
 }
 
 class ByteBuffer {

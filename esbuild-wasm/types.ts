@@ -12,7 +12,6 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-import type { Value } from "./stdio_protocol.ts";
 export type Platform = "browser" | "node" | "neutral";
 export type Format = "iife" | "cjs" | "esm";
 export type Loader =
@@ -208,8 +207,7 @@ export interface BuildIncremental extends BuildResult {
 export interface BuildResult {
   errors: Message[];
   warnings: Message[];
-  /** Only when "write: false" */
-  outputFiles?: OutputFile[];
+  outputFiles: OutputFile[];
   /** Only when "incremental: true" */
   rebuild?: BuildInvalidate;
   /** Only when "metafile: true" */
@@ -288,11 +286,10 @@ export interface PluginBuild {
 
   // This is a full copy of the esbuild library in case you need it
   esbuild: {
-    build: typeof build;
-    transform: typeof transform;
-    formatMessages: typeof formatMessages;
-    analyzeMetafile: typeof analyzeMetafile;
-    initialize: typeof initialize;
+    build: Build;
+    transform: Transform;
+    formatMessages: FormatMessages;
+    analyzeMetafile: AnalyzeMetafile;
     version: string;
   };
 }
@@ -397,7 +394,7 @@ export interface PartialMessage {
   text?: string;
   location?: Partial<Location> | null;
   notes?: PartialNote[];
-  detail?: Value;
+  detail?: unknown;
 }
 
 export interface PartialNote {
@@ -455,7 +452,7 @@ export interface AnalyzeMetafileOptions {
  * Documentation: https://esbuild.github.io/api/#build-api
  */
 export interface Build {
-  (options: BuildOptions): Promise<BuildResult & { outputFiles: OutputFile[] }>;
+  (options: BuildOptions): Promise<BuildResult>;
   (
     options: BuildOptions & { incremental: true; metafile: true },
   ): Promise<BuildIncremental & { metafile: Metafile }>;
@@ -510,21 +507,4 @@ export interface AnalyzeMetafile {
     metafile: Metafile | string,
     options?: AnalyzeMetafileOptions,
   ): Promise<string>;
-}
-
-export interface InitializeOptions {
-  /**
-   * The URL of the "esbuild.wasm" file. This must be provided when running
-   * esbuild in the browser.
-   */
-  wasmURL?: string;
-
-  /**
-   * By default esbuild runs the WebAssembly-based browser API in a web worker
-   * to avoid blocking the UI thread. This can be disabled by setting "worker"
-   * to false.
-   */
-  worker?: boolean;
-  /** The URL of the web worker src */
-  workerURL: string;
 }

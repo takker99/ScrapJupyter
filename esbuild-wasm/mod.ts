@@ -1,3 +1,4 @@
+// ported from https://github.com/evanw/esbuild/blob/v0.14.11/lib/npm/browser.ts and modified
 /*! ported from https://github.com/evanw/esbuild/blob/v0.14.11/LICENSE.md
  *
  * MIT License
@@ -16,17 +17,26 @@ import {
   Build,
   BuildResult,
   FormatMessages,
-  InitializeOptions,
   Transform,
 } from "./types.ts";
 import * as common from "./common.ts";
 import * as ourselves from "./mod.ts";
 import { ESBUILD_VERSION } from "./version.ts";
 
-declare let WEB_WORKER_SOURCE_CODE: string;
-
 export const version = ESBUILD_VERSION;
 
+export interface InitializeOptions {
+  /**
+   * The buffer of the "esbuild.wasm" file. This must be provided when running
+   * esbuild in the browser.
+   */
+  wasm?: BufferSource;
+
+  /** The URL of the web worker src */
+  workerURL: string | URL;
+}
+
+//@ts-ignore 複雑すぎて型推論できない
 export const build: Build = (options) =>
   ensureServiceIsRunning().build(options);
 
@@ -50,16 +60,10 @@ interface Service {
   analyzeMetafile: AnalyzeMetafile;
 }
 
-let initializePromise: Promise<void> | undefined;
 let longLivedService: Service | undefined;
 
 const ensureServiceIsRunning = (): Service => {
   if (longLivedService) return longLivedService;
-  if (initializePromise) {
-    throw new Error(
-      'You need to wait for the promise returned from "initialize" to be resolved before calling this',
-    );
-  }
   throw new Error('You need to call "initialize" before calling this');
 };
 
@@ -73,30 +77,11 @@ const ensureServiceIsRunning = (): Service => {
  *
  * Documentation: https://esbuild.github.io/api/#running-in-the-browser
  */
-export function initialize(options: InitializeOptions): Promise<void> {
-  options = common.validateInitializeOptions(options || {});
-  let wasmURL = options.wasmURL;
-  if (!wasmURL) throw new Error('Must provide the "wasmURL" option');
-  wasmURL += "";
-  if (initializePromise) {
-    throw new Error('Cannot call "initialize" more than once');
-  }
-  initializePromise = startRunningService(wasmURL);
-  initializePromise.catch(() => {
-    // Let the caller try again if this fails
-    initializePromise = void 0;
-  });
-  return initializePromise;
-}
-
-const startRunningService = async (
-  wasmURL: string,
-): Promise<void> => {
-  const res = await fetch(wasmURL);
-  if (!res.ok) throw new Error(`Failed to download ${JSON.stringify(wasmURL)}`);
-  const wasm = await res.arrayBuffer();
+export function initialize(
+  { wasm, workerURL }: InitializeOptions,
+) {
   // Run esbuild off the main thread
-  const worker = new Worker(WEB_WORKER_SOURCE_CODE);
+  const worker = new Worker(workerURL);
 
   worker.postMessage(wasm);
   worker.onmessage = ({ data }) => readFromStdout(data);
@@ -105,29 +90,25 @@ const startRunningService = async (
     writeToStdin(bytes) {
       worker.postMessage(bytes);
     },
-    isSync: false,
-    isBrowser: true,
     esbuild: ourselves,
   });
 
   longLivedService = {
+    //@ts-ignore 複雑すぎて型推論できない
     build: (options) =>
       new Promise<BuildResult>((resolve, reject) =>
         service.buildOrServe({
-          callName: "build",
           refs: null,
-          serveOptions: null,
           options,
           isTTY: false,
           defaultWD: "/",
-          callback: (err, res) =>
-            err ? reject(err) : resolve(res as BuildResult),
+          callback: (...args) =>
+            args[0] !== null ? reject(args[0]) : resolve(args[1]),
         })
       ),
     transform: (input, options) =>
       new Promise((resolve, reject) =>
         service.transform({
-          callName: "transform",
           refs: null,
           input,
           options: options || {},
@@ -140,30 +121,31 @@ const startRunningService = async (
               callback(null);
             },
           },
-          callback: (err, res) => err ? reject(err) : resolve(res!),
+          callback: (...args) =>
+            args[0] !== null ? reject(args[0]) : resolve(args[1]),
         })
       ),
     formatMessages: (messages, options) =>
       new Promise((resolve, reject) =>
         service.formatMessages({
-          callName: "formatMessages",
           refs: null,
           messages,
           options,
-          callback: (err, res) => err ? reject(err) : resolve(res!),
+          callback: (...args) =>
+            args[0] !== null ? reject(args[0]) : resolve(args[1]),
         })
       ),
     analyzeMetafile: (metafile, options) =>
       new Promise((resolve, reject) =>
         service.analyzeMetafile({
-          callName: "analyzeMetafile",
           refs: null,
           metafile: typeof metafile === "string"
             ? metafile
             : JSON.stringify(metafile),
           options,
-          callback: (err, res) => err ? reject(err) : resolve(res!),
+          callback: (...args) =>
+            args[0] !== null ? reject(args[0]) : resolve(args[1]),
         })
       ),
   };
-};
+}

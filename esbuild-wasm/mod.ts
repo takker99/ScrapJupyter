@@ -34,6 +34,7 @@ export interface InitializeOptions {
 
   /** The URL of the web worker src */
   workerURL: string | URL;
+  type?: WorkerOptions["type"];
 }
 
 //@ts-ignore 複雑すぎて型推論できない
@@ -78,10 +79,10 @@ const ensureServiceIsRunning = (): Service => {
  * Documentation: https://esbuild.github.io/api/#running-in-the-browser
  */
 export function initialize(
-  { wasm, workerURL }: InitializeOptions,
+  { wasm, workerURL, type }: InitializeOptions,
 ) {
   // Run esbuild off the main thread
-  const worker = new Worker(workerURL);
+  const worker = new Worker(workerURL, { type });
 
   worker.postMessage(wasm);
   worker.onmessage = ({ data }) => readFromStdout(data);

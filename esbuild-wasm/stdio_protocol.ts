@@ -252,13 +252,6 @@ export type AsValue<T> = T extends null | boolean | number | string | Uint8Array
   : T extends (infer U)[] ? U[]
   : { [K in keyof T]: K extends string ? AsValue<T[K]> : never };
 
-export type Data<T> = T extends null | boolean | number | string | Uint8Array
-  ? T
-  : T extends [] ? T
-  : T extends { [key: string]: Value } ? T
-  : T[keyof T] extends Value ? T
-  : never;
-
 export type RequestType =
   | PingRequest
   | OnResolveRequest

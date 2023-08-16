@@ -2,12 +2,12 @@
 /// <reference lib="esnext"/>
 /// <reference lib="dom"/>
 
-export type Position = {
+export interface Position {
   x: number;
   y: number;
-};
+}
 
-export function tooltip() {
+export const tooltip = () => {
   let tooltip: HTMLDivElement | undefined;
 
   const show = (text: string, { x, y }: Position) => {
@@ -31,16 +31,16 @@ export function tooltip() {
     show,
     hide,
   };
-}
+};
 
-function createContainer() {
+const createContainer = () => {
   const tooltip = document.createElement("div");
   tooltip.setAttribute("role", "tooltip");
   tooltip.classList.add("fade", "in", "tooltip", "top");
   return tooltip;
-}
+};
 
-function inner(text: string) {
+const inner = (text: string) => {
   const inner = document.createElement("pre");
   inner.classList.add("tooltip-inner");
   inner.style.textAlign = "unset";
@@ -48,4 +48,4 @@ function inner(text: string) {
   inner.style.margin = "unset";
   inner.innerText = text;
   return inner;
-}
+};

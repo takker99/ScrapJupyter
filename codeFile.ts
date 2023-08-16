@@ -1,15 +1,16 @@
 import { encodeTitleURI, Scrapbox } from "./deps/scrapbox.ts";
 declare const scrapbox: Scrapbox;
 
-type File = {
+interface File {
   filename?: string;
   dir: string;
   lang: string;
-  /** コードブロックの開始行のid */ startIds: string[];
+  /** コードブロックの開始行のid */
+  startIds: string[];
   lines: string[];
-};
+}
 
-export function getCodeFiles() {
+export const getCodeFiles = () => {
   const codeBlocks =
     scrapbox.Page.lines?.flatMap((line) => "codeBlock" in line ? [line] : []) ??
       [];
@@ -39,4 +40,4 @@ export function getCodeFiles() {
 
     return acc;
   }, []);
-}
+};

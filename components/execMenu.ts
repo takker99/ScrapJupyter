@@ -5,7 +5,7 @@
 import { statusButton } from "./status.ts";
 import { execButton } from "./execButton.ts";
 
-export function execMenu(onClick: (event: MouseEvent) => void) {
+export const execMenu = (onClick: (event: MouseEvent) => void) => {
   const { component: status, setStatus } = statusButton();
   const menu = document.createElement("div");
   menu.style.position = "absolute";
@@ -15,4 +15,4 @@ export function execMenu(onClick: (event: MouseEvent) => void) {
   menu.style.flexFlow = "column";
   menu.append(execButton(onClick), status);
   return { menu, setStatus };
-}
+};

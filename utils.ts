@@ -1,3 +1,2 @@
-export function isBareModuleName(name: string) {
-  return !/^(?:https?|file):\/\/|^\.{0,2}\//.test(name);
-}
+export const isBareModuleName = (name: string): boolean =>
+  !/^(?:https?|file):\/\/|^\.{0,2}\//.test(name);

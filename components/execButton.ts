@@ -4,7 +4,7 @@
 
 import { play } from "./icons.ts";
 
-export function execButton(onClick: (event: MouseEvent) => void) {
+export const execButton = (onClick: (event: MouseEvent) => void) => {
   const a = document.createElement("a");
   a.classList.add("tool-btn");
   a.type = "button";
@@ -12,4 +12,4 @@ export function execButton(onClick: (event: MouseEvent) => void) {
   a.append(play());
   a.addEventListener("click", onClick);
   return a;
-}
+};

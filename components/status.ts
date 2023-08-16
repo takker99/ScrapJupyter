@@ -6,7 +6,7 @@ import { checkCircleFill, crossCircle, spinner } from "./icons.ts";
 import { tooltip } from "./tooltip.ts";
 export type Status = "loading" | "pass" | "fail" | "none";
 
-export function statusButton() {
+export const statusButton = () => {
   const a = document.createElement("a");
   a.classList.add("tool-btn");
   a.type = "button";
@@ -53,4 +53,4 @@ export function statusButton() {
     component: a,
     setStatus,
   };
-}
+};

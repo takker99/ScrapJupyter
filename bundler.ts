@@ -57,13 +57,12 @@ export type AvailableExtensions =
   | "mjs"
   | "javascript"
   | "typescript";
-export function isAvailableExtensions(
+export const isAvailableExtensions = (
   extension: string,
-): extension is AvailableExtensions {
-  return ["ts", "js", "tsx", "jsx", "mjs", "javascript", "typescript"].includes(
+): extension is AvailableExtensions =>
+  ["ts", "js", "tsx", "jsx", "mjs", "javascript", "typescript"].includes(
     extension,
   );
-}
 
 export type BundleOptions = {
   extension: AvailableExtensions;

@@ -3,10 +3,9 @@
 /// <reference lib="dom"/>
 import { getCodeFiles } from "./codeFile.ts";
 import { isAvailableExtensions, load } from "./bundler.ts";
-import { eventName } from "./deps/scrapbox.ts";
+import { eventName, Scrapbox, takeInternalLines } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
 import { throttle } from "./deps/throttle.ts";
-import type { Scrapbox } from "./deps/scrapbox.ts";
 declare const scrapbox: Scrapbox;
 
 /** ScrapJupyterを起動する
@@ -23,7 +22,11 @@ export const setup = async (
   const menus = [] as ReturnType<typeof execMenu>[];
 
   const update = async () => {
-    const files = getCodeFiles();
+    const files = getCodeFiles(
+      scrapbox.Project.name,
+      scrapbox.Page.title ?? "",
+      takeInternalLines(),
+    );
     // ボタンを全部リセットする
     menus.forEach(({ menu, setStatus }) => {
       setStatus("none");

@@ -1,5 +1,10 @@
-import { encodeTitleURI, Scrapbox } from "./deps/scrapbox.ts";
-declare const scrapbox: Scrapbox;
+import {
+  BaseLine,
+  convertToBlock,
+  encodeTitleURI,
+  packRows,
+  parseToRows,
+} from "./deps/scrapbox-rest.ts";
 
 interface File {
   filename?: string;
@@ -10,34 +15,51 @@ interface File {
   lines: string[];
 }
 
-export const getCodeFiles = () => {
-  const codeBlocks =
-    scrapbox.Page.lines?.flatMap((line) => "codeBlock" in line ? [line] : []) ??
-      [];
-  return codeBlocks.reduce((acc: File[], { codeBlock, text, id }) => {
-    const sameFileIndex = acc.findIndex(({ filename }) =>
-      filename !== undefined && filename === codeBlock.filename
-    );
-    // code blockの先頭かつ新しいコードブロックのときのみ新しいfileを追加する
-    if (codeBlock.start && sameFileIndex < 0) {
-      return [...acc, {
-        filename: codeBlock.filename,
-        dir: `https://scrapbox.io/api/code/${scrapbox.Project.name}/${
-          encodeTitleURI(scrapbox.Page.title ?? "")
-        }`,
-        lang: codeBlock.lang,
-        startIds: [id],
-        lines: [] as string[],
-      }];
-    }
+export const getCodeFiles = (
+  project: string,
+  title: string,
+  lines: readonly BaseLine[],
+): File[] => {
+  if (lines.length === 0) return [];
+  const input = lines.map((line) => line.text).join("\n");
+  const packs = packRows(parseToRows(input), { hasTitle: true });
 
-    if (codeBlock.start) {
-      acc.at(sameFileIndex)?.startIds?.push?.(id);
-    } else {
-      // 既存のコードブロックもしくは末尾のコードブロックに追記する
-      acc.at(sameFileIndex)?.lines?.push?.(text);
+  /** 分割されたコードブロックを結合するのに使う */
+  const codes = new Map<string, Omit<File, "filename">>();
+  /** 現在読んでいる`pack.rows[0]`の行番号 */
+  let counter = 0;
+  for (const pack of packs) {
+    switch (pack.type) {
+      case "title":
+      case "table":
+      case "line": {
+        counter += pack.rows.length;
+        break;
+      }
+      case "codeBlock": {
+        const codeBlock = convertToBlock(pack);
+        if (codeBlock.type !== "codeBlock") throw SyntaxError();
+        const prev = codes.get(codeBlock.fileName);
+        codes.set(
+          codeBlock.fileName,
+          {
+            dir: prev?.dir ??
+              `https://scrapbox.io/api/code/${project}/${
+                encodeTitleURI(title)
+              }`,
+            lang: prev?.lang ?? codeBlock.fileName.split(".").pop() ?? "text",
+            startIds: [...(prev?.startIds ?? []), lines[counter].id],
+            lines: [...(prev?.lines ?? []), ...codeBlock.content.split("\n")],
+          },
+        );
+        counter += pack.rows.length;
+        break;
+      }
     }
+  }
 
-    return acc;
-  }, []);
+  return [...codes.entries()].map(([filename, file]) => ({
+    filename,
+    ...file,
+  }));
 };

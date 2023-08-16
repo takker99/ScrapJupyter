@@ -1,0 +1,4453 @@
+{
+  "id": "6157ea0245894d001d3c5765",
+  "title": "リンクを出典アイコンにするUserCSS",
+  "image": "https://gyazo.com/e1eac65d64da3bb286d12139b7f1a3d0/raw",
+  "descriptions": [
+    "[リンク記法]を[出典]を示すアイコンに差し替えるUserCSS[./ [/takker/リンクを出典アイコンにするUserCSS]]",
+    "[https://gyazo.com/e1eac65d64da3bb286d12139b7f1a3d0]",
+    "用途",
+    "[Scrapboxで出典を示]す",
+    "例"
+  ],
+  "user": {
+    "id": "5ef2bdebb60650001e1280f0",
+    "name": "takker",
+    "displayName": "takker",
+    "photo": "https://lh3.googleusercontent.com/a/AGNmyxaA5UAD_2lwKhNLhf6N2HgxrkJ-u8tlRHpQzWFJ=s96-c"
+  },
+  "pin": 0,
+  "views": 622,
+  "linked": 12,
+  "commitId": "62f46ca4e1f1960022dffeb9",
+  "created": 1633151492,
+  "updated": 1660185764,
+  "accessed": 1692182073,
+  "snapshotCreated": 1660185738,
+  "pageRank": 12,
+  "lastAccessed": null,
+  "persistent": true,
+  "lines": [
+    {
+      "id": "6157ea0245894d001d3c5765",
+      "text": "リンクを出典アイコンにするUserCSS",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151492,
+      "updated": 1633151492
+    },
+    {
+      "id": "6157ea031280f00000ad8795",
+      "text": "[リンク記法]を[出典]を示すアイコンに差し替えるUserCSS[./ [/takker/リンクを出典アイコンにするUserCSS]]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151492,
+      "updated": 1633152115
+    },
+    {
+      "id": "6157f1611280f0000093858d",
+      "text": " [https://gyazo.com/e1eac65d64da3bb286d12139b7f1a3d0]",
+      "userId": "59fb21121207900012774b17",
+      "created": 1633153377,
+      "updated": 1633282446
+    },
+    {
+      "id": "6157ea2c1280f00000ad8798",
+      "text": "",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151533,
+      "updated": 1633153386
+    },
+    {
+      "id": "61596d821280f000009d9b69",
+      "text": "用途",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250690,
+      "updated": 1633250690
+    },
+    {
+      "id": "61596d821280f000009d9b6a",
+      "text": " [Scrapboxで出典を示]す",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250690,
+      "updated": 1633250690
+    },
+    {
+      "id": "61596d821280f000009d9b6b",
+      "text": "  例",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250690,
+      "updated": 1633250690
+    },
+    {
+      "id": "61596d821280f000009d9b6c",
+      "text": "  \t意識とは一般に、覚醒していること、または自分の状態や周囲の状況を認識できていることを指す[. [リンクを出典アイコンにするUserCSSでリンクをクリックできない問題#6157eecc1280f00000574cdb]]",
+      "userId": "616ca537c25a92001e5f1e0d",
+      "created": 1633250690,
+      "updated": 1660185764
+    },
+    {
+      "id": "61596d821280f000009d9b6d",
+      "text": "  \tクオリアとは、我々の意識にのぼってくる感覚意識やそれにともなう経験のことを指す[. https://bsd.neuroinf.jp/wiki/%E3%82%AF%E3%82%AA%E3%83%AA%E3%82%A2]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250690,
+      "updated": 1633250690
+    },
+    {
+      "id": "6157ef531280f00000574ce3",
+      "text": "",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152852,
+      "updated": 1633152852
+    },
+    {
+      "id": "6157ea301280f00000ad8799",
+      "text": "特徴",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151537,
+      "updated": 1633152923
+    },
+    {
+      "id": "6157ea311280f00000ad879a",
+      "text": " リンクを短く表示できる",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151538,
+      "updated": 1633151545
+    },
+    {
+      "id": "6157ea381280f00000ad879b",
+      "text": " 　廉価版[リンクのエイリアス表記]として使える",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151545,
+      "updated": 1633151587
+    },
+    {
+      "id": "6157eee01280f00000574cdc",
+      "text": " (内部リンクの場合)双方向リンクとして使える",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152737,
+      "updated": 1638707173
+    },
+    {
+      "id": "6157f799e5172d0000399de6",
+      "text": "  [アイコン記法で出典を参照]する方法ではリンクできなかった",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154970,
+      "updated": 1633154992
+    },
+    {
+      "id": "6157f7a1e5172d0000399de7",
+      "text": "  とてもいい[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154977,
+      "updated": 1633154981
+    },
+    {
+      "id": "61ec1e40e5172d0000b2054c",
+      "text": "  [アイコン記法を片方向リンクとして使]えるのがメリットなこともあるなあと思う[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1642864192,
+      "updated": 1642864241
+    },
+    {
+      "id": "61ec1e73e5172d0000b2054d",
+      "text": "  　1つの出典内に関係ない複数の話題が含まれる場合、それらがリンクされてしまう",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1642864243,
+      "updated": 1642864291
+    },
+    {
+      "id": "6157ede41280f00000574cd4",
+      "text": " ページに画像を置かなくてもすむ",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152485,
+      "updated": 1633152491
+    },
+    {
+      "id": "6157ea051280f00000ad8796",
+      "text": "  アイコン記法で書く場合[./ [アイコン記法で出典を参照]]も画像無しで使えるが、短く表示できないのでメリットがなくなる",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151494,
+      "updated": 1633168032
+    },
+    {
+      "id": "6157f39fe5172d0000399ddb",
+      "text": "  　↑の「[https://gyazo.com/63517e9c1611ddbf7af9d35e0ae6847c]」が「アイコン記法で書く場合」の出典を示すために使われていると気づくのにちょっと時間かかったw[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633153952,
+      "updated": 1633154157
+    },
+    {
+      "id": "6157f40ee5172d0000399ddd",
+      "text": "  　このページで提案している手法のことを指しているのかと思った",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154063,
+      "updated": 1633154097
+    },
+    {
+      "id": "61580ccf1280f0000097e638",
+      "text": "  　 括弧`()`で囲んでみた[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633160402,
+      "updated": 1633160412
+    },
+    {
+      "id": "61582b821280f00000d932be",
+      "text": "  　 18:50:59 自動で括弧がつくように変更してみた",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633168259,
+      "updated": 1633168278
+    },
+    {
+      "id": "6157f433e5172d0000399dde",
+      "text": "  　この手法自体について議論しているときにしか発生しない問題なのでまあいいか",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154099,
+      "updated": 1633154196
+    },
+    {
+      "id": "6157f4fde5172d0000399ddf",
+      "text": "  [example page that does not have an image.icon] みたいに、画像がないとアイコンが長くなる[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154302,
+      "updated": 1633154333
+    },
+    {
+      "id": "6157f588e5172d0000399de1",
+      "text": "  毎回画像を用意しなくていいのは便利[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154440,
+      "updated": 1633154451
+    },
+    {
+      "id": "6157f594e5172d0000399de2",
+      "text": "  　用意するとしてもabstractのスクショとかなのでぱっと見で意味がわからなかった",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154452,
+      "updated": 1633154483
+    },
+    {
+      "id": "6157f0081280f00000574cff",
+      "text": " [行リンク]の場合は、行IDの一部も表示する",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633153033,
+      "updated": 1633153052
+    },
+    {
+      "id": "6157f5dae5172d0000399de4",
+      "text": " 　[アイコン記法で出典を参照]する方法では行リンクはできなかった",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154522,
+      "updated": 1633154557
+    },
+    {
+      "id": "6157f17b1280f0000093858f",
+      "text": " 別の[文字装飾記法]と併用すれば、複数のアイコンを使い分けることもできる",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633153403,
+      "updated": 1633153444
+    },
+    {
+      "id": "6157f7d5e5172d0000399de8",
+      "text": " UserCSSなのでsettingsに書いておけばprojectに参加していない人にも適用される",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633155030,
+      "updated": 1633155061
+    },
+    {
+      "id": "6157f2441280f000001a25be",
+      "text": " できないこと",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633153604,
+      "updated": 1633153607
+    },
+    {
+      "id": "6157f2471280f000001a25bf",
+      "text": "  内部リンク記法の2 hop linkを無効にしつつ、同じタブで開けるようにする",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633153607,
+      "updated": 1633153645
+    },
+    {
+      "id": "6157f26c1280f000001a25c0",
+      "text": "   この点は[アイコン記法で出典を参照]する方法のほうが強い",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633153645,
+      "updated": 1633153662
+    },
+    {
+      "id": "6157f54fe5172d0000399de0",
+      "text": "   出典を示したいけどリンクは作りたくないということはあまりない[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633154383,
+      "updated": 1633154419
+    },
+    {
+      "id": "6157f872e5172d0000399de9",
+      "text": "   参照が多いと出典のページで[大きすぎるリンクの問題]が発生することがある",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633155186,
+      "updated": 1633155715
+    },
+    {
+      "id": "6157fa83e5172d0000399df1",
+      "text": "   　[/nishio/アイコンで書籍出典表示#60fd58e6aff09e00008846fb]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633155716,
+      "updated": 1633155731
+    },
+    {
+      "id": "6157ea821280f00000ad879d",
+      "text": "",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151619,
+      "updated": 1633152508
+    },
+    {
+      "id": "6157eb691280f00000ad87c8",
+      "text": "",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151850,
+      "updated": 1633151850
+    },
+    {
+      "id": "6157ee461280f00000574cd5",
+      "text": "改善アイデア",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152583,
+      "updated": 1633152590
+    },
+    {
+      "id": "6157ee4d1280f00000574cd6",
+      "text": " [/icons/done.icon]アイコンを[上付き文字]のように小さく表示する？",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152590,
+      "updated": 1633250918
+    },
+    {
+      "id": "6157fd69e5172d0000399df6",
+      "text": "  上付きでなくてもサイズをもっと小さくするのは良いかも[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633156458,
+      "updated": 1633156475
+    },
+    {
+      "id": "61596e681280f000009d9b6e",
+      "text": "  2021-10-03 17:48:45 できた",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250920,
+      "updated": 1633250926
+    },
+    {
+      "id": "6159b8c8e5172d0000f17a30",
+      "text": "  [/Icons2/すばら.icon][yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633269961,
+      "updated": 1633269961
+    },
+    {
+      "id": "6159b8cae5172d0000f17a31",
+      "text": "  小さく表示するならカッコはいらないかもと思うんですが、どうでしょうか？[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633269962,
+      "updated": 1633269997
+    },
+    {
+      "id": "6159b8fbe5172d0000f17a32",
+      "text": "  　補足情報なんだな、というのは小さいことで伝わる",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633270011,
+      "updated": 1633270048
+    },
+    {
+      "id": "615a4fca1280f00000d105c0",
+      "text": "  　 [/icons/たしかに.icon][takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633308618,
+      "updated": 1633308621
+    },
+    {
+      "id": "6159ebeee5172d0000a14cc0",
+      "text": "  　でも代わりに左右に余白をいれないと狭い感じかも",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633283054,
+      "updated": 1633309195
+    },
+    {
+      "id": "6159ef6ee5172d0000e67da1",
+      "text": "  　 `padding: 0 2px;`くらい？",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633283950,
+      "updated": 1633284014
+    },
+    {
+      "id": "615a520c1280f000004687f4",
+      "text": "  　  paddingは指定しなくても良さそう[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633309195,
+      "updated": 1633309209
+    },
+    {
+      "id": "615a52261280f000004687f5",
+      "text": "  　  　それなりに隙間が開いている",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633309221,
+      "updated": 1633309229
+    },
+    {
+      "id": "6159f379e5172d0000b46a37",
+      "text": "  　 `font-size: .8em;`なら`padding: 0 1px;`で良い気がしてきた（わからん）",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633284985,
+      "updated": 1633285171
+    },
+    {
+      "id": "6159ef88e5172d0000e67da2",
+      "text": "  小さすぎるとクリックしづらいことに気づいた[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633283977,
+      "updated": 1633284076
+    },
+    {
+      "id": "6159ef9ce5172d0000e67da3",
+      "text": "  　`font-size: .8em;`くらいがいいかも？",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633283996,
+      "updated": 1633284021
+    },
+    {
+      "id": "615a52051280f000004687f2",
+      "text": "  　2021-10-04 09:59:51 してみた[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633309188,
+      "updated": 1633309191
+    },
+    {
+      "id": "615acde0e5172d0000efdf6e",
+      "text": "  上付き文字にすると、ホバーした時に文字が上下にずれる",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633340897,
+      "updated": 1633340911
+    },
+    {
+      "id": "615acdf0e5172d0000efdf6f",
+      "text": "  　小さく表示するなら上付き文字にしなくてもいいかも[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633340912,
+      "updated": 1633340939
+    },
+    {
+      "id": "615ace0ce5172d0000efdf70",
+      "text": "  　　[リンクを出典アイコンにするUserCSS#6159b8fbe5172d0000f17a32]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633340940,
+      "updated": 1633340948
+    },
+    {
+      "id": "615b9c581280f00000cc8c35",
+      "text": "  　[カーソル行]になる(`.cursor-line`)という意味でしょうか[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633393753,
+      "updated": 1633393777
+    },
+    {
+      "id": "615b9c711280f00000cc8c36",
+      "text": "  　 `:not(.cursor-line)`を外してみた。どうだろう？",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633393777,
+      "updated": 1633394056
+    },
+    {
+      "id": "615be2dfe5172d00005f12a3",
+      "text": "  　 これはテスト[. [test]]です",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633411807,
+      "updated": 1633411876
+    },
+    {
+      "id": "615be32be5172d00005f12a4",
+      "text": "  　 ずれなくなった[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633411883,
+      "updated": 1633411888
+    },
+    {
+      "id": "615be3341280f00000367ceb",
+      "text": "  　 [/icons/よかった.icon][takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633411892,
+      "updated": 1633411900
+    },
+    {
+      "id": "615be340e5172d00005f12a5",
+      "text": "  　 文字が常時若干下にずれるのは仕方ないか[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633411904,
+      "updated": 1633411930
+    },
+    {
+      "id": "615be3621280f00000367cec",
+      "text": "  　  それは[****** 太字記法]と同じ問題だし仕方ない[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633411938,
+      "updated": 1633411953
+    },
+    {
+      "id": "615be377e5172d00005f12a6",
+      "text": "  　  　なるほどです[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633411959,
+      "updated": 1633411962
+    },
+    {
+      "id": "615be39b1280f00000367ced",
+      "text": "  　  　`vertical-align`の値[. [リンクを出典アイコンにするUserCSS#61596bd91280f00000737957] ]を微調節すればもう少しずれを小さくできるかも",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633411996,
+      "updated": 1633412026
+    },
+    {
+      "id": "615be3f0e5172d00005f12a8",
+      "text": "  　  　 自プロジェクトでは[vertical-align]外してるけど、小さくすることもできるのか",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633412080,
+      "updated": 1633417847
+    },
+    {
+      "id": "615bfa431280f00000dd32b0",
+      "text": "  　  　  大きさを小さくするのではなく、文字の位置を上下できる",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633417795,
+      "updated": 1633417873
+    },
+    {
+      "id": "61a34ed61280f00000fedb1d",
+      "text": "    　2021-11-28 18:39:19 ずれなくした[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "61a34ed61280f00000fedb1e",
+      "text": "     　from [笑い声]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "61a34ed61280f00000fedb1f",
+      "text": "      　[リンクを出典アイコンにするUserCSS]をアイコン記法と一緒に使うとアイコンも上付きになってしまうのか[yosider.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "61a34ed61280f00000fedb20",
+      "text": "      　なんでだろう？[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "61a34ed61280f00000fedb21",
+      "text": "      　 [vertical-align]の仕様っぽい？",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "61a34ed61280f00000fedb22",
+      "text": "      \t　 [https://gyazo.com/5c4e33e591bcbf77a915f4333d79db91]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "61a34ed61280f00000fedb23",
+      "text": "      \t　`vertical-align`ではなく`position: relative; top:-0.5em;`を使えば直りそう",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "61a34ed61280f00000fedb24",
+      "text": "      \t　直った",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "61a34ed61280f00000fedb25",
+      "text": "      \t　 [https://gyazo.com/eb98d2ae5a8facdbfb0cc1631b43abd0]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092503,
+      "updated": 1638092506
+    },
+    {
+      "id": "615be38ee5172d00005f12a7",
+      "text": "  　 [/icons/助かる.icon][yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633411982,
+      "updated": 1633412031
+    },
+    {
+      "id": "6157ee591280f00000574cd7",
+      "text": " [/icons/done.icon]外部リンク記法にも対応する？",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152602,
+      "updated": 1633250350
+    },
+    {
+      "id": "6157ee741280f00000574cd8",
+      "text": "  対応できないことはないし、対応したほうがより便利になるかもしれない",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152629,
+      "updated": 1633152652
+    },
+    {
+      "id": "6157ee8c1280f00000574cd9",
+      "text": "  ただ外部リンクは[参考文献ごとにページを作成]する方法でwrapしてほしい[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152652,
+      "updated": 1633152687
+    },
+    {
+      "id": "6157eb691280f00000ad87c9",
+      "text": "   そちらのほうがより便利だ",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151850,
+      "updated": 1633152699
+    },
+    {
+      "id": "6157fad4e5172d0000399df3",
+      "text": " 　 [参考文献ごとにページを作成]する方法にも欠点[. [参考文献ごとにページを作成#602a54ffe5172d0000a2e229] ]はあるので、対応していると便利かも[yosider.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633155796,
+      "updated": 1633417981
+    },
+    {
+      "id": "61596c151280f00000690915",
+      "text": " 　2021/10/3 対応しました",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250324,
+      "updated": 1633250331
+    },
+    {
+      "id": "6159b890e5172d0000f17a2f",
+      "text": " 　[/Icons2/すばら.icon][yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1633269904,
+      "updated": 1633269956
+    },
+    {
+      "id": "61fe3ef41280f000008faa45",
+      "text": " 特定のサイトへのリンクの場合は、そのサイトのfaviconを出す",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052212,
+      "updated": 1644052230
+    },
+    {
+      "id": "61fe3f051280f000008faa46",
+      "text": "  wikipediaならWマークにするとか",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052230,
+      "updated": 1644052240
+    },
+    {
+      "id": "61fe41381280f000008faa6b",
+      "text": "  ちょっと難しいかも？",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052792,
+      "updated": 1644052797
+    },
+    {
+      "id": "61fe413d1280f000008faa6c",
+      "text": "  　まあそのうちやってみるか",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052797,
+      "updated": 1644052808
+    },
+    {
+      "id": "61fe4f6a1280f0000042867b",
+      "text": "  2022-02-05 19:20:28 wikipediaに対応させてみた",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644056427,
+      "updated": 1644056433
+    },
+    {
+      "id": "6171cf3fe5172d0000b99741",
+      "text": " [リンクを出典アイコンにするUserCSSでリンクをクリックできない問題]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1634848576,
+      "updated": 1638620457
+    },
+    {
+      "id": "6171cf3fe5172d0000b99742",
+      "text": "　行リンクなどScrapboxのURLに対して使うとき、入力が少しだけ面倒[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1634848576,
+      "updated": 1634848858
+    },
+    {
+      "id": "6171cf61e5172d0000b99743",
+      "text": "　　`[`や`]`が前後にあるとURLをリンクに変換してくれない",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1634848609,
+      "updated": 1634848767
+    },
+    {
+      "id": "6171d063e5172d0000b99746",
+      "text": "　　一旦`]`を消す手間が入る",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1634848867,
+      "updated": 1634848871
+    },
+    {
+      "id": "6171cffee5172d0000b99744",
+      "text": "　　　`[`を入力（`]`も補完される）→`. `を入力→一旦`]`を消す→URL貼り付け→`]`を入力",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1634848767,
+      "updated": 1634848872
+    },
+    {
+      "id": "617218121280f00000aaf7c6",
+      "text": "　　あ、それは`[.<Space><Space><Left><C-V>`で解決できます[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1634867289,
+      "updated": 1634867360
+    },
+    {
+      "id": "617218321280f00000aaf7c7",
+      "text": "　　 `[. [URL] ]`という形にする",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1634867300,
+      "updated": 1634867300
+    },
+    {
+      "id": "617218581280f00000aaf7c9",
+      "text": "　　 これならURLを貼り付けてもちゃんとリンクに変換されます",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1634867300,
+      "updated": 1634867305
+    },
+    {
+      "id": "6172186e1280f00000aaf7ca",
+      "text": "　　 後ろにスペースが1つ入りますが、フォントサイズが小さいので気になりません",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1634867309,
+      "updated": 1634867345
+    },
+    {
+      "id": "617218411280f00000aaf7c8",
+      "text": "　　 うちのproject[. [/takker] ]でよく使っているので参考にしてみて下さい",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1634867300,
+      "updated": 1634873336
+    },
+    {
+      "id": "61727ed7e5172d0000eb9072",
+      "text": "　　 なるほど、その手があったか[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1634893527,
+      "updated": 1634893543
+    },
+    {
+      "id": "61722c964bb2e20000de834f",
+      "text": "　　 全然関係ないけどキー記法がVimmerの書き方だ[kuuote.icon]",
+      "userId": "5e8944948a182900174bb2e2",
+      "created": 1634872471,
+      "updated": 1634872490
+    },
+    {
+      "id": "61722fc81280f000003e4bbc",
+      "text": "　　  [Vim key notation]結構気に入ってる[takker.icon][kuuote.icon]",
+      "userId": "5e8944948a182900174bb2e2",
+      "created": 1634873288,
+      "updated": 1634909771
+    },
+    {
+      "id": "61722fd11280f000003e4bbd",
+      "text": "　　  けどVimmer以外に伝わるのだろうか？",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1634873297,
+      "updated": 1634873308
+    },
+    {
+      "id": "6157ef221280f00000574cde",
+      "text": "",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152803,
+      "updated": 1633152803
+    },
+    {
+      "id": "6157ef221280f00000574cdf",
+      "text": "[ScrapBubble]でも読めた[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152803,
+      "updated": 1633152825
+    },
+    {
+      "id": "6157ef381280f00000574ce0",
+      "text": " [https://gyazo.com/99d03dccea6beaee733f8077df2dd04a]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152825,
+      "updated": 1633152826
+    },
+    {
+      "id": "6157ef391280f00000574ce1",
+      "text": " 嬉しい副作用",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152826,
+      "updated": 1633152830
+    },
+    {
+      "id": "6157eeb01280f00000574cda",
+      "text": "",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152689,
+      "updated": 1633152689
+    },
+    {
+      "id": "615973661280f00000b5191b",
+      "text": "code",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633252198,
+      "updated": 1633252199
+    },
+    {
+      "id": "615973731280f00000b51920",
+      "text": " [/scrasobox/チェックボックスになるタグ 2]をベースに作った",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633252211,
+      "updated": 1633252211
+    },
+    {
+      "id": "6157ea861280f00000ad87a0",
+      "text": " [文字装飾記法]として`.`を使っている",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151623,
+      "updated": 1633252201
+    },
+    {
+      "id": "6157ea951280f00000ad87a1",
+      "text": " 　差し替え可能",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151637,
+      "updated": 1633252201
+    },
+    {
+      "id": "6157eb0d1280f00000ad87c5",
+      "text": " `./`でアイコンを別のものにできる",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151758,
+      "updated": 1633252217
+    },
+    {
+      "id": "61596b1c1280f000007378f0",
+      "text": " 全体設定",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250076,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596b221280f000007378f1",
+      "text": "  code:style.css",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250082,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596b2a1280f00000737907",
+      "text": "   .line .deco-\\. {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250090,
+      "updated": 1633411919
+    },
+    {
+      "id": "6159ef60e5172d0000e67da0",
+      "text": "     font-size: .8em;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633283937,
+      "updated": 1644052325
+    },
+    {
+      "id": "61a34e5e1280f000008b393a",
+      "text": "     position: relative;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092383,
+      "updated": 1638092391
+    },
+    {
+      "id": "61a34e661280f000008b393b",
+      "text": "     top: -0.5em;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092391,
+      "updated": 1638092397
+    },
+    {
+      "id": "61596b2a1280f00000737909",
+      "text": "   }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250090,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596b461280f0000073793b",
+      "text": " (optional)`()`で囲む",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250118,
+      "updated": 1633309146
+    },
+    {
+      "id": "61596b3d1280f0000073793a",
+      "text": "  code:style.css.disabled(css)",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250109,
+      "updated": 1633309152
+    },
+    {
+      "id": "61596b3b1280f00000737934",
+      "text": "   .line:not(.cursor-line) .deco-\\.::before {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250106,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596b3b1280f00000737935",
+      "text": "     content: \"(\";",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250106,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596b3b1280f00000737936",
+      "text": "   }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250106,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596b3b1280f00000737937",
+      "text": "   .line:not(.cursor-line) .deco-\\.::after {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250106,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596b3b1280f00000737938",
+      "text": "     content: \")\";",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250106,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596b3b1280f00000737939",
+      "text": "   }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250106,
+      "updated": 1633252204
+    },
+    {
+      "id": "61580c371280f0000097e62f",
+      "text": " `[. ]`内のリンクを消す",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633160250,
+      "updated": 1633252204
+    },
+    {
+      "id": "61580c4c1280f0000097e630",
+      "text": "  [text-indent]ではるか地平線の彼方にふっとばすことで、実質的に非表示にしている",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633160272,
+      "updated": 1633252204
+    },
+    {
+      "id": "61fe4a481280f000006d5e90",
+      "text": "  2022-02-05 18:58:39 [リンクを出典アイコンにするUserCSS: リンクの最初の3文字を表示するバージョン]をあてる",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055112,
+      "updated": 1644055124
+    },
+    {
+      "id": "61fe4a9b1280f00000a67cbd",
+      "text": "   code:差分.diff",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055195,
+      "updated": 1644055205
+    },
+    {
+      "id": "61fe4aa51280f00000a67cbf",
+      "text": "    + .line:not(.cursor-line) .deco-\\. a:is(.page-link:not(.icon), .link) span:not(.empty-char-index) + span + span ~ span {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055205,
+      "updated": 1644055213
+    },
+    {
+      "id": "61fe4aad1280f00000a67cc0",
+      "text": "    - .line:not(.cursor-line) .deco-\\. a:is(.page-link:not(.icon), .link) span {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055213,
+      "updated": 1644055219
+    },
+    {
+      "id": "6157ea821280f00000ad879f",
+      "text": "  code:style.css",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151619,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596afb1280f000007378d3",
+      "text": "   .line:not(.cursor-line) .deco-\\. a:is(.page-link:not(.icon), .link) span:not(.empty-char-index) + span + span ~ span {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250043,
+      "updated": 1644055138
+    },
+    {
+      "id": "61596afb1280f000007378d4",
+      "text": "     display: inline-block;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250043,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596afb1280f000007378d5",
+      "text": "     width: 0;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250043,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596afb1280f000007378d6",
+      "text": "     text-indent: -9999px;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250043,
+      "updated": 1633252204
+    },
+    {
+      "id": "61596afb1280f000007378d7",
+      "text": "   }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250043,
+      "updated": 1633252204
+    },
+    {
+      "id": "61ab53d7e5172d0000161ff9",
+      "text": "  `display: none`とは何が違う？[yosider.icon][takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638618072,
+      "updated": 1638707337
+    },
+    {
+      "id": "61bb72cd66687200007cedf8",
+      "text": "   `display:none`はその要素の存在を描画から抹消します[yuki_minoh.icon]",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639674574,
+      "updated": 1639674696
+    },
+    {
+      "id": "61bb72f166687200007cedf9",
+      "text": "   　ユーザーは一切のインタラクションができなくなり、描画ボックスもないものとして扱われます",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639674609,
+      "updated": 1639674711
+    },
+    {
+      "id": "61bb733166687200007cedfb",
+      "text": "   　　JavaScriptを使えばアクセスできますが、ユーザーはクリックや選択などの一切の関与ができなくなります",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639674674,
+      "updated": 1639674976
+    },
+    {
+      "id": "61bb73c066687200007cedff",
+      "text": "   　　DOMからは抹消されませんが、描画からは抹消される、ということです",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639674817,
+      "updated": 1639674988
+    },
+    {
+      "id": "61bb737866687200007cedfc",
+      "text": "   　このルールは、この記法の効果がかかったテキストを子供に持つ要素を指定しています",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639674745,
+      "updated": 1639675298
+    },
+    {
+      "id": "61bb732866687200007cedfa",
+      "text": "   　Scrapboxには、たとえば文字選択など、テキストとユーザーのインタラクションを仮定した機能があります",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639674664,
+      "updated": 1639675167
+    },
+    {
+      "id": "61bb73e066687200007cee00",
+      "text": "   　　その描画ボックスを抹消してしまうと例えばテキストを選択したときなどにイベントが発生せず困るということです",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639674849,
+      "updated": 1639674938
+    },
+    {
+      "id": "61bb740666687200007cee01",
+      "text": "   　代わりにtext-indentであれば、描画ボックスを残しつつ、本来の表示を隠すことも可能です",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639674887,
+      "updated": 1639675098
+    },
+    {
+      "id": "61bb752966687200007cee02",
+      "text": "   　　今回は、幅ゼロの描画ボックスを「描画」しています",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639675178,
+      "updated": 1639675199
+    },
+    {
+      "id": "61bc4c0fe5172d0000f01b9a",
+      "text": "   試しに[/scrasobox/チェックボックスになるタグ 2]の該当部分を`display: none`に変えて実行してみたが、違いがわからなかった…[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1639730192,
+      "updated": 1639730228
+    },
+    {
+      "id": "61bd5a2b666872000004ac84",
+      "text": "   　まぁ`:not(.cursor-line)`で、カーソルを合わせると効果がなくなるように設定されているので、違いはなかなかわかりにくいだろうなぁと思いますｗ[yuki_minoh.icon]",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639799339,
+      "updated": 1639799390
+    },
+    {
+      "id": "61bd7311e5172d000068bb67",
+      "text": "   　 なるほど[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1639805713,
+      "updated": 1639805717
+    },
+    {
+      "id": "61bd5a56666872000004ac85",
+      "text": "   　　カーソルを合わせると効果がなくなるように指定するのも、`diplay:none`を使わないのも、設定者の安全策（ユーザーへの配慮）といえると思います",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639799382,
+      "updated": 1639799567
+    },
+    {
+      "id": "61bd5b1c666872000004ac87",
+      "text": "   　　理解するための極端な例がほしいなら、`width:100px;`とか指定してみれば、インデントと抹消の違いが一目瞭然です",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639799580,
+      "updated": 1639799849
+    },
+    {
+      "id": "61bd73e2e5172d000068bb68",
+      "text": "   結局このUserCSSでは機能的な違いはない？",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1639805923,
+      "updated": 1639805948
+    },
+    {
+      "id": "61bdaf806668720000a2c13b",
+      "text": "    ですね[yuki_minoh.icon]",
+      "userId": "5ee7f26f1c0c850025666872",
+      "created": 1639821186,
+      "updated": 1639821202
+    },
+    {
+      "id": "61580c741280f0000097e633",
+      "text": " 行リンクのIDは表示されるよう、↑の効果を打ち消しておく",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633160312,
+      "updated": 1633252204
+    },
+    {
+      "id": "61fe4af11280f00000a67cd1",
+      "text": "  2022-02-05 19:01:22 [リンクを出典アイコンにするUserCSS: リンクの最初の3文字を表示するバージョン]をあてた",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055281,
+      "updated": 1644055327
+    },
+    {
+      "id": "61fe4af31280f00000a67cd2",
+      "text": "   code:差分2.diff",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055283,
+      "updated": 1644055290
+    },
+    {
+      "id": "61fe4b071280f00000a67cd4",
+      "text": "    + .line:not(.cursor-line) .deco-\\. .page-link:not(.icon) span.empty-char-index ~ span.char-index {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055304,
+      "updated": 1644055305
+    },
+    {
+      "id": "61fe4afc1280f00000a67cd3",
+      "text": "    - .line:not(.cursor-line) .deco-\\. a.page-link:not(.icon) span.empty-char-index ~ span {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055292,
+      "updated": 1644055298
+    },
+    {
+      "id": "61580c691280f0000097e632",
+      "text": "  code:style.css",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633160301,
+      "updated": 1633252204
+    },
+    {
+      "id": "6157eaf41280f00000ad87aa",
+      "text": "   .line:not(.cursor-line) .deco-\\. .page-link:not(.icon) span.empty-char-index ~ span.char-index {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151733,
+      "updated": 1644055309
+    },
+    {
+      "id": "6157eaf41280f00000ad87ab",
+      "text": "     display: inherit;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151733,
+      "updated": 1633252204
+    },
+    {
+      "id": "6157eaf41280f00000ad87ac",
+      "text": "     width: inherit;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151733,
+      "updated": 1633252204
+    },
+    {
+      "id": "6157eaf41280f00000ad87ad",
+      "text": "     text-indent: inherit;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151733,
+      "updated": 1633252204
+    },
+    {
+      "id": "6157eaf41280f00000ad87ae",
+      "text": "   }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633151733,
+      "updated": 1633252204
+    },
+    {
+      "id": "61fe4b2b1280f00000a67cd6",
+      "text": "   ",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055339,
+      "updated": 1644055339
+    },
+    {
+      "id": "61fe4ada1280f00000a67ccb",
+      "text": "  行idの直前に`#`をつける",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055258,
+      "updated": 1644055333
+    },
+    {
+      "id": "61fe4ade1280f00000a67ccc",
+      "text": "   code:style.css",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055263,
+      "updated": 1644055330
+    },
+    {
+      "id": "61fe4ae61280f00000a67cce",
+      "text": "    .line:not(.cursor-line) .deco-\\. a.page-link:not(.icon) span.empty-char-index + span::before {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055270,
+      "updated": 1644055330
+    },
+    {
+      "id": "61fe4ae61280f00000a67ccf",
+      "text": "      content: \"#\";",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055270,
+      "updated": 1644055330
+    },
+    {
+      "id": "61fe4ae61280f00000a67cd0",
+      "text": "    }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055270,
+      "updated": 1644055330
+    },
+    {
+      "id": "61fe4b2a1280f00000a67cd5",
+      "text": "    ",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644055338,
+      "updated": 1644055338
+    },
+    {
+      "id": "61fe40391280f000008faa52",
+      "text": " 上2つのブロック(~ [リンクを出典アイコンにするUserCSS#6157eaf41280f00000ad87ae])は何をやってるんでしょうか？[yosider.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052537,
+      "updated": 1644052545
+    },
+    {
+      "id": "61fe403b1280f000008faa53",
+      "text": "  解説書いてみました[takker.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052540,
+      "updated": 1644052545
+    },
+    {
+      "id": "61fe403b1280f000008faa54",
+      "text": "  　感謝です！[yosider.icon]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052540,
+      "updated": 1644052545
+    },
+    {
+      "id": "61fe403b1280f000008faa55",
+      "text": "  　すごい発想で草",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052540,
+      "updated": 1644052545
+    },
+    {
+      "id": "61fe403b1280f000008faa56",
+      "text": "  　 [/scrasobox/madobe.icon]さんはどこでこのテクニックを知ったのだろうか",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052540,
+      "updated": 1644052545
+    },
+    {
+      "id": "61580c901280f0000097e635",
+      "text": " アイコンを設定する",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633160341,
+      "updated": 1633252204
+    },
+    {
+      "id": "61fe3fdb1280f000008faa47",
+      "text": "  既定の設定",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052443,
+      "updated": 1644052452
+    },
+    {
+      "id": "61580c881280f0000097e634",
+      "text": "   code:style.css",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633160332,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f00000737945",
+      "text": "    .line .deco-\\. :is(.page-link:not(.icon), .link)::before {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f00000737946",
+      "text": "      display: inline-block;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f00000737947",
+      "text": "      min-width: 1.15em;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f00000737948",
+      "text": "      padding-left: 1px;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "6159ef44e5172d0000e67d9f",
+      "text": "      /* padding: 0 1px; */",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633283909,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f00000737949",
+      "text": "      font-family: \"Font Awesome 5 Free\",\"Font Awesome 5 Brands\";",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644727365
+    },
+    {
+      "id": "61596bb01280f0000073794a",
+      "text": "      text-align: center;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f0000073794b",
+      "text": "      vertical-align: middle;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f0000073794c",
+      "text": "      font-weight: 900;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f0000073794d",
+      "text": "      content: \"\\f02d\";",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "61596bb01280f0000073794e",
+      "text": "    }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052552
+    },
+    {
+      "id": "61fe3fe51280f000008faa48",
+      "text": "    ",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052454,
+      "updated": 1644052555
+    },
+    {
+      "id": "61fe402a1280f000008faa4d",
+      "text": "  カスタム設定",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052522,
+      "updated": 1644052554
+    },
+    {
+      "id": "61fe40061280f000008faa4b",
+      "text": "   `/`を入れるとノートみたいなアイコンになる",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052486,
+      "updated": 1644052554
+    },
+    {
+      "id": "61fe40121280f000008faa4c",
+      "text": "    カスタム設定の例として入れただけ",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052498,
+      "updated": 1644052554
+    },
+    {
+      "id": "61fe3ffd1280f000008faa49",
+      "text": "    code:style.css",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052477,
+      "updated": 1644052559
+    },
+    {
+      "id": "61596bb01280f0000073794f",
+      "text": "     /* 斜体を取り消す */",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052559
+    },
+    {
+      "id": "61596bb01280f00000737950",
+      "text": "     .line .deco-\\..deco-\\/ {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052559
+    },
+    {
+      "id": "61596bb01280f00000737951",
+      "text": "       font-style: initial;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052559
+    },
+    {
+      "id": "61596bb01280f00000737952",
+      "text": "     }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052559
+    },
+    {
+      "id": "61596bb01280f00000737953",
+      "text": "     .line .deco-\\..deco-\\/ :is(.page-link:not(.icon), .link)::before {",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052559
+    },
+    {
+      "id": "61596bb01280f00000737954",
+      "text": "       font-weight: 400;",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052559
+    },
+    {
+      "id": "61596bb01280f00000737955",
+      "text": "       content: \"\\f15c\";",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052559
+    },
+    {
+      "id": "61596bb01280f00000737956",
+      "text": "     }",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633250223,
+      "updated": 1644052559
+    },
+    {
+      "id": "61fe40511280f000008faa57",
+      "text": "   特定のリンクへのアイコンを変える",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644052561,
+      "updated": 1644052578
+    },
+    {
+      "id": "61ffa15f1280f0000026a397",
+      "text": "    ([特定のリンクにアイコンをつけるUserCSS]に統合しました)",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1644142945,
+      "updated": 1644142958
+    },
+    {
+      "id": "61fec35ae5172d0000b11a39",
+      "text": "　なんか複雑な感じになってきた[yosider.icon]",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1644086107,
+      "updated": 1644086237
+    },
+    {
+      "id": "61fec362e5172d0000b11a3a",
+      "text": "　　「リンクを出典アイコンにするUserCSS: リンクの最初の3文字を表示+特定サイトではfaviconを出す」みたいなページを作って新しく書くのもありかも",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1644086115,
+      "updated": 1644086187
+    },
+    {
+      "id": "61fec3abe5172d0000b11a3b",
+      "text": "　　gitで管理したほうがいいか",
+      "userId": "5c30ba88e98efe0017e5172d",
+      "created": 1644086187,
+      "updated": 1644086219
+    },
+    {
+      "id": "61b6ec92774b170000d7c4ef",
+      "text": "  読もうとしたけど複雑で挫折してしまったw[基素.icon]",
+      "userId": "59fb21121207900012774b17",
+      "created": 1639378066,
+      "updated": 1649498843
+    },
+    {
+      "id": "62515ad4774b170000b923ee",
+      "text": " 　　昔の情報は別ページに切り出した方が読みやすそう",
+      "userId": "59fb21121207900012774b17",
+      "created": 1649498837,
+      "updated": 1649498896
+    },
+    {
+      "id": "62515b06774b170000b923f0",
+      "text": "",
+      "userId": "59fb21121207900012774b17",
+      "created": 1649498886,
+      "updated": 1649498886
+    },
+    {
+      "id": "6157ec081280f00000ad87f2",
+      "text": "出典リスト",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152009,
+      "updated": 1633152011
+    },
+    {
+      "id": "6157eecc1280f00000574cdb",
+      "text": " [https://ja.wikipedia.org/wiki/%E6%84%8F%E8%AD%98 意識 - Wikipedia]",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1633152717,
+      "updated": 1633152718
+    },
+    {
+      "id": "61a34e101280f000008b3928",
+      "text": "",
+      "userId": "5ef2bdebb60650001e1280f0",
+      "created": 1638092307,
+      "updated": 1638092329
+    }
+  ],
+  "links": [
+    "リンク記法",
+    "出典",
+    "Scrapboxで出典を示",
+    "リンクを出典アイコンにするUserCSSでリンクをクリックできない問題",
+    "リンクのエイリアス表記",
+    "アイコン記法で出典を参照",
+    "アイコン記法を片方向リンクとして使",
+    "行リンク",
+    "文字装飾記法",
+    "大きすぎるリンクの問題",
+    "上付き文字",
+    "リンクを出典アイコンにするUserCSS",
+    "カーソル行",
+    "test",
+    "vertical-align",
+    "笑い声",
+    "参考文献ごとにページを作成",
+    "Vim key notation",
+    "ScrapBubble",
+    "text-indent",
+    "リンクを出典アイコンにするUserCSS: リンクの最初の3文字を表示するバージョン",
+    "特定のリンクにアイコンをつけるUserCSS"
+  ],
+  "projectLinks": [
+    "/takker/リンクを出典アイコンにするUserCSS",
+    "/nishio/アイコンで書籍出典表示",
+    "/scrasobox/チェックボックスになるタグ 2"
+  ],
+  "icons": [
+    "yosider",
+    "takker",
+    "example page that does not have an image",
+    "kuuote",
+    "yuki_minoh",
+    "基素"
+  ],
+  "files": [],
+  "relatedPages": {
+    "links1hop": [
+      {
+        "id": "5f39ec039a4e3d001e8529da",
+        "title": "Settings",
+        "titleLc": "settings",
+        "image": "https://img.icons8.com/material-outlined/384/000000/settings.png",
+        "descriptions": [
+          "[https://img.icons8.com/material-outlined/384/000000/settings.png]",
+          "表示テスト → [記法サンプル]",
+          "なんとなく追加",
+          "2022-03-15 12:02:22 performanceの問題がありそうなので外した",
+          "特に違いがなさそうなら戻すつもり"
+        ],
+        "linksLc": [
+          "記法サンプル",
+          "ボトルネック",
+          "navbarが画面幅いっぱいに表示されるようになったのを元に戻すusercss",
+          "scrapboxのbrand_iconを井戸端にするusercss",
+          "このprojectの_faviconをくるくる回すusercss",
+          "brand-iconをふりかけにするusercss",
+          "scrapboxのトップページへのリンクをnav_barに固定するusercss",
+          "プロジェクトタイトルの隣に今日の日付を表示するusercss",
+          "ページカードのタイトルを2行に収めるusercss",
+          "背景を七宝文様にするusercss",
+          "旭日旗のusercss",
+          "動画の大きさを調節するusercss",
+          "のびのびドロップダウン",
+          "展開された正規表現を検索候補上でも小さくするusercss",
+          "展開された正規表現を関連リンクに表示しないusercss",
+          "数式行にも常にバレットを表示するusercss",
+          "font_awesomeを常時使えるようにするusercss",
+          "箇条書きのバレットをfontawesomeにするusercss",
+          "インデントが深すぎると色が変わる箇条書きのバレット",
+          "外部リンクを区別するusercss",
+          "特定のリンクにアイコンをつけるusercss",
+          "特定のリンクにアイコンをつけるusercssを自動生成したい",
+          "マーカー記法",
+          "インライン引用記法",
+          "スプレッドシート的に使う記法",
+          "愚痴記法",
+          "中央揃え記法",
+          "リンクを出典アイコンにするusercss",
+          "ふきだし記法",
+          "画像を並べて表示する記法",
+          "ルビ記法",
+          "ユーザーフラッグ記法",
+          "動くユーザフラッグ記法",
+          "曇りガラス記法",
+          "白黒記法",
+          "はんこ記法",
+          "行内で小さくするusercss",
+          "アイコン記法を画像記法っぽくするusercss",
+          "iconを回転する記法",
+          "iconを振動させる記法",
+          "icon回転振動合体記法",
+          "iconを丸くする記法",
+          "ピン留めされたページを独立した段に表示するusercss",
+          "aiのべりすと創作：イドバタニシ",
+          "ドカベン記法",
+          "streamにアクセスするボタンを表示するcss",
+          "ページの閲覧数を非表示にするusercss",
+          "別名登録記法",
+          "just_monika",
+          "クオリアさんが見ているusercss",
+          "インデントが深くなったときにクオリアさんが警告するcss",
+          "井戸端クリスマスモードusercss",
+          "お正月用に門松を表示するusercss",
+          "神スクボ",
+          "区切り線をいれるusercss",
+          "横幅いっぱいにカードを並べる",
+          "特定の行でだけ使える文字装飾記法",
+          "streamから特定のページの更新を除外する",
+          "ネタバレ防止記法",
+          "文字を隠す記法、多くないですか？",
+          "自分のアイコンに飾りをつけるusercss",
+          "streamで文字選択を可能にするusercss",
+          "streamボタンに動きを加えるusercss",
+          "settingsが重すぎる",
+          "全角スペース",
+          "google_font",
+          "mobile_edit_menu",
+          ".expandable-menu",
+          "settings",
+          "settings_を変更したときにテストする項目を並べたページ"
+        ],
+        "linked": 77,
+        "created": 1597631493,
+        "updated": 1691857805,
+        "accessed": 1692176424
+      },
+      {
+        "id": "6093d2a8e1a5ff001d9b5359",
+        "title": "2021/10/02",
+        "titleLc": "2021/10/02",
+        "image": "https://i.ytimg.com/vi/g8XEjO0RaCo/mqdefault.jpg",
+        "descriptions": [
+          "[2021/10/01]←2021/10/02→[2021/10/03]",
+          "[yosider.icon]",
+          "最近ぼちぼち[競技プログラミング]をやっている",
+          "[動的計画法]むずかしい",
+          "ちょうどその辺で投げ出した思い出。。。[sta.icon]"
+        ],
+        "linksLc": [
+          "2021/10/01",
+          "2021/10/03",
+          "競技プログラミング",
+          "動的計画法",
+          "opengl",
+          "webgl界隈",
+          "scrapboxで出典を示",
+          "リンクを出典アイコンにするusercss",
+          "perltidy",
+          "perl",
+          "perl::languageserver",
+          "3d_cad"
+        ],
+        "linked": 3,
+        "created": 1620300456,
+        "updated": 1677242520,
+        "accessed": 1682356123
+      },
+      {
+        "id": "6157e74349524f001df9fb49",
+        "title": "出典の書き方が難しい",
+        "titleLc": "出典の書き方が難しい",
+        "image": null,
+        "descriptions": [
+          "(作業用の一時的なコピーです。編集し終えたら消します[takker.icon])",
+          "18:46:10 (疲れたので続きはまた明日)",
+          "(from [/AGI/出典の書き方が難しい])",
+          "[Scrapboxで出典を示]",
+          "今は[手動出典番号管理]している感じ（強制ではないけど）[yosider.icon]"
+        ],
+        "linksLc": [
+          "scrapboxで出典を示",
+          "手動出典番号管理",
+          "出典への外部リンクを毎回書",
+          "出典ページへのリンクをそのまま使",
+          "行リンクで出典リストに飛",
+          "リンクを出典アイコンにするusercss",
+          "アイコン記法で出典を参照",
+          "リンクを短く書く"
+        ],
+        "linked": 5,
+        "created": 1633150790,
+        "updated": 1633167981,
+        "accessed": 1690114844
+      },
+      {
+        "id": "61a538626029460021ae9b30",
+        "title": "The Best UserCSS of 2021",
+        "titleLc": "the_best_usercss_of_2021",
+        "image": null,
+        "descriptions": [
+          "table:ranking",
+          "[特定のページを非表示にするUserCSS][yuki_minoh.icon][erniogi.icon]",
+          "[/noratetsu/ CSS Grid-md][blu3mo.icon]",
+          "トップページのデザインをGrid/List/Viewに切り替えられるやつ",
+          "これほんとすごい[takker.icon]"
+        ],
+        "linksLc": [
+          "特定のページを非表示にするusercss",
+          "リンクを出典アイコンにするusercss",
+          "ユーザーフラッグ記法"
+        ],
+        "linked": 2,
+        "created": 1638217833,
+        "updated": 1638913894,
+        "accessed": 1691847551
+      },
+      {
+        "id": "61ab5d29d5c570001da695a4",
+        "title": "リンクを出典アイコンにするUserCSSでリンクをクリックできない問題",
+        "titleLc": "リンクを出典アイコンにするusercssでリンクをクリックできない問題",
+        "image": "https://gyazo.com/b509a64e4bef7055ff11831062c87459/raw",
+        "descriptions": [
+          "from [リンクを出典アイコンにするUserCSS]",
+          "環境によってはリンクが押せないみたい[takker.icon]",
+          "[https://gyazo.com/b509a64e4bef7055ff11831062c87459]",
+          "リンククリックより先に`.cursor-line`への変換が起きてしまう",
+          "これは困った"
+        ],
+        "linksLc": [
+          "リンクを出典アイコンにするusercss",
+          "リンクを出典アイコンにするusercss:_リンクの最初の3文字を表示するバージョン",
+          "特定のリンクにアイコンをつけるusercss",
+          "外部リンクを区別するusercss"
+        ],
+        "linked": 3,
+        "created": 1638620458,
+        "updated": 1685612332,
+        "accessed": 1689142798
+      },
+      {
+        "id": "61bb69f205f3f5001d4fc345",
+        "title": "リンクを出典アイコンにするUserCSS: リンクの最初の3文字を表示するバージョン",
+        "titleLc": "リンクを出典アイコンにするusercss:_リンクの最初の3文字を表示するバージョン",
+        "image": "https://gyazo.com/b724ffcb29be825a3832855414ab7559/raw",
+        "descriptions": [
+          "[リンクを出典アイコンにするUserCSS]の、aタグの文字列の最初の3文字を残しておくバージョン[yosider.icon]",
+          "[リンクを出典アイコンにするUserCSSでリンクをクリックできない問題]のworkaround",
+          "3文字の部分をクリックすればリンク先へ飛べる",
+          "[https://gyazo.com/b724ffcb29be825a3832855414ab7559]",
+          "`/* 上付きにする */`"
+        ],
+        "linksLc": [
+          "リンクを出典アイコンにするusercss",
+          "リンクを出典アイコンにするusercssでリンクをクリックできない問題"
+        ],
+        "linked": 2,
+        "created": 1639672306,
+        "updated": 1649499074,
+        "accessed": 1685794553
+      },
+      {
+        "id": "61dd268d1d99c4001de09576",
+        "title": "記法サンプル",
+        "titleLc": "記法サンプル",
+        "image": "https://i.gyazo.com/da78df293f9e83a74b5402411e2f2e01.png/raw",
+        "descriptions": [
+          "[Settings]で設定した[UserCSS]の表示テスト用ページ",
+          "[** でかい文字]",
+          "[* 1]",
+          "[** 2]",
+          "[*** 3]"
+        ],
+        "linksLc": [
+          "settings",
+          "usercss",
+          "ハッシュタグ",
+          "リンク",
+          "###存在しないリンク###",
+          "外部リンクを区別するusercss",
+          "特定のリンクにアイコンをつけるusercss",
+          "文芸的プログラミング",
+          "数式行にも常にバレットを表示するusercss",
+          "scrapboxの数式記法",
+          "空白記法",
+          "マーカー記法",
+          "インライン引用記法",
+          "ネタバレ防止記法",
+          "白黒記法",
+          "スプレッドシート的に使う記法",
+          "愚痴記法",
+          "中央揃え記法",
+          "リンクを出典アイコンにするusercss",
+          "ふきだし記法",
+          "画像を並べて表示する記法",
+          "ルビ記法",
+          "ユーザーフラッグ記法",
+          "曇りガラス記法",
+          "アイコン記法を画像記法っぽくするusercss",
+          "iconを回転する記法",
+          "iconを振動させる記法",
+          "iconを丸くする記法",
+          "行内で小さくするusercss",
+          "(提案)+のブラケット記法はサンドボックス的な用途のために残しておきたい",
+          "(使用されていない装飾記法の記号)​",
+          "(使用されていないかっこ記法の記号)​",
+          "(使用されていないブラケット記法の記号)​",
+          "(空いている装飾記法の記号)​",
+          "(空いているかっこ記法の記号)​",
+          "(空いているブラケット記法の記号)​",
+          "文字装飾記法",
+          "-_文字装飾記法内部のブラケットは、問答無用でリンクか埋め込み記法とみなさされる",
+          "hashtag",
+          "箇条書きのバレットをfontawesomeにするusercss",
+          "location記法",
+          "タイトル付きオーディオ",
+          "spotify",
+          "anchor",
+          "文字装飾記法で遊ぶページ"
+        ],
+        "linked": 12,
+        "created": 1641883282,
+        "updated": 1679724032,
+        "accessed": 1692175648
+      },
+      {
+        "id": "61ff9c6c0aca16001da67c8f",
+        "title": "特定のリンクにアイコンをつけるUserCSS",
+        "titleLc": "特定のリンクにアイコンをつけるusercss",
+        "image": null,
+        "descriptions": [
+          "URLに応じてアイコンを変えるUserCSS",
+          "[外部リンクを区別するUserCSS]と[リンクを出典アイコンにするUserCSS]の双方で用いる",
+          "重複する設定があるため、別のページにした",
+          "元ネタ：[/noratetsu/●特定のリンクにfaviconをつける]",
+          "共通設定"
+        ],
+        "linksLc": [
+          "外部リンクを区別するusercss",
+          "リンクを出典アイコンにするusercss",
+          "font_awesomeを常時使えるようにするusercss",
+          "::before",
+          "疑似要素",
+          "cssセレクタの優先順位"
+        ],
+        "linked": 10,
+        "created": 1644141681,
+        "updated": 1660373483,
+        "accessed": 1691069952
+      },
+      {
+        "id": "621b4f3a7a388600223797c5",
+        "title": "Scrapboxベストプラクティス2022原稿v1",
+        "titleLc": "scrapboxベストプラクティス2022原稿v1",
+        "image": "https://gyazo.com/cd5d3fc71329fa3270088971a5c80275/raw",
+        "descriptions": [
+          "[nishio.icon]ここの内容を[Scrapboxベストプラクティス2022原稿]に整理していっています",
+          "このページはアーカイブというわけではないのでコメントをつけたりしてもいいけども、既にかなりカオスだからどうかな、行リンクして別ページにする方が動きやすいかも。まあお好きなように",
+          "---",
+          "[/nishio/Scrapboxベストプラクティス]を書いたのが2017年の話",
+          "もう5年も経つし、viewed順でみると結構見られているものなので今の知識でリライトしたい[nishio.icon]"
+        ],
+        "linksLc": [
+          "scrapboxベストプラクティス2022原稿",
+          "メタ・ノート",
+          "ベストプラクティス",
+          "情報収集",
+          "知的生産",
+          "情報蓄積",
+          "scrapbox活用事例集",
+          "情報の再利用",
+          "発想支援",
+          "証拠保全",
+          "wiki",
+          "scrapbox代替比較",
+          "notion",
+          "アンチパターン",
+          "scrapbox-duplicator",
+          "完璧主義",
+          "何でもscrapboxを使うメリット",
+          "youtubeの限定公開機能を動画版gyazoとして使う",
+          "自明で広大なリンク",
+          "何でもかんでもリンク",
+          "大きなリンク",
+          "早すぎる抽象化",
+          "scrapboxベストプラクティス2022原稿v1",
+          "段階を踏む",
+          "濃くて小さいグループ",
+          "自分の心に従",
+          "obsidian",
+          "vault",
+          "project",
+          "無味乾燥な見出し",
+          "書くハードル",
+          "タイトルから中身を推測できな",
+          "リンク先へスクロールする機能",
+          "日記ページのtemplate",
+          "スクボタニシ",
+          "やりすぎはよくな",
+          "死んだテキストの倉庫",
+          "scrapboxの哲学",
+          "会話を蒸し返せる",
+          "メモの死蔵問題",
+          "「大きなリンク」ではなく別なラベルを使いたいな",
+          "ページはペット",
+          "かかる時間を最小化",
+          "evernote",
+          "google_docs",
+          "scrapbox",
+          "hey",
+          "アーカイブ",
+          "使える知識",
+          "使える",
+          "動線",
+          "容器のメタファー",
+          "リンクを張る",
+          "memex",
+          "連想の航跡",
+          "as_we_may_think",
+          "アトミックノート",
+          "言葉の解釈のずれを明確にできる",
+          "思考の結節点",
+          "ハブ",
+          "リンクのハブ",
+          "事後的にタイトルをつける",
+          "あえてタイトルのないページ",
+          "タイトルが内容の要約ではない",
+          "関係ありそうなものを近くに置く",
+          "ページの中身とタイトルとを合わせる",
+          "タスク管理のscrapbox",
+          "自分のプロジェクトの話は自分の話？",
+          "行リンクは切り出しの機会",
+          "@が半永久的に肥大化する問題",
+          "@sta",
+          "時系列で切り出",
+          "date_modified_with_(my_icon)",
+          "2022/02/27",
+          "日付ページ",
+          "個人プロジェクト",
+          "2人目に踊るバカになれ",
+          "掲示板から日記へ",
+          "掲示板",
+          "scrapbox.io/arpla",
+          "scrapbox.io/unnamedcamp",
+          "言語化コミュニティ『シナプス』",
+          "自動勉強会",
+          "scrapbox.io/masuilab",
+          "トップページ",
+          "特定のページを非表示にするusercss",
+          "kuuote",
+          "vim-jp",
+          "島のメタファー",
+          "物置としても優秀",
+          "引用",
+          "互いの考えや知識を全部並べてより良い結論に達する",
+          "整理する事は目的ではなく、新たな切り口を発見してさっさと行動に移しましょう",
+          "優先度は「形式はなんでもいいからとにかく書き出してリンク貼る」ほうが「箇条書きベースで情報を書くということ」より上",
+          "pageのrefactoring",
+          "脱階層",
+          "自分の言葉",
+          "アビリーンのパラドックス",
+          "接続詞",
+          "他人の文章でも編集して良い",
+          "単一責務原則",
+          "［脳味噌］が［scrapbox］になってきて",
+          "リンクを出典アイコンにするusercss"
+        ],
+        "linked": 11,
+        "created": 1645956927,
+        "updated": 1684788844,
+        "accessed": 1692145439
+      },
+      {
+        "id": "623b384e2f6c20001d1c75e1",
+        "title": "2022/03/24",
+        "titleLc": "2022/03/24",
+        "image": "https://gyazo.com/5cd3a49d4bef6ac1b11401cfb88d7ae5/raw",
+        "descriptions": [
+          "第13週: 日月火水[[木]]金土",
+          "2022年 22.74％経過",
+          "今日のn年前",
+          "[2021/03/24]",
+          "[kuuote.icon]"
+        ],
+        "linksLc": [
+          "2021/03/24",
+          "個人project",
+          "scrapbox-userscript-std",
+          "android版porter",
+          "2022/03/24",
+          "esp32-text-editor",
+          "episopassでconnect.sidを取得",
+          "写真",
+          "スライドショー",
+          "gyatv",
+          "google_maps",
+          "秘密ファイル",
+          "電通大",
+          "学長",
+          "麻雀のアガり判定",
+          "8000",
+          "山登り",
+          "おすすめ山登り",
+          "amazon_pay",
+          "デビットカード",
+          "feature_creep",
+          "忍び寄る機能主義",
+          "pin-diary-6",
+          "アロー関数",
+          "elements",
+          "パーセントエンコーディング",
+          "ffmpeg",
+          "走るkuuote",
+          "<marquee>",
+          "打ち消し線",
+          "リンクを出典アイコンにするusercss",
+          "モスバーガー",
+          "グリーンバーガー＜テリヤキ＞",
+          "ディスペンパック",
+          "nitdeck",
+          "spa",
+          "じぶんリリースノート",
+          "android_jetpack_compose",
+          "next.js",
+          "2022/03/23",
+          "2022/03/25"
+        ],
+        "linked": 5,
+        "created": 1648048207,
+        "updated": 1684837720,
+        "accessed": 1689602968
+      },
+      {
+        "id": "6394ea6b68cc66001edf07d8",
+        "title": "≡",
+        "titleLc": "≡",
+        "image": null,
+        "descriptions": [
+          "from [論理と集合から始める数学の基礎 読書会]",
+          "[数学記号]の一つ。2つ[用例]がある",
+          "[合同]",
+          "三角形ABCとCDFが[合同 (幾何学)]のとき、[$ \\triangle ABC\\equiv\\triangle DEF]と書く",
+          "[$ a]を3で割った余りと[$ b]を3で割った余りが等しいとき、[$ a\\equiv b\\pmod{3}]と書く"
+        ],
+        "linksLc": [
+          "論理と集合から始める数学の基礎_読書会",
+          "数学記号",
+          "用例",
+          "合同",
+          "合同_(幾何学)",
+          "合同_(数論)",
+          "同値関係",
+          "商集合",
+          "リンクを出典アイコンにするusercss",
+          "定義",
+          "論理同値",
+          "ξ",
+          "ギリシア語",
+          "大文字",
+          "三",
+          "漢数字",
+          "ハンバーガーメニュー",
+          "全部同じじゃないですか",
+          "違うのだ!!"
+        ],
+        "linked": 1,
+        "created": 1670703724,
+        "updated": 1670846481,
+        "accessed": 1683947300
+      },
+      {
+        "id": "64d304314c25ae001b9907ee",
+        "title": "作業室 2023-08-09",
+        "titleLc": "作業室_2023-08-09",
+        "image": "https://gyazo.com/7b49f52a579bf43ef14d412d4ea1c6d8/raw",
+        "descriptions": [
+          "[* 今日の目標]",
+          "[takker.icon]",
+          "14:00までに[谷津干潟]の現場見学レポートを完成させる",
+          "終わったら登山計画書の修正・地形図の印刷・装備のパッキング",
+          "実は装備のパッキングまだ終わってない"
+        ],
+        "linksLc": [
+          "谷津干潟",
+          "参考文献リスト",
+          "bibtex",
+          "リンクを出典アイコンにするusercss",
+          "外部リンク記法"
+        ],
+        "linked": 1,
+        "created": 1691550772,
+        "updated": 1691556798,
+        "accessed": 1691575052
+      },
+      {
+        "id": "6157e9cc1d165200236babe6",
+        "title": "Scrapboxで出典を示",
+        "titleLc": "scrapboxで出典を示",
+        "image": null,
+        "descriptions": [
+          "方法を考え始めた動機",
+          "項目・主張ごとに[出典]を結びつけたいが、冗長な表記はしたくない",
+          "毎回論文タイトルやリンクを書いていたら長すぎて邪魔",
+          "1箇所で参照されるだけなら書いてもいいけど、複数箇所で参照されるときに冗長",
+          "ぱっと出典に飛べるようにしたい"
+        ],
+        "linksLc": ["出典"],
+        "linked": 3,
+        "created": 1633151438,
+        "updated": 1633152906,
+        "accessed": 1692078843
+      },
+      {
+        "id": "608cfb45e31294001ce23839",
+        "title": "ScrapBubble",
+        "titleLc": "scrapbubble",
+        "image": "https://gyazo.com/fe4d5b4144e609ee923ca4eae768ae52/raw",
+        "descriptions": [
+          "UserScript版[ScrapScripts]",
+          "[/takker/takker99/ScrapBubble]",
+          "一つのページ上で全てのリンクをたどってページを閲覧することができる",
+          "[タイトルから中身を推測できな]いページでも中身をさっと見ることができる",
+          "TamperMonkey版を使うと、[参加していないscrapbox project]のリンクも辿れるようになる"
+        ],
+        "linksLc": [
+          "scrapscripts",
+          "タイトルから中身を推測できな",
+          "参加していないscrapbox_project",
+          "ページの切り出し",
+          "複数のprojectを透過的に扱う",
+          "アクティブ読書用projectを文献ごとに分けるかどうか",
+          "scrapbubbleリリースノート",
+          "2023/01/23",
+          "関連ページリスト",
+          "scrapbox-text-bubble",
+          "scrapbox-card-bubble",
+          "@yanma",
+          "cache",
+          "共同開発",
+          "(旧版)scrapbubbleのお試し方法"
+        ],
+        "linked": 101,
+        "created": 1619852102,
+        "updated": 1692075387,
+        "accessed": 1692159047
+      },
+      {
+        "id": "615bfa93b1801a001e158622",
+        "title": "vertical-align",
+        "titleLc": "vertical-align",
+        "image": "https://gyazo.com/a4c5d74c7f5d23bd233e2ccc2283d3ee/raw",
+        "descriptions": [
+          "文章に対する配置位置を上下する[CSS property]",
+          "[https://gyazo.com/a4c5d74c7f5d23bd233e2ccc2283d3ee]",
+          "from [https://developer.mozilla.org/ja/docs/Web/CSS/vertical-align vertical-align - CSS: カスケーディングスタイルシート | MDN]",
+          "#CSS"
+        ],
+        "linksLc": ["css_property", "css"],
+        "linked": 1,
+        "created": 1633417876,
+        "updated": 1633417940,
+        "accessed": 1692174391
+      },
+      {
+        "id": "61723074ba5b97001dd9667d",
+        "title": "Vim key notation",
+        "titleLc": "vim_key_notation",
+        "image": null,
+        "descriptions": [
+          "[Vim]merがよく使うVimの[キー表記]法",
+          "`<C-V>`みたいなやつ",
+          "記法の解説",
+          "[https://vim-jp.org/vimdoc-ja/intro.html#key-notation key-notation | intro - Vim日本語ドキュメント]",
+          "[https://kannokanno.hatenablog.com/entry/2013/05/05/130219 Vimのキーマッピング(:map)で使える表記 - ぼっち勉強会]"
+        ],
+        "linksLc": ["vim", "キー表記"],
+        "linked": 2,
+        "created": 1634873462,
+        "updated": 1634873521,
+        "accessed": 1689906729
+      },
+      {
+        "id": "6157e797192d4b001d610a5a",
+        "title": "アイコン記法で出典を参照",
+        "titleLc": "アイコン記法で出典を参照",
+        "image": null,
+        "descriptions": [
+          "from [出典の書き方が難しい]",
+          "[出典ページへのリンクをそのまま使]う方法と[出典への外部リンクを毎回書]く方法との折衷案",
+          "cf.　[/AGI/2021/01/13#5ffd62c56b9e9a00004d4d61]",
+          "方法",
+          "1. 出典ごとにページを作る"
+        ],
+        "linksLc": [
+          "出典の書き方が難しい",
+          "出典ページへのリンクをそのまま使",
+          "出典への外部リンクを毎回書"
+        ],
+        "linked": 2,
+        "created": 1633150872,
+        "updated": 1633151057,
+        "accessed": 1690114675
+      },
+      {
+        "id": "61e746608a5c0c001ffa3976",
+        "title": "アイコン記法を片方向リンクとして使",
+        "titleLc": "アイコン記法を片方向リンクとして使",
+        "image": null,
+        "descriptions": [
+          "[アイコン記法]を[片方向リンク]として用いる",
+          "pros",
+          "[update links]で置換できる",
+          "[SPAを維持してページ遷移]できる",
+          "cons"
+        ],
+        "linksLc": [
+          "アイコン記法",
+          "片方向リンク",
+          "update_links",
+          "spaを維持してページ遷移",
+          "行リンク",
+          "日記ページのアイコン"
+        ],
+        "linked": 8,
+        "created": 1642546787,
+        "updated": 1642546966,
+        "accessed": 1687337482
+      },
+      {
+        "id": "6003d61d2076c70036c79f4f",
+        "title": "参考文献ごとにページを作成",
+        "titleLc": "参考文献ごとにページを作成",
+        "image": null,
+        "descriptions": [
+          "するという[scrapboxの運用]法の一つ",
+          "[/masui/スクマ]みたいな感じかな[kuuote.icon]",
+          "bookmarkというより、web pageをScrapboxの[リンク構造]に乗せるためのwrapperというイメージ[takker.icon]",
+          "外部ページへのリンクを[/emoji/scrapbox.icon]の[内部リンク]でwrapして、[/emoji/scrapbox.icon]の[リンク構造]に乗せる",
+          "[/inteltank/よく使うURLは、ページを作って管理する]で言及されていることに近い"
+        ],
+        "linksLc": [
+          "scrapboxの運用",
+          "リンク構造",
+          "内部リンク",
+          "onetabのスターが溜まってしまう話",
+          "外部project_link",
+          "他projectへリンクされたページの関連付け",
+          "参考文献ページのタイトルに著者の名前を含める",
+          "リンクの入力補完",
+          "リンクサジェスト",
+          "関連ページリスト",
+          "必要な時にサジェスト",
+          "目次にリンクを貼",
+          "scrapbubble",
+          "複数人projectでやたらとページを作るのには抵抗があ",
+          "頭にスッと入ってくる箇条書きの構成方法",
+          "scrapboxでリンクをwrapする"
+        ],
+        "linked": 8,
+        "created": 1610864159,
+        "updated": 1644190908,
+        "accessed": 1690195347
+      },
+      {
+        "id": "5f8d2e78d04705001ed26f09",
+        "title": "大きすぎるリンクの問題",
+        "titleLc": "大きすぎるリンクの問題",
+        "image": null,
+        "descriptions": [
+          "(リンクの集合が)大きすぎる状態。",
+          "[/nishio/大きすぎるリンクの問題]",
+          "特定のページへの[リンク]が増えすぎると[関連ページリスト]が役に立ちにくくなる",
+          "[関連ページが全然関連していない問題]",
+          ">特定のテーマについて考え続けると、そのテーマに関するリンクが大きくなりすぎて、Scrapboxの効果が損なわれる"
+        ],
+        "linksLc": [
+          "リンク",
+          "関連ページリスト",
+          "関連ページが全然関連していない問題",
+          "上の大きなリンクに下の小さなリンクが吸収される問題",
+          "グローバル汚染",
+          "複数の文脈で違う意味として使われる言葉",
+          "検索",
+          "検索したいだけならブラケティングする必要ないよね？",
+          "カテゴリとしてのリンクを使う",
+          "スケールフリーネットワーク",
+          "kozaneba",
+          "適度に具体性の高いリンク",
+          "リンク候補ですぐ見つけられるリンク",
+          "情報の再利用",
+          "名詞形へのとらわれ",
+          "体言止めの文の形のリンク",
+          "毛玉問題",
+          "scrapboxで脳内を可視化",
+          "メタ認知",
+          "自明で広大なリンク"
+        ],
+        "linked": 27,
+        "created": 1603087998,
+        "updated": 1686663047,
+        "accessed": 1692159995
+      },
+      {
+        "id": "61ade178a4e7fd001d49ed84",
+        "title": "文字装飾記法",
+        "titleLc": "文字装飾記法",
+        "image": null,
+        "descriptions": [
+          "[yuki_minoh.icon]",
+          "ソースコードから、文字装飾記法を検知するために用いられていると思しき[正規表現]を見つけたので掲載しておく",
+          "[https://scrapbox.io/assets/index.js]",
+          "`/\\[([!\"#%&'()*+,\\-./{|}<>_~]+) ((?:\\[[^[\\]]+\\]|[^\\]])+)\\]/`",
+          "なんか[/help-jp/文字装飾記法]にない記号あるかな～と思ったんだけど、ないみたい。"
+        ],
+        "linksLc": ["正規表現"],
+        "linked": 15,
+        "created": 1638785403,
+        "updated": 1652088868,
+        "accessed": 1691832067
+      },
+      {
+        "id": "619b542b59d907001f09913d",
+        "title": "笑い声",
+        "titleLc": "笑い声",
+        "image": null,
+        "descriptions": [
+          "グヘヘ……",
+          "ｸﾞﾍﾍﾍｯ",
+          "ヌヘヘ",
+          "フハハハハッ",
+          "デュフッ"
+        ],
+        "linksLc": [
+          "ククク",
+          "ククク…",
+          "ﾆﾁｬｧ…",
+          "エフッエフッエフッ",
+          "フフフ・・・",
+          "ワンピース",
+          "ドフラミンゴ",
+          "クロコダイル",
+          "白ひげ"
+        ],
+        "linked": 8,
+        "created": 1637569581,
+        "updated": 1689307282,
+        "accessed": 1689333031
+      },
+      {
+        "id": "61bb16d3939ab0001d4276d2",
+        "title": "行リンク",
+        "titleLc": "行リンク",
+        "image": null,
+        "descriptions": [
+          "[行リンク#61bb16d3939ab0001d4276d2]",
+          "↑このリンク記法のこと。",
+          "[hata6502.icon]この記法のことを「行リンク」と呼ぶことが多いけど、正式名称が気になる。",
+          "実は Scrapbox ヘルプには書かれていない用語。",
+          "[/help-jp/ページをリンクする]"
+        ],
+        "linksLc": [
+          "行リンク",
+          "リンク先ページの特定の場所に移動しハイライト表示"
+        ],
+        "linked": 30,
+        "created": 1639651035,
+        "updated": 1669987718,
+        "accessed": 1691031010
+      }
+    ],
+    "links2hop": [
+      {
+        "id": "5fc2377b858bd00020e290f8",
+        "title": "(WIP)拡張吹き出し記法のUserCSS",
+        "titleLc": "(wip)拡張吹き出し記法のusercss",
+        "image": null,
+        "descriptions": [
+          "[吹き出し記法]の拡張機能",
+          "動機",
+          "よくあるキャラクター同士が会話するようなコンテンツを想定",
+          "Aさんの吹き出しとBさんの吹き出しを色分けで識別したい",
+          "実装"
+        ],
+        "linksLc": ["test"],
+        "linked": 1,
+        "created": 1606563736,
+        "updated": 1607694204,
+        "accessed": 1688129027
+      },
+      {
+        "id": "626578e55e8262002127a212",
+        "title": "2022/04/25",
+        "titleLc": "2022/04/25",
+        "image": "https://gyazo.com/d58ad55bbee501062758974a0de16e2c/raw",
+        "descriptions": [
+          "第18週: 日[[月]]火水木金土",
+          "2022年 31.51％経過",
+          "今日のn年前",
+          "[2021/04/25]",
+          "[Mijinko_SD.icon]"
+        ],
+        "linksLc": ["行リンク", "vim_key_notation"],
+        "linked": 11,
+        "created": 1650817253,
+        "updated": 1687970192,
+        "accessed": 1689945200
+      },
+      {
+        "id": "6000d5e0b4e2c00036c0c894",
+        "title": "2021/01/16",
+        "titleLc": "2021/01/16",
+        "image": "https://i.imgur.com/OKz9FYh.png",
+        "descriptions": [
+          "[2021/01/15]←2021/01/16→[2021/01/17]",
+          "[2020/12/16.icon][2020/11/16.icon][2020/10/16.icon]",
+          "[- いつの日かにあった][2021/01/13#5ffd62c56b9e9a00004d4d61]で使われてた日付をアイコンにして貼り付けるやつ",
+          "nヶ月前に飛べる",
+          "[アイコン記法を片方向リンクとして使]うのよさそう[takker.icon]"
+        ],
+        "linksLc": ["アイコン記法を片方向リンクとして使"],
+        "linked": 7,
+        "created": 1610667491,
+        "updated": 1651241609,
+        "accessed": 1691397853
+      },
+      {
+        "id": "600ee582816fa3001e417ad9",
+        "title": "2 hop linkを無効に",
+        "titleLc": "2_hop_linkを無効に",
+        "image": null,
+        "descriptions": [
+          "([2 hop link]を無効にし|[片方向リンク]を使い)たいけど、どうすればいいんだろう",
+          "候補",
+          "[アイコン記法を片方向リンクとして使]う",
+          "[外部Project Link]記法を使う",
+          "pros"
+        ],
+        "linksLc": ["アイコン記法を片方向リンクとして使", "行リンク"],
+        "linked": 2,
+        "created": 1611588998,
+        "updated": 1642588037,
+        "accessed": 1686618963
+      },
+      {
+        "id": "6019d59fbbba76001c479a4a",
+        "title": "2021/02/04",
+        "titleLc": "2021/02/04",
+        "image": "https://i.imgur.com/t10MXFd.png",
+        "descriptions": [
+          "[2021/02/03]←2021/02/04→[2021/02/05]",
+          "[[木曜日]]",
+          "2021年 9.59％経過",
+          "[/icons/wikipedia.icon]https://ja.wikipedia.org/wiki/2月4日",
+          "[日記.icon][-3w https://scrapbox.io/villagepump/2021/01/14] [-2w https://scrapbox.io/villagepump/2021/01/21] [-1w https://scrapbox.io/villagepump/2021/01/28] [-3m https://scrapbox.io/villagepump/2020/11"
+        ],
+        "linksLc": ["アイコン記法を片方向リンクとして使"],
+        "linked": 7,
+        "created": 1612305824,
+        "updated": 1649229920,
+        "accessed": 1690547323
+      },
+      {
+        "id": "618b8b8c8d09f30023314115",
+        "title": "日記ページのtemplate",
+        "titleLc": "日記ページのtemplate",
+        "image": "https://plantuml-proxy.vercel.app/svg/https://scrapbox.io/api/code/suto3scratchpad/2021%252F12/g002.uml#.svg",
+        "descriptions": [
+          "[日記ページ]のtemplate",
+          "若干変更してある",
+          "2022-02-02 09:38:54 interfaceを変更",
+          "タイトル、ヘッダー、フッターで分割して返すようにした",
+          "`// 一年の経過率を計算するのに必要`"
+        ],
+        "linksLc": ["アイコン記法を片方向リンクとして使"],
+        "linked": 8,
+        "created": 1636535207,
+        "updated": 1660884756,
+        "accessed": 1690910498
+      },
+      {
+        "id": "61e8d89d066c59001d8ee9d4",
+        "title": "アイコン記法で属性表現",
+        "titleLc": "アイコン記法で属性表現",
+        "image": null,
+        "descriptions": [
+          "[nishio.icon]これを見て知った",
+          "[/blu3mo-public/Scrapboxを一部以外全てミラーする運用]",
+          "公開非公開のフラグをアイコン記法で表現している",
+          "ページに対してBooleanの属性を付与したいときにScrapbox自体は属性付与の方法を提供していない",
+          "「何らかの特定文字列が含まれてるかどうか」を使う手がある"
+        ],
+        "linksLc": [
+          "アイコン記法を片方向リンクとして使",
+          "大きすぎるリンクの問題"
+        ],
+        "linked": 2,
+        "created": 1642649844,
+        "updated": 1642650625,
+        "accessed": 1683332972
+      },
+      {
+        "id": "62164d6bee92cd001d526457",
+        "title": "2022/02/24",
+        "titleLc": "2022/02/24",
+        "image": "https://i.ytimg.com/vi/AYJrRakUyvg/mqdefault.jpg",
+        "descriptions": [
+          "[2022/02/17.icon] [2022/02/10.icon] [2022/02/03.icon] [2022/01/24.icon] [2021/12/24.icon] [2021/11/24.icon]",
+          "↑アイコン記法やめて外部リンクにしようかな",
+          "[UserCSSや(画像|アイコン記法)を使いすぎるとページ読み込みが遅]くなる",
+          "アイコンである意味がそこまであるとも思ってない[kuuote.icon]",
+          "[https://scrapbox.io/villagepump/2022%2F02%2F17 2022/02/17]みたいな"
+        ],
+        "linksLc": ["アイコン記法を片方向リンクとして使"],
+        "linked": 9,
+        "created": 1645628780,
+        "updated": 1677189406,
+        "accessed": 1692123467
+      },
+      {
+        "id": "62aa38e8a6eaf3001d0948bc",
+        "title": "2022/06/16",
+        "titleLc": "2022/06/16",
+        "image": "https://i.ytimg.com/vi/qK69gvErfMc/mqdefault.jpg",
+        "descriptions": [
+          "第25週: 日月火水[[木]]金土",
+          "2022年 45.75％経過",
+          "今日のn年前",
+          "[2021/06/16]",
+          "[はるひ.icon]"
+        ],
+        "linksLc": ["アイコン記法を片方向リンクとして使"],
+        "linked": 6,
+        "created": 1655322856,
+        "updated": 1687275304,
+        "accessed": 1687413542
+      },
+      {
+        "id": "6146cf030815cf001e5135ce",
+        "title": "Scrapboxにおける表記ゆれ対策",
+        "titleLc": "scrapboxにおける表記ゆれ対策",
+        "image": null,
+        "descriptions": [
+          "前提",
+          "ある概念の文字表記が2つ以上存在するとき、唯一の表記を主に使うようにしたい",
+          "用語の説明",
+          "「[主表記]」",
+          "統一したい表記"
+        ],
+        "linksLc": ["リンクのエイリアス表記"],
+        "linked": 7,
+        "created": 1632030469,
+        "updated": 1681199114,
+        "accessed": 1692149662
+      },
+      {
+        "id": "62deb6cc926506002318b732",
+        "title": "2022/07/26",
+        "titleLc": "2022/07/26",
+        "image": "https://gyazo.com/528b67bb32519a73e88b8ee756f6224c/raw",
+        "descriptions": [
+          "第31週: 日月[[火]]水木金土",
+          "2022年 56.71％経過",
+          "今日のn年前",
+          "[2021/07/26]",
+          "[えむおー.icon]"
+        ],
+        "linksLc": ["リンクのエイリアス表記"],
+        "linked": 12,
+        "created": 1658762956,
+        "updated": 1689985927,
+        "accessed": 1690337663
+      },
+      {
+        "id": "63c55f69d514f9001ef2800a",
+        "title": "特定のリンクにアイコンをつけるUserCSSを自動生成したい",
+        "titleLc": "特定のリンクにアイコンをつけるusercssを自動生成したい",
+        "image": null,
+        "descriptions": [
+          "共通設定の書き換えとかテンプレートのコピペとかが面倒なので、できるだけ少ない手間で設定できるようにしたい",
+          "テンプレート：[特定のリンクにアイコンをつけるUserCSS#620132d37838e300003015ac]",
+          "CSSの生成はTypeScriptと[Google スプレッドシート]でやったことがある[Mijinko_SD.icon]",
+          "とりあえず今回はTypeScriptで",
+          "作った[Mijinko_SD.icon]"
+        ],
+        "linksLc": [
+          "特定のリンクにアイコンをつけるusercss",
+          "リンクを出典アイコンにするusercssでリンクをクリックできない問題"
+        ],
+        "linked": 1,
+        "created": 1673879402,
+        "updated": 1673955714,
+        "accessed": 1689771944
+      },
+      {
+        "id": "5f5f3748e2e059001e996dcf",
+        "title": "更新が止まっている鍵のかかっていないProject",
+        "titleLc": "更新が止まっている鍵のかかっていないproject",
+        "image": null,
+        "descriptions": [
+          "勝手にリンク踏んで編集して耕してみると面白そう[takker.icon]",
+          "多分同じ人が作った？",
+          "[/reportc]",
+          "[/education]",
+          "フォルダ分けの間隔で、大量にproject作っちゃってる……[takker.icon]"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 4,
+        "created": 1600075597,
+        "updated": 1656723414,
+        "accessed": 1690546485
+      },
+      {
+        "id": "5fac182f02be44001e61398c",
+        "title": "newcomerに見てほしいページ1選",
+        "titleLc": "newcomerに見てほしいページ1選",
+        "image": null,
+        "descriptions": [
+          "[イドバタリアン][(?)]が１つだけ挙げるならどれ？",
+          "[udonn.icon]",
+          "[Scrapboxを知った時の高揚感について]",
+          "加筆しておいた[kuuote.icon]",
+          "紹介されたページに書き込めるのは[Scrapbox]ならでは"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 4,
+        "created": 1605113907,
+        "updated": 1680686318,
+        "accessed": 1691910686
+      },
+      {
+        "id": "5fb00912c57c89002197833b",
+        "title": "2020/11/15",
+        "titleLc": "2020/11/15",
+        "image": "https://i.imgur.com/ABNzBxz.png",
+        "descriptions": [
+          "[2020/11/14]←2020/11/15→[2020/11/16]",
+          "[kuuote.icon]",
+          "最近[老害]みたいな思考になりつつあるので、意識的に新しい物を試していきたい",
+          "頭の中に適切な情報さえあれば有機的に繋がっていくって誰かが言ってたの、本当にその通りだと思うので気力があるうちに体験を詰め込みたい",
+          "[HackMD]とか[Notion]とかのアカウントをえいやっと作ってみた"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 5,
+        "created": 1605372184,
+        "updated": 1645623913,
+        "accessed": 1684838211
+      },
+      {
+        "id": "6064871c073b5600238ea237",
+        "title": "2021/04/07",
+        "titleLc": "2021/04/07",
+        "image": null,
+        "descriptions": [
+          "[2021/04/06]←2021/04/07→[2021/04/08]",
+          "[kuuote.icon]",
+          "型推論を理解しようと取り組んでいたけど大体雰囲気掴めてきたのでコードに書き起こすことにした",
+          "全部を理解しようとせずに本質だけを見ればよかった",
+          "[kuuote.icon]は無学なので数式が全然読めない"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 4,
+        "created": 1617200929,
+        "updated": 1652020254,
+        "accessed": 1689426460
+      },
+      {
+        "id": "6157e7edf53d2900209ea79f",
+        "title": "出典ページへのリンクをそのまま使",
+        "titleLc": "出典ページへのリンクをそのまま使",
+        "image": null,
+        "descriptions": [
+          "from [出典の書き方が難しい]",
+          "出典ページへのリンクをそのまま使",
+          "出典の情報を書いたScrapboxページへの内部リンク（[リンク記法]のリンク）を毎回書く",
+          "長い",
+          "ページ名を短くしないと本文中で邪魔になる"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 2,
+        "created": 1633150958,
+        "updated": 1633150958,
+        "accessed": 1690183124
+      },
+      {
+        "id": "615ebe8cfff5a8001d738bd8",
+        "title": "Scrapboxでマンダラート",
+        "titleLc": "scrapboxでマンダラート",
+        "image": null,
+        "descriptions": [
+          "table:mandal-art-01",
+          "[創造性]\t[マンダラート]\t[知的生産]",
+          "[テーブル記法]\t[Scrapbox.icon]\t[リンク記法]",
+          "[情報共有]\t[井戸端.icon]\t[課題解決]",
+          "正確には、「[マンダラート]っぽい使い方」いうべきかもしれない"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 0,
+        "created": 1633599118,
+        "updated": 1650767103,
+        "accessed": 1691547670
+      },
+      {
+        "id": "61fffdf7d83caf0021f1dca6",
+        "title": "2022/02/07",
+        "titleLc": "2022/02/07",
+        "image": "https://gyazo.com/db42f9c5830a12b2955c2654df0b361b/raw",
+        "descriptions": [
+          "今日のn年前",
+          "[2021/02/07]",
+          "[kuuote.icon]",
+          "何度も言われてることだけどScrapboxのログインがGoogle経由でしかできないのって、結構障壁になってるよなーと",
+          "Scrapboxはいいぞ→Googleはちょっと…というのを何度か観測してる(今日もした)ので改めてそう思った"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 8,
+        "created": 1644166648,
+        "updated": 1684835895,
+        "accessed": 1692112380
+      },
+      {
+        "id": "62101c6a42fe39002267fbd5",
+        "title": "リンクの入力補完",
+        "titleLc": "リンクの入力補完",
+        "image": "https://gyazo.com/5369eba4f8ad3111bc2fa4f564e1e66f/raw",
+        "descriptions": [
+          "[https://gyazo.com/5369eba4f8ad3111bc2fa4f564e1e66f]",
+          "[リンク記法]の[入力補完]機能のこと",
+          "`[]`の中で文字入力をしている時に出てくる",
+          "編集中のProjectに存在するページが候補として出てくる",
+          "外部Projectのページを候補に出すことはできない"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 23,
+        "created": 1645223027,
+        "updated": 1645241120,
+        "accessed": 1691476344
+      },
+      {
+        "id": "6230aa6a9b6f5e001d0a4d09",
+        "title": "独自のリンク記法を考えるの楽しい",
+        "titleLc": "独自のリンク記法を考えるの楽しい",
+        "image": null,
+        "descriptions": [
+          "from [2022/03/15]",
+          "独自の[リンク記法]を考えるの楽しい。[hata6502.icon]",
+          "[/hata6502/lintOption#61f946ccd1a02f000014a94a]",
+          "jaSimpleUserDictionaryに対して、独自のリンク記法を使っている。",
+          "[UserScript]で独自のリンク記法を動作させる。"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 1,
+        "created": 1647356523,
+        "updated": 1647356543,
+        "accessed": 1680504338
+      },
+      {
+        "id": "630caafe66978a001d2c810b",
+        "title": "CopyTabTitleUrl",
+        "titleLc": "copytabtitleurl",
+        "image": "https://gyazo.com/b1bb7b07030f646e8f29422eabe4c724/raw",
+        "descriptions": [
+          "[ページタイトル]や[デコードされたURL]をコピーする[拡張機能]",
+          "[https://chrome.google.com/webstore/detail/copytabtitleurl/lmgbdjfoaihhgdphombpgjpaohjfeapp CopyTabTitleUrl - Chrome ウェブストア]",
+          "[https://addons.mozilla.org/ja/firefox/addon/copytabtitleurl/ CopyTabTitleUrl – 🦊 Firefox (ja) 向け拡張機能を入手]",
+          "拡張機能ボタンを押すことで、いつでもコピーすることができるようになる",
+          "[https://gyazo.com/b1bb7b07030f646e8f29422eabe4c724]"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 2,
+        "created": 1661774594,
+        "updated": 1661774847,
+        "accessed": 1691838756
+      },
+      {
+        "id": "636c9b3714792c001ddd86f6",
+        "title": "Scrapboxのノウハウ",
+        "titleLc": "scrapboxのノウハウ",
+        "image": null,
+        "descriptions": [
+          "例えばどんなのだろう[Mijinko_SD.icon]",
+          "基本的な使い方",
+          "[リンク記法]と[箇条書き記法]だけ覚えておけばいい[Mijinko_SD.icon]",
+          "[リンクのつけかた]",
+          "[ページタイトルのつけかた]"
+        ],
+        "linksLc": ["リンク記法"],
+        "linked": 1,
+        "created": 1668062011,
+        "updated": 1668139066,
+        "accessed": 1691435271
+      },
+      {
+        "id": "5fc6329d0d62b300232c9616",
+        "title": "おま環",
+        "titleLc": "おま環",
+        "image": null,
+        "descriptions": [
+          "某Slackで見聞きした言葉[takker.icon]",
+          "某Slackって濁してるけど、別に名前出してもいいと思うんだよなあ",
+          "むしろ[出典]を明示するために名前を出すべきでは？",
+          "おそらく「それはprogramのbugではなくお前のsystem環境がおかしいせい」という意を表す言葉と思われる",
+          "略す前の言葉が何だったのかは不明"
+        ],
+        "linksLc": ["出典"],
+        "linked": 34,
+        "created": 1606824607,
+        "updated": 1691998262,
+        "accessed": 1692146007
+      },
+      {
+        "id": "615826fd5bf5e700236184ae",
+        "title": "手動出典番号管理",
+        "titleLc": "手動出典番号管理",
+        "image": null,
+        "descriptions": [
+          "from [出典の書き方が難しい]",
+          "手動出典番号管理",
+          "今はリンクの横に番号を書いて、その番号で[出典]を指すようにしている感じ（強制ではないけど）",
+          "例",
+          "意識とは一般に、覚醒していること、または自分の状態や周囲の状況を認識できていることを指す 1"
+        ],
+        "linksLc": ["出典"],
+        "linked": 1,
+        "created": 1633167102,
+        "updated": 1633271160,
+        "accessed": 1687592365
+      },
+      {
+        "id": "6366e53b1f2c3c001d61303c",
+        "title": "Twitterは初期の頃にクローラーでフォローしまくったせいで10000人くらいフォローしてしまってタイムラインが濁流になった",
+        "titleLc": "twitterは初期の頃にクローラーでフォローしまくったせいで10000人くらいフォローしてしまってタイムラインが濁流になった",
+        "image": null,
+        "descriptions": [
+          "from [2022/11/02]",
+          "[nishio.icon]本人の解釈と逆の要約をされてたので改めて整理",
+          "Twitterを使い始めた頃に10000人フォローしたらタイムラインが色々な話題の流れる濁流になった",
+          "最近サブ垢を作って40人ほどフォローしたところ、一部の人が特定の話題をリツイートすることによりタイムラインにその特定の話題が占める割合が多くなってしまった",
+          "10000人フォローしたりしない大多数のユーザは、普段このような[偏ったタイムライン]を見ているのか、危険だな、と思った"
+        ],
+        "linksLc": ["出典"],
+        "linked": 1,
+        "created": 1667687744,
+        "updated": 1677740581,
+        "accessed": 1691052464
+      },
+      {
+        "id": "640724359eb17a001cd7de8f",
+        "title": "究極の出典",
+        "titleLc": "究極の出典",
+        "image": null,
+        "descriptions": [
+          "[究極]の[出典]",
+          "対義語：[至高の出典]",
+          "[直接の出典]"
+        ],
+        "linksLc": ["出典"],
+        "linked": 1,
+        "created": 1678189622,
+        "updated": 1678190844,
+        "accessed": 1685597849
+      },
+      {
+        "id": "64b546a17ec5e0001cf63e45",
+        "title": "高校生のための調べ方ガイド(まだ書き途中)",
+        "titleLc": "高校生のための調べ方ガイド(まだ書き途中)",
+        "image": null,
+        "descriptions": [
+          "なにやってるの？",
+          "[Gorira Tatsu.icon]が個人的に書き進めているガイドをこっちにもはっつけた",
+          "主題文がめちゃめちゃなのは気にしないでほしい(後で書き直す)",
+          "主題文",
+          "[調べるとは、ものごとを組み立てる際に必要なパーツの一つ]"
+        ],
+        "linksLc": ["出典"],
+        "linked": 1,
+        "created": 1689601699,
+        "updated": 1689640140,
+        "accessed": 1692102958
+      },
+      {
+        "id": "5f9599be1df87f0023d0aea6",
+        "title": "他Projectへリンクされたページの関連付け",
+        "titleLc": "他projectへリンクされたページの関連付け",
+        "image": "https://gyazo.com/e59c3e1ea1cd6965aa07ce44adeb89c0/raw",
+        "descriptions": [
+          "同じ他[Project]への[リンク]が書かれたページが[関連ページリスト]に出てこない",
+          "[井戸端]に書かれた他[Project]のページを読むと結構新たな発見があったり、思考がまとまったりして、既存のページに[引用]して深堀りすることがある",
+          "関連しているような気はするけど、本当に関連しているのかはよくわからない",
+          "対策",
+          "[参考文献ごとにページを作成]"
+        ],
+        "linksLc": ["参考文献ごとにページを作成"],
+        "linked": 2,
+        "created": 1603639755,
+        "updated": 1646869996,
+        "accessed": 1691744602
+      },
+      {
+        "id": "5fa07715ee56ba0021a18991",
+        "title": "Scrapboxでリンクを使うとき",
+        "titleLc": "scrapboxでリンクを使うとき",
+        "image": null,
+        "descriptions": [
+          "Scrapboxで[リンク]を使うべき/使わないべきときを考えるために、使う目的をあえて細分化して整理してみる",
+          "[Scrapboxのリンクの役割]",
+          "用語の説明を外部に移動して共通化するとき",
+          "辞書的な使い方：[辞書的なリンク]",
+          "チームで使う場合とかだと、知らない人もいそうなドメイン知識とかリンクして前提を一致させる"
+        ],
+        "linksLc": ["大きすぎるリンクの問題", "参考文献ごとにページを作成"],
+        "linked": 3,
+        "created": 1604351786,
+        "updated": 1690090557,
+        "accessed": 1691108362
+      },
+      {
+        "id": "5fd1a868ef74bd001c695e8c",
+        "title": "OneTabのスターが溜まってしまう話",
+        "titleLc": "onetabのスターが溜まってしまう話",
+        "image": null,
+        "descriptions": [
+          "from [2020/12/10]",
+          "[タブ]が溜まりまくっちゃう人なので[OneTab]ありがたいんだけど、OneTabの中でもスター付きのタブグループが溜まってしまう...orz",
+          "スターつけるくらいなら読めってことか...",
+          "積ん読するとなんか読みたさが減るんだよな～",
+          "宿題になっちゃってる感じかも"
+        ],
+        "linksLc": ["参考文献ごとにページを作成"],
+        "linked": 2,
+        "created": 1607575656,
+        "updated": 1655201505,
+        "accessed": 1689298652
+      },
+      {
+        "id": "600041c7615007001c549d4c",
+        "title": "体言止めの文の形のリンク",
+        "titleLc": "体言止めの文の形のリンク",
+        "image": null,
+        "descriptions": [
+          "最近、[体言止め]の文の形のリンクが[表記ゆれ]に耐性ある気がしている[yosider.icon]",
+          "「体言止め」であってるのかわからないけど",
+          "目的",
+          "[名詞形へのとらわれ]を避けて、文中で自然に繋がる、堅すぎない言葉でリンクを作りたい",
+          "例・作り方"
+        ],
+        "linksLc": ["参考文献ごとにページを作成"],
+        "linked": 6,
+        "created": 1610629575,
+        "updated": 1647576498,
+        "accessed": 1691062589
+      },
+      {
+        "id": "6003d57a0d94300020e7f781",
+        "title": "tweetごとにページを作成",
+        "titleLc": "tweetごとにページを作成",
+        "image": null,
+        "descriptions": [
+          "するという[scrapboxの運用]方法の一つ",
+          "[参考文献ごとにページを作成]するのとやることは同じ",
+          "tweet一つづつページを作るか、それとも[連ツイ]でページを作るか",
+          "tweetの内容で選べばいいか",
+          "[連ツイ]を一つのページにまとめて入れたとしても、後からtweetごとにばらすのは簡単"
+        ],
+        "linksLc": ["参考文献ごとにページを作成"],
+        "linked": 2,
+        "created": 1610863997,
+        "updated": 1614656847,
+        "accessed": 1675383399
+      },
+      {
+        "id": "60c3c705ae819b0022b82d28",
+        "title": "参考文献ページのタイトルに著者の名前を含める",
+        "titleLc": "参考文献ページのタイトルに著者の名前を含める",
+        "image": null,
+        "descriptions": [
+          "from [参考文献ごとにページを作成]",
+          "名前がないと、[参考文献]のwrapが主目的のページなのか、自分の思考ベースのページなのかわからない気がする[yosider.icon]",
+          "名前 = 参考文献の[著者]？[takker.icon]",
+          "yes[yosider.icon]",
+          "from [2021/05/20]"
+        ],
+        "linksLc": ["参考文献ごとにページを作成"],
+        "linked": 2,
+        "created": 1623443205,
+        "updated": 1623444063,
+        "accessed": 1690459820
+      },
+      {
+        "id": "6157e81782ce58001df25662",
+        "title": "出典への外部リンクを毎回書",
+        "titleLc": "出典への外部リンクを毎回書",
+        "image": null,
+        "descriptions": [
+          "from [出典の書き方が難しい]",
+          "出典への外部リンクを毎回書",
+          "エイリアス表記すれば短くできる 例：[https://ja.wikipedia.org/wiki/%E6%84%8F%E8%AD%98 src]",
+          "Scrapbox的には、毎回外部リンクを貼るのではなく、外部リンクの情報を書いたScrapboxページを用意して、そこにリンクするべき？",
+          "このことを書いたページを誰かのprojectで見た気がするけど思い出せない[yosider.icon]"
+        ],
+        "linksLc": ["参考文献ごとにページを作成"],
+        "linked": 2,
+        "created": 1633151000,
+        "updated": 1644052668,
+        "accessed": 1685652269
+      },
+      {
+        "id": "5f6c6cfa9c034b001e8445ea",
+        "title": "何でもかんでもリンク",
+        "titleLc": "何でもかんでもリンク",
+        "image": null,
+        "descriptions": [
+          "するとだいたい酷いことになる",
+          "そうなってるサービス",
+          "[ニコニコ大百科]",
+          "これはこれで[シロナガスクジラ現象]みたいなおもしろ現象が発生して楽しい",
+          "単語の意味をすぐ調べに行けるので、ネットスラングや内輪ネタが多くても読んでいける[Mijinko_SD.icon]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 6,
+        "created": 1600941319,
+        "updated": 1646157218,
+        "accessed": 1691752598
+      },
+      {
+        "id": "5f7fb2a2d2e73f001eb29a2a",
+        "title": "個人Project､ゴミ増えちゃう問題",
+        "titleLc": "個人project､ゴミ増えちゃう問題",
+        "image": "https://gyazo.com/769e7a29118f73e0851ab531bae7232b/raw",
+        "descriptions": [
+          "Scrapbox的には､整理は不要",
+          "しかし､[消したい病]がある人はどうしたら良い?",
+          "[ゴミ]/[ゴミページ]とは？",
+          "死んだテキストと言ったほうがいいのかもしれない",
+          "[dnin.icon]は何度もプロジェクトを潰しているんですが..."
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 11,
+        "created": 1602204325,
+        "updated": 1684812399,
+        "accessed": 1691216255
+      },
+      {
+        "id": "5f8d2d37fa765700246f597c",
+        "title": "Scrapboxの未解決問題",
+        "titleLc": "scrapboxの未解決問題",
+        "image": null,
+        "descriptions": [
+          "暫定的に[Scrapboxの哲学]と[UX]とで分類しているが、項目が増えてくると[誤った二分法]になる可能性が高い",
+          "そろそろ個別のページに切り出してもよさそう？",
+          "すべて切り出したら、このページ自体の意味はなくなりそう",
+          "[ハッシュタグ]のような存在",
+          "[entrypointとしてのページ]の役割は果たしているかも"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 34,
+        "created": 1603087673,
+        "updated": 1678503432,
+        "accessed": 1692160090
+      },
+      {
+        "id": "5f9ada4fbb304300229ef615",
+        "title": "検索したいだけならブラケティングする必要ないよね？",
+        "titleLc": "検索したいだけならブラケティングする必要ないよね？",
+        "image": null,
+        "descriptions": [
+          "[大きすぎるリンクの問題]",
+          "> 区別したいのであれば[_ リンクせずに]末尾にでも書いておくとよさそう？",
+          "> \tちゃんと[検索]でフィルタできる",
+          "ブラケティングしたところで関連ページには出てくるけど、検索には意味がない",
+          "複数のキーワードで絞りこみたい場合とか"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 4,
+        "created": 1603983953,
+        "updated": 1646372871,
+        "accessed": 1691214967
+      },
+      {
+        "id": "5fa07c3915f92e0024ab0d58",
+        "title": "カテゴリとしてのリンクを使う",
+        "titleLc": "カテゴリとしてのリンクを使う",
+        "image": null,
+        "descriptions": [
+          "複数のページから１つのページへとリンクすることで[カテゴリ]のように使える",
+          "そのリンクされたページの[関連ページリスト]に全てのページが出てくる",
+          "[タグ]っぽいけど何かが決定的に違う..はず",
+          "どうなんだろう。本当に違いがあるのだろうか？",
+          "[ファセット構造]と差異があると言っても、どんな差異があるのか思いつかない"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 8,
+        "created": 1604353086,
+        "updated": 1687355302,
+        "accessed": 1692136659
+      },
+      {
+        "id": "5fa080be9f73f4002476383f",
+        "title": "何でもかんでもリンクすることは本当にだめなのかな",
+        "titleLc": "何でもかんでもリンクすることは本当にだめなのかな",
+        "image": null,
+        "descriptions": [
+          "なぜ[何でもかんでもリンク]すると[大きすぎるリンクの問題]が発生するのか",
+          "確か[関連ページリスト]は共通リンクが多いものを優先するはずなのになぜうまく機能しなくなるのか？",
+          "認知の問題？多く表示されていると関係ないものが出ているように感じるだけで、最初のいくつかはちゃんと関連しているとか",
+          "共通リンクの多さではなく、単純に出てきた順だったはずです",
+          "例えば"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 2,
+        "created": 1604354239,
+        "updated": 1624857372,
+        "accessed": 1691214969
+      },
+      {
+        "id": "5fa0831cc0d37000249157cd",
+        "title": "関連ページがリンクの量によって関連度を算出しているなら問題ない",
+        "titleLc": "関連ページがリンクの量によって関連度を算出しているなら問題ない",
+        "image": null,
+        "descriptions": [
+          "[関連ページがリンクの量によって関連度を算出しているなら問題ない]なら[大きすぎるリンクの問題]は存在しないかもしれない",
+          "どんどん[何でもかんでもリンク]したほうがよくなる",
+          "[何でもかんでもリンクすることは本当にだめなのかな]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 2,
+        "created": 1604354847,
+        "updated": 1624857393,
+        "accessed": 1688384574
+      },
+      {
+        "id": "5fb52763ead257001e08b610",
+        "title": "Scrapboxの1000ページの壁",
+        "titleLc": "scrapboxの1000ページの壁",
+        "image": null,
+        "descriptions": [
+          "[そんなものはない]",
+          "[/ [そんなものはない.icon]]",
+          "[Scrapboxの100ページの壁]ぐらいだったら[普通のWiki感覚]で書いても超えられそうだけど、1000ページの壁は[小さなページ]も量産できるようにならないときつい気がする[Mijinko_SD.icon]",
+          "[普通のWiki感覚]：",
+          "[1ページ内で完結]させるアレ"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 15,
+        "created": 1605707644,
+        "updated": 1683721797,
+        "accessed": 1692012042
+      },
+      {
+        "id": "5fcf5238daaada001c455744",
+        "title": "書いてけ",
+        "titleLc": "書いてけ",
+        "image": null,
+        "descriptions": [
+          "たくさん増えてきたら、ページ下部においたほうがよさそう",
+          "[大きすぎるリンクの問題]を回避したい",
+          "ここ(井戸端)だからできている気がする",
+          "別プロジェクトでこんな盛大にやれるかしら",
+          "[scrapbox.io/hub]で何回かありました"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 331,
+        "created": 1607422530,
+        "updated": 1682050559,
+        "accessed": 1692166072
+      },
+      {
+        "id": "5fda21db22fb2b001ce99558",
+        "title": "大きなリンク",
+        "titleLc": "大きなリンク",
+        "image": null,
+        "descriptions": [
+          "そのリンクに[逆リンク]しているページが大量にあるリンクのこと",
+          "[関連ページリスト]が役に立たなくなるのであんまり好まれない",
+          "[大きすぎるリンクの問題]",
+          ">特定のページへのリンクが増えすぎると関連ページリストが役に立ちにくくなる",
+          "[上の大きなリンクに下の小さなリンクが吸収される問題]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 23,
+        "created": 1608131037,
+        "updated": 1662840984,
+        "accessed": 1689777662
+      },
+      {
+        "id": "5fda34ea69fc08001cae10a8",
+        "title": "上の大きなリンクに下の小さなリンクが吸収される問題",
+        "titleLc": "上の大きなリンクに下の小さなリンクが吸収される問題",
+        "image": "https://gyazo.com/89a26152959279c0fa539ddfe9a9d885/raw",
+        "descriptions": [
+          "[大きなリンク]を先頭に置いてしまうと、他の[2 hop link]がそのリンクに吸収されてしまう問題",
+          "例えば[/taberungo]ではわざと文中リンクではなくページ末尾にハッシュタグを置いていたりします",
+          "e.g. [/taberungo/COZMICたべるんご]",
+          "この問題なんか名前ついてないのかな",
+          "この問題を扱っているページを集めて、そこから名前を考えてみるか[takker.icon]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 10,
+        "created": 1608135917,
+        "updated": 1669167456,
+        "accessed": 1692160031
+      },
+      {
+        "id": "600631aa6191b200363e8208",
+        "title": "ページ中に同じ単語がn回登場する場合のリンクはどうするか",
+        "titleLc": "ページ中に同じ単語がn回登場する場合のリンクはどうするか",
+        "image": null,
+        "descriptions": [
+          "#書いてけ",
+          "[ブラケティング]という単語を例にする",
+          "最初の登場ではたぶんリンクするだろう",
+          "複数回登場した場合",
+          "ブラケティング ← リンクしない"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 0,
+        "created": 1611018670,
+        "updated": 1616782668,
+        "accessed": 1688813821
+      },
+      {
+        "id": "605df54d95be90001cbde97c",
+        "title": "自動ブラケティング機能",
+        "titleLc": "自動ブラケティング機能",
+        "image": null,
+        "descriptions": [
+          "[脳内経由]せずに、自動で[ブラケティング]する機能のこと",
+          "賛否両論というか、利点と限界がある",
+          "利点",
+          "限界",
+          "自分の思考を育てられない"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 3,
+        "created": 1616770382,
+        "updated": 1683236982,
+        "accessed": 1692153874
+      },
+      {
+        "id": "615fe5e147b21f001dfa803e",
+        "title": "特定のページを非表示にするUserCSS",
+        "titleLc": "特定のページを非表示にするusercss",
+        "image": null,
+        "descriptions": [
+          "[shokai.icon] に実装してもらいました (2021/10/8)",
+          "仕事がはやい[takker.icon][yosider.icon]",
+          "ほんまに [増井俊之.icon]",
+          "非表示にできるのおもしろい[mizdra.icon]",
+          "例: タイトルに`202`を含むページを全て消す"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 11,
+        "created": 1633674723,
+        "updated": 1649668302,
+        "accessed": 1692178664
+      },
+      {
+        "id": "61e7eb6cc7f764001e06e1b4",
+        "title": "Kozaneba",
+        "titleLc": "kozaneba",
+        "image": "https://i.ytimg.com/vi/cFCFSRq8WGY/mqdefault.jpg",
+        "descriptions": [
+          "[/nishio/かんがえをまとめるデジタル文房具Kozaneba]",
+          "[大きすぎるリンクの問題]を[事後的に細分化]することができる",
+          "[nishio.icon]",
+          "[こざね法]のためのツールなのでScrapboxのリンクの分割は当初のメインテーマではなかったのだが、試しにつけてみたScrapboxインポート機能にScrapboxユーザが複数人反応しているのでこの機能をもうちょっときちんと作り込んでもいいのかもなぁと思い始めている",
+          "[mem.nhiro.org]を作ったので(自分は)ページに埋め込んだりできるかもだし"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 28,
+        "created": 1642589066,
+        "updated": 1685761981,
+        "accessed": 1690953525
+      },
+      {
+        "id": "6213a9b2a6868e001d8736e5",
+        "title": "2022/02/22",
+        "titleLc": "2022/02/22",
+        "image": "https://gyazo.com/5027fb31a2e9bc7832a1a787b450aabd/raw",
+        "descriptions": [
+          "今日のn年前",
+          "[2021/02/22]",
+          "[Mijinko_SD.icon]",
+          "歩き疲れたので寝たいです。",
+          "夜の散歩？[takker.icon]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 9,
+        "created": 1645455795,
+        "updated": 1684835712,
+        "accessed": 1688969999
+      },
+      {
+        "id": "6214472a3cd240001dc9319c",
+        "title": "「大きなリンク」ではなく別なラベルを使いたいな",
+        "titleLc": "「大きなリンク」ではなく別なラベルを使いたいな",
+        "image": null,
+        "descriptions": [
+          "「[大きなリンク]」ではなく別なラベルを使いたいな[takker.icon]",
+          "「大きい」だけだと、何が大きいのかがわからない",
+          "つながっているリンク数が多いのか",
+          "リンクの文字列が長いのか",
+          "これは僕の使い方と真逆の意味[nishio.icon]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 4,
+        "created": 1645496106,
+        "updated": 1688315023,
+        "accessed": 1688468569
+      },
+      {
+        "id": "63774bad8a81f6001da60b14",
+        "title": "イーロン・マスクがHelpfeel Inc.を買収",
+        "titleLc": "イーロン・マスクがhelpfeel_inc.を買収",
+        "image": null,
+        "descriptions": [
+          "from [Twitterが消え飛んだらどうなる?]",
+          "[Scrapbox Blue]",
+          "#イーロン・マスク",
+          "[イーロン・マスク.icon][{ ワードは自動でリンクするようにしろ、できなければクビだ]",
+          "[大きすぎるリンクの問題]を解決できればとてもいい案[wogikaze.icon]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 4,
+        "created": 1668762562,
+        "updated": 1671773137,
+        "accessed": 1689504470
+      },
+      {
+        "id": "637d770fd4d535001dc88641",
+        "title": "scrapboxでリンク貼るのをがんばればがんばるほど精度が落ちていく宿命",
+        "titleLc": "scrapboxでリンク貼るのをがんばればがんばるほど精度が落ちていく宿命",
+        "image": null,
+        "descriptions": [
+          "[大きすぎるリンクの問題]",
+          "主張がよく理解できなかった[takker.icon]",
+          "精度が落ちるとは？",
+          "何の精度？",
+          "同[wogikaze.icon]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 1,
+        "created": 1669166866,
+        "updated": 1671626850,
+        "accessed": 1692159973
+      },
+      {
+        "id": "638016bc46ec9b001d6b12fe",
+        "title": "投票にいちいち＃投票を付ける必要ある？",
+        "titleLc": "投票にいちいち＃投票を付ける必要ある？",
+        "image": null,
+        "descriptions": [
+          "弊害のほうが大きいと思っている[Mijinko_SD.icon]",
+          "[過度にハッシュタグを使うべきではない]",
+          "現時点では[投票]のページから該当するページを浅れるので便利かもしれないが、いずれ肥大化するとそれも意味を成さなくなる",
+          "[/forum-jp/要望]も似たような理由で運用をやめられた",
+          "「書籍のページに『書籍』とタグをつけて、書籍ページの一覧が見えて、それで何かメリットありますか」的な話をshokaiがしてなかったっけ[nishio.icon]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 0,
+        "created": 1669338816,
+        "updated": 1669384050,
+        "accessed": 1681212559
+      },
+      {
+        "id": "638c219dfa51ef001d5ee7a2",
+        "title": "井戸端の秀逸な記事",
+        "titleLc": "井戸端の秀逸な記事",
+        "image": null,
+        "descriptions": [
+          "[秀逸な記事]",
+          "基準のたたき台",
+          "from [Wikipediaの秀逸な記事]の基準",
+          "> 1. 高い完成度で文章や構成がよくまとめられている。（可能なら）図や画像や表なども使われ、説明を補助している。",
+          "[すべてのwikiは書きかけ]"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 0,
+        "created": 1670128034,
+        "updated": 1670130440,
+        "accessed": 1690738382
+      },
+      {
+        "id": "63d7a2b143de80001ee5e7ec",
+        "title": "2 hop search",
+        "titleLc": "2_hop_search",
+        "image": "https://gyazo.com/8ccd8812b0668559abc4c47d10c89859/raw",
+        "descriptions": [
+          "from [2023/01/30]",
+          "[search related page list]",
+          "[https://gyazo.com/8ccd8812b0668559abc4c47d10c89859]",
+          "何か増えてる",
+          "リロードしたら消えてしまった..."
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 9,
+        "created": 1675076275,
+        "updated": 1684789394,
+        "accessed": 1691108131
+      },
+      {
+        "id": "642c1738385b98001cb42ab6",
+        "title": "書いてけページで書いていけなくなるの、書いてけの限界？",
+        "titleLc": "書いてけページで書いていけなくなるの、書いてけの限界？",
+        "image": null,
+        "descriptions": [
+          "from [2023/04/03]",
+          "書いてけページで書いていけなくなるの、[書いてけの限界]？[coolwind0202.icon]",
+          "好きな漫画とかのページって、漫画どうしの関連性が薄いと思います",
+          "「〇〇が好きな漫画」、とかだったらまだ関連性があると思うんですが",
+          "全員が好きな漫画を書いたら"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 2,
+        "created": 1680611129,
+        "updated": 1681538614,
+        "accessed": 1689871519
+      },
+      {
+        "id": "6492c7701c8e77001c2f61a6",
+        "title": "URLだけのページはなるべく作らないほうがいい？",
+        "titleLc": "urlだけのページはなるべく作らないほうがいい？",
+        "image": null,
+        "descriptions": [
+          "元は[ユーザ生成コンテンツ]がURLだけしか書いてなかったときの書き込み",
+          "そして、そこからの議論",
+          "from [ユーザ生成コンテンツ]",
+          "URLだけのページはなるべく作らないほうがいい？",
+          "[suto3.icon] こういう URL だけ書いたページはなるべく作らないほうがいいよ。"
+        ],
+        "linksLc": ["大きすぎるリンクの問題"],
+        "linked": 3,
+        "created": 1687340913,
+        "updated": 1687567613,
+        "accessed": 1689572201
+      },
+      {
+        "id": "5f7e5be666f0a4002518d1b4",
+        "title": "スマホからscrapbox編集する人",
+        "titleLc": "スマホからscrapbox編集する人",
+        "image": "https://gyazo.com/21ce52af99386b7876debf981a8ff1a9/raw",
+        "descriptions": [
+          "どのくらいいるんだろう？",
+          "[hata6502.icon]",
+          "[takker.icon]",
+          "けっこうやる",
+          "[air34n.icon][kokutousha.icon]同じく"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 1,
+        "created": 1602116588,
+        "updated": 1671525677,
+        "accessed": 1691817189
+      },
+      {
+        "id": "60231d7187772b00215f9427",
+        "title": "…",
+        "titleLc": "…",
+        "image": "https://gyazo.com/805a108b7639922112719a2cebfb68db/raw",
+        "descriptions": [
+          "[…]",
+          "これはピリオド3つじゃなくて[三点リーダー]なのか",
+          "[NCC]",
+          "なんでリンクにならないんだろう",
+          "↓は[文字装飾記法]扱いになるだろうからいいとして"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 8,
+        "created": 1612914035,
+        "updated": 1645347804,
+        "accessed": 1692095591
+      },
+      {
+        "id": "609a6a70e27a2f001c09a840",
+        "title": "拡張記法",
+        "titleLc": "拡張記法",
+        "image": null,
+        "descriptions": [
+          "[/scrasobox/拡張記法がきた！]",
+          "[文字装飾記法]を拡張できる"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 3,
+        "created": 1620732531,
+        "updated": 1620732541,
+        "accessed": 1689382019
+      },
+      {
+        "id": "60f95ce62fef950022bb85b2",
+        "title": "文字装飾記法で遊ぶページ",
+        "titleLc": "文字装飾記法で遊ぶページ",
+        "image": null,
+        "descriptions": [
+          "[/ い][/* え][/** ぇ][/*** ぇ][/**** ぇ][/***** ぇ][/****** ぇ][/******* ぇ][/******** ぇ][/********* ぇ][/********** い]",
+          "[井戸端.icon][* [井戸端.icon]][** [井戸端.icon]][*** [井戸端.icon]][**** [井戸端.icon]][***** [井戸端.icon]][****** [井戸端.icon]][******* [井戸端.icon]][******** [井戸端.icon]][********* [井戸端.icon]][********** [井戸端.icon]]",
+          "[|***** 太字記法と画像を並べる記法を組み合わせるとこうなる]",
+          "[|***** なんか書いとけ]",
+          "[|***** そ縦bsこう書ocれ！きxr使 ででaえ きもpば]"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 2,
+        "created": 1626954986,
+        "updated": 1689159448,
+        "accessed": 1691378761
+      },
+      {
+        "id": "61adc30aaf040000222775c9",
+        "title": "空白記法",
+        "titleLc": "空白記法",
+        "image": null,
+        "descriptions": [
+          "これ→[   ]←",
+          "[yuki_minoh.icon]",
+          "これを利用すると[角括弧をエスケープ]することができる",
+          "[こんな感じで[ ]]",
+          "スペースが含まれてしまうのはご愛敬"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 5,
+        "created": 1638777612,
+        "updated": 1638781290,
+        "accessed": 1692162002
+      },
+      {
+        "id": "61ae99a0aae8c3001d1463fd",
+        "title": "別名登録記法",
+        "titleLc": "別名登録記法",
+        "image": "https://gyazo.com/d4223240129a288daa41b81056e83f44/raw",
+        "descriptions": [
+          "see also: [別名登録記法はV2を使え]",
+          "[yuki_minoh.icon]",
+          "[/public-minaph/別名登録記法]",
+          "みつけました！",
+          "大興奮"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 22,
+        "created": 1638832547,
+        "updated": 1691677162,
+        "accessed": 1692063394
+      },
+      {
+        "id": "61b03d92486742001d76db31",
+        "title": "別名登録記法の詳細と応用",
+        "titleLc": "別名登録記法の詳細と応用",
+        "image": null,
+        "descriptions": [
+          "from [別名登録記法]",
+          "別名登録記法の詳細と応用",
+          "Scrapboxの記法には優先順位があり、ハッシュタグはその最下位に位置しています",
+          "[/public-minaph/記法の優先順位]",
+          "ハッシュタグ記法よりも優先度の高い記法なら別名を登録することが可能です。"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 1,
+        "created": 1638940051,
+        "updated": 1640151753,
+        "accessed": 1691683935
+      },
+      {
+        "id": "61fe31b7f449360022646d7f",
+        "title": "特定の行でだけ使える文字装飾記法",
+        "titleLc": "特定の行でだけ使える文字装飾記法",
+        "image": null,
+        "descriptions": [
+          "from [Settings]",
+          "特定の行でだけ使える[文字装飾記法]",
+          "使用箇所",
+          "[恋は何色なのか歌で検証する]",
+          "色は[原色大辞典]で検索した"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 4,
+        "created": 1644048823,
+        "updated": 1644053493,
+        "accessed": 1684636319
+      },
+      {
+        "id": "6278dd6b806dcd0021686cce",
+        "title": "(提案)+のブラケット記法はサンドボックス的な用途のために残しておきたい",
+        "titleLc": "(提案)+のブラケット記法はサンドボックス的な用途のために残しておきたい",
+        "image": null,
+        "descriptions": [
+          "[** 提案]",
+          "現状、[文字装飾記法]（[ブラケット記法]）に使える記号の中で一切使われていないのは`+`のみです[Mijinko_SD.icon]",
+          "これを、常時有効な記法のために使うのではなく、[一発ネタ]や[テスト用途]のために残しておくというのを[提案]します",
+          "`[+ ]`自体には何も装飾をつけず、プラスと他のアイコンを併用`[+! ]`, `[+* ]`, `[+<* ]`するようにすれば複数の一発ネタ/テストも同時に行えて良さそう[blu3mo.icon]",
+          "その案もよさげ[Mijinko_SD.icon]"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 1,
+        "created": 1652088176,
+        "updated": 1652088560,
+        "accessed": 1691378705
+      },
+      {
+        "id": "62b571ae57b4f7001d44de1c",
+        "title": "mobileで簡単に文字装飾するPageMenu",
+        "titleLc": "mobileで簡単に文字装飾するpagemenu",
+        "image": "https://gyazo.com/c585586170e85923cb4e8de0abc5dd0b/raw",
+        "descriptions": [
+          "mobileで簡単に文字装飾するPageMenu",
+          "from [2022/02/20]",
+          "[mobile版scrapbox]から[文字装飾記法]入れたい人っていますか？[takker.icon]",
+          "作ってみたけど需要あるのかな",
+          "[/takker/mobileで簡単に文字装飾するPageMenu]"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 2,
+        "created": 1656058292,
+        "updated": 1656058318,
+        "accessed": 1665955867
+      },
+      {
+        "id": "631a6f2feedeb7001df7a7b1",
+        "title": "2022/09/09",
+        "titleLc": "2022/09/09",
+        "image": "https://gyazo.com/365f857d800102e7d9d5ad765c295e95/raw",
+        "descriptions": [
+          "第37週: 日月火水木[[金]]土",
+          "2022年 69.04％経過",
+          "今日のn年前",
+          "[2021/09/09]",
+          "[maichan.icon]"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 6,
+        "created": 1662676783,
+        "updated": 1663146808,
+        "accessed": 1692088815
+      },
+      {
+        "id": "63b7efea3882b2001e807190",
+        "title": "assets/index.js解析勢",
+        "titleLc": "assets/index.js解析勢",
+        "image": null,
+        "descriptions": [
+          "[takker.icon]さんが[assets/index.js]を読んでいるという話はよく聞く[Mijinko_SD.icon]",
+          "解析してバグを発見して[Scrapboxへの要望]に報告したこともあった",
+          "[/forum-jp/assets/index.jsのtypo]",
+          "他には？",
+          "[文字装飾記法#61ade17c66687200006e3b80]"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 3,
+        "created": 1672998895,
+        "updated": 1673001138,
+        "accessed": 1692020583
+      },
+      {
+        "id": "643a522d5a143e001b549963",
+        "title": "Scrapboxは文字色を自由に変えられない",
+        "titleLc": "scrapboxは文字色を自由に変えられない",
+        "image": null,
+        "descriptions": [
+          "from [2023/04/15]",
+          "（のりしろ）[Scrapboxに向いていないユースケース]を議論していて、でた意見の一つ",
+          "Wordのようにできない[基素.icon]",
+          "user cssである程度定義できる",
+          "[文字装飾記法]の組み合わせを使って、カラフルな文章を作る記法とか作れないかな[takker.icon]"
+        ],
+        "linksLc": ["文字装飾記法"],
+        "linked": 2,
+        "created": 1681543726,
+        "updated": 1686951309,
+        "accessed": 1692179556
+      },
+      {
+        "id": "61fe2c4b8d1b21001f06c72f",
+        "title": "外部リンクを区別するUserCSS",
+        "titleLc": "外部リンクを区別するusercss",
+        "image": "https://i.gyazo.com/da78df293f9e83a74b5402411e2f2e01.png/raw",
+        "descriptions": [
+          "from [Settings]",
+          "[外部リンク記法]を区別するUserCSS",
+          "[/takker/外部リンクを区別するUserCSS]",
+          "[/noratetsu/●別タブで開くリンクにアイコンを添える]の設定も参考にした",
+          "テスト"
+        ],
+        "linksLc": ["特定のリンクにアイコンをつけるusercss"],
+        "linked": 6,
+        "created": 1644047435,
+        "updated": 1644517958,
+        "accessed": 1691861871
+      },
+      {
+        "id": "620401c30b592d001dae15eb",
+        "title": "2022/02/10",
+        "titleLc": "2022/02/10",
+        "image": "https://gyazo.com/1ca76bd3c4a6135e85187c47105d8b2b/raw",
+        "descriptions": [
+          "今日のn年前",
+          "[2021/02/10]",
+          "[takker.icon]",
+          "[scrapboxでGIFアニメアイコンを使う]",
+          "[pin-diary-5]"
+        ],
+        "linksLc": ["特定のリンクにアイコンをつけるusercss"],
+        "linked": 9,
+        "created": 1644429764,
+        "updated": 1678521078,
+        "accessed": 1691463382
+      },
+      {
+        "id": "62f3c944bc24e40023f3c2f3",
+        "title": "2022/08/11",
+        "titleLc": "2022/08/11",
+        "image": "https://i.ytimg.com/vi/FnhVSd-se-E/mqdefault.jpg",
+        "descriptions": [
+          "第33週: 日月火水[[木]]金土",
+          "2022年 61.10％経過",
+          "今日のn年前",
+          "[2021/08/11]",
+          "[Mijinko_SD.icon]"
+        ],
+        "linksLc": ["特定のリンクにアイコンをつけるusercss"],
+        "linked": 5,
+        "created": 1660143940,
+        "updated": 1691694389,
+        "accessed": 1692077031
+      },
+      {
+        "id": "63bc18490a5d4d001e19c277",
+        "title": "scrapbox-bundlerで \\文字コード が文字化けする",
+        "titleLc": "scrapbox-bundlerで_\\文字コード_が文字化けする",
+        "image": "https://gyazo.com/82c83ab4b2134a6f54408a17b24c0a08/raw",
+        "descriptions": [
+          "from [2023/01/08]",
+          "[Mijinko_SD.icon]",
+          "[https://gyazo.com/82c83ab4b2134a6f54408a17b24c0a08]",
+          "[Wikipedia]のアイコンバグってて草",
+          "なんでこうなった"
+        ],
+        "linksLc": ["特定のリンクにアイコンをつけるusercss"],
+        "linked": 1,
+        "created": 1673271370,
+        "updated": 1673271532,
+        "accessed": 1691857131
+      },
+      {
+        "id": "63c415be97e517001d63546c",
+        "title": "2023/01/16",
+        "titleLc": "2023/01/16",
+        "image": "https://gyazo.com/0d6256e6a03f003575ff75fb9a7fb9a7/raw",
+        "descriptions": [
+          "第3週: 日[[月]]火水木金土",
+          "2023年 4.38％経過",
+          "今日のn年前",
+          "[2022/01/16]",
+          "[2021/01/16]"
+        ],
+        "linksLc": ["特定のリンクにアイコンをつけるusercss"],
+        "linked": 6,
+        "created": 1673795006,
+        "updated": 1688774365,
+        "accessed": 1688822677
+      },
+      {
+        "id": "5f65e018a31dcb001ebc9944",
+        "title": "TeX",
+        "titleLc": "tex",
+        "image": null,
+        "descriptions": [
+          "[$ \\TeX]",
+          "わけがわからん[suto3.icon][MISONLN41.icon][udonn.icon][hata6502.icon]",
+          "[TeXのわからないポイント]",
+          "単純に一般人だと使う必要性に迫られる機会が皆無なだけな気がする[yuta0801.icon]",
+          "（数式だけど）たまに不意打ちのように使う必要性に迫られる[suto3.icon]"
+        ],
+        "linksLc": ["笑い声"],
+        "linked": 23,
+        "created": 1600512048,
+        "updated": 1655788031,
+        "accessed": 1690968520
+      },
+      {
+        "id": "62d8bc8b1092f4001df7b45e",
+        "title": "ｗ",
+        "titleLc": "ｗ",
+        "image": null,
+        "descriptions": [
+          "「ｗ」とはｗｗｗ[笑い]をｗｗｗ意味するｗｗｗ[ネット用語]/[ネットスラング]であるｗｗｗ",
+          "ｗ",
+          "[全角]を用いるのが一般的らしい",
+          "ｗの見た目から「[芝]」とも表現される",
+          "[芝生える]"
+        ],
+        "linksLc": ["笑い声"],
+        "linked": 2,
+        "created": 1658371213,
+        "updated": 1675308228,
+        "accessed": 1690701771
+      },
+      {
+        "id": "635919857039e2001d3beaa4",
+        "title": "米津玄師 - Flamingo",
+        "titleLc": "米津玄師_-_flamingo",
+        "image": "https://i.ytimg.com/vi/Uh6dkL1M9DM/mqdefault.jpg",
+        "descriptions": [
+          "[米津玄師] - [Flamingo]",
+          "[https://www.youtube.com/watch?v=Uh6dkL1M9DM]",
+          "[TEENAGE RIOT]と一緒にシングルとして発売 ([2018年])",
+          "[STRAY SHEEP]収録 ([2020年])",
+          ">「Flamingo」は[R&B]色の強いファンキーなミニマルサウンドと、時代錯誤とも言える日常語外の日本語詞を[演歌]風の歌唱法を折衷した先鋭的な楽曲である。元々は明確なコンセプトがなく、漠然と[フォルクローレ]を意識して制作されていたが、いつしか[島唄]や[都々逸]の日本民謡へと繋がりを持ち、[コブシ]を効かせた特徴的な歌唱法が確立された。随所に入る[笑い声]や[話し声]、[咳払い]や[スキャ"
+        ],
+        "linksLc": ["笑い声"],
+        "linked": 0,
+        "created": 1666783622,
+        "updated": 1666958909,
+        "accessed": 1684758842
+      },
+      {
+        "id": "636a3659d61b90002204ef3e",
+        "title": "悪の笑い",
+        "titleLc": "悪の笑い",
+        "image": "https://i.ytimg.com/vi/YE8PTMSFMUg/mqdefault.jpg",
+        "descriptions": [
+          "「ムワハハハ」「ムアハハハ」「ブワハハハ」「ホホホ」といった[悪役]の[笑い方]のこと。[Evil Laugh]",
+          "[https://ja.wikipedia.org/wiki/悪の笑い 悪の笑い - Wikipedia]",
+          ">悪の笑いとは[フィクション]に登場する悪役につきものの[昂揚]した笑い方である。英語圏での「Evil Laugh 」という表現は少なくとも1860年にまで遡る。「[Wicked laugh] 」（[邪悪な笑い]）はさらに古い表現で、1784年の文章にも見ることができる。他のヴァリエーションとして「[sardonic laugh] 」（[嘲笑い]）という言葉もあり、1714年に現れるが、おそらくさ",
+          "関連項目",
+          "[笑い声]、[笑い]"
+        ],
+        "linksLc": ["笑い声"],
+        "linked": 0,
+        "created": 1667905115,
+        "updated": 1667905793,
+        "accessed": 1691461057
+      },
+      {
+        "id": "63c7c9a5919be6001e20fc5e",
+        "title": "ページ名を並べるだけで会話するページ",
+        "titleLc": "ページ名を並べるだけで会話するページ",
+        "image": "https://gyazo.com/444fdcb3815f96a51f15989da0a869e1/raw",
+        "descriptions": [
+          "[やること] [ページ名並べるだけで会話][blu3mo.icon]",
+          "[独自のルールを強要する] [謎ルールのページ]",
+          "[頭おかしい]　　[褒め言葉][nishio.icon]",
+          "[空白][OK!][はてな]",
+          "[たしかに][🦀][yits-khawk'9483.icon]"
+        ],
+        "linksLc": ["笑い声"],
+        "linked": 8,
+        "created": 1674037670,
+        "updated": 1691229710,
+        "accessed": 1692080782
+      },
+      {
+        "id": "63fb8e8bdc03cf001c291321",
+        "title": "2023/02/27",
+        "titleLc": "2023/02/27",
+        "image": "https://gyazo.com/07aa6880edfe0b1936bd0a299969057c/raw",
+        "descriptions": [
+          "第9週: 日[[月]]火水木金土",
+          "2023年 15.89％経過",
+          "今日のn年前",
+          "[2022/02/27]",
+          "[2021/02/27]"
+        ],
+        "linksLc": ["笑い声"],
+        "linked": 9,
+        "created": 1677430411,
+        "updated": 1688630781,
+        "accessed": 1692161999
+      },
+      {
+        "id": "64b0b9e4ee3a5c001c2d7bd2",
+        "title": "エフッエフッエフッ",
+        "titleLc": "エフッエフッエフッ",
+        "image": "https://i.ytimg.com/vi/bs1SNULCooA/mqdefault.jpg",
+        "descriptions": [
+          "[https://youtu.be/bs1SNULCooA]",
+          "刃牙が想像上の[カマキリ]と戦った話をストライダムから聞いたときの[範馬勇次郎]の[笑い声]"
+        ],
+        "linksLc": ["笑い声"],
+        "linked": 1,
+        "created": 1689303528,
+        "updated": 1689303659,
+        "accessed": 1689860295
+      },
+      {
+        "id": "5f9c04d93f5197001e0238b7",
+        "title": "2020/10/31",
+        "titleLc": "2020/10/31",
+        "image": "https://gyazo.com/6b6f134a48fc4d8f338cf1e073099af0/raw",
+        "descriptions": [
+          "[2020/10/30]←2020/10/31→[2020/11/01]",
+          "[dnin.icon]",
+          "みなさん!!今日は[blue moon]ですよ!!",
+          "[ブルームーン　https://twitter.com/search?q=%23%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A0%E3%83%BC%E3%83%B3&src=trend_click&vertical=trends]",
+          "[/icons2/majika.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 7,
+        "created": 1604060380,
+        "updated": 1684794336,
+        "accessed": 1688600480
+      },
+      {
+        "id": "5fc4998437555d001c12b678",
+        "title": "OneNote",
+        "titleLc": "onenote",
+        "image": null,
+        "descriptions": [
+          "マイクロソフト版scrapboxみたいなメモツール",
+          "もちろん、リンクとかはないのでwikiの延長にあるだけとも。",
+          "よいところ",
+          "Excelやパワポを埋め込める",
+          "OCRっぽい機能がついてて画像をTextにできる（精度は。。）"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 18,
+        "created": 1606719879,
+        "updated": 1669220888,
+        "accessed": 1691372553
+      },
+      {
+        "id": "5ff4284a1f4086001cfe2e2d",
+        "title": "2021/01/06",
+        "titleLc": "2021/01/06",
+        "image": "https://i.ytimg.com/vi/zbhafEipo6c/mqdefault.jpg",
+        "descriptions": [
+          "[2021/01/05]←2021/01/06→[2021/01/07]",
+          "[dnin.icon]",
+          "[総務省、社会人のためのデータサイエンス入門を無料開講 https://ledge.ai/soumu0105/]",
+          "よさそう",
+          "[社会人のためのデータサイエンス入門]は毎年やってる講座ですね[takker.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 5,
+        "created": 1609836620,
+        "updated": 1621320072,
+        "accessed": 1691569030
+      },
+      {
+        "id": "603bb07450cda4001cf2a761",
+        "title": "2021/03/01",
+        "titleLc": "2021/03/01",
+        "image": "https://gyazo.com/fd0294171f38f7269c159f6053cc4f97/raw",
+        "descriptions": [
+          "[2021/02/28]←2021/03/01→[2021/03/02]",
+          "[kuuote.icon]",
+          "[- あーっ、2月が終わった、あーっ]",
+          "あああああああ！！！[takker.icon][yosider.icon]",
+          "[- いや何もやっていない自分が悪いんですけどね]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 6,
+        "created": 1614524535,
+        "updated": 1652019724,
+        "accessed": 1691652200
+      },
+      {
+        "id": "6157e930c429b60023878618",
+        "title": "行リンクで出典リストに飛",
+        "titleLc": "行リンクで出典リストに飛",
+        "image": null,
+        "descriptions": [
+          "from [出典の書き方が難しい]",
+          "今まで通り[出典リスト]を作っておき、[行リンク]で出典リストに飛ぶ",
+          "論文のpdfとかだと、[出典番号をクリックすると出典リストに飛]べるものが多いと思う",
+          "scrapboxでこれがいいのか分からないけど",
+          "行リンクは同じタブで開かれるようなので、これならできる？"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 2,
+        "created": 1633151281,
+        "updated": 1633166809,
+        "accessed": 1674604153
+      },
+      {
+        "id": "61eba4d12fe7b7001d717c80",
+        "title": "スマホで1行だけ行リンクするのが面倒",
+        "titleLc": "スマホで1行だけ行リンクするのが面倒",
+        "image": null,
+        "descriptions": [
+          "from [2022/01/22]",
+          "一行引用して行リンクしたい",
+          "井戸端にいると「一行引用して[行リンク]したい」と思うことがあるがスマホではやりにくい[nishio.icon]",
+          "わかる[yosider.icon][基素.icon][blu3mo.icon]",
+          "UserScriptがあるといいのかな？"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 2,
+        "created": 1642833105,
+        "updated": 1642860952,
+        "accessed": 1688125641
+      },
+      {
+        "id": "61ec10b90d300a001d0ac417",
+        "title": "行リンクの設計が微妙",
+        "titleLc": "行リンクの設計が微妙",
+        "image": null,
+        "descriptions": [
+          "from [スマホで1行だけ行リンクするのが面倒]",
+          "NewPageとかで切り出したら切れるよね？",
+          "切れますね（2022/1/22確認）[基素.icon]",
+          "気軽に[PageのRefactoring]ができない",
+          "[scrapbox-duplicator]とかでも切れてしまう[takker.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 8,
+        "created": 1642860730,
+        "updated": 1674490168,
+        "accessed": 1692143900
+      },
+      {
+        "id": "6222e19c0b3e42001db2e58b",
+        "title": "URL Fragment",
+        "titleLc": "url_fragment",
+        "image": "https://i.ytimg.com/vi/j_SEWqiLVcQ/mqdefault.jpg",
+        "descriptions": [
+          "URLで`#`移行に書いてあるもののこと",
+          "https://url.spec.whatwg.org/#dom-url-hash",
+          "scrapboxだと[行リンク]でよく使われる",
+          "[https://youtu.be/j_SEWqiLVcQ]",
+          "idしか指定できないのだろうか？"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 2,
+        "created": 1646453198,
+        "updated": 1646514532,
+        "accessed": 1670928506
+      },
+      {
+        "id": "622f7eab3464f20021fbcbba",
+        "title": "いずれ切り出されるかも知れない場所に行リンク置くの気が引ける",
+        "titleLc": "いずれ切り出されるかも知れない場所に行リンク置くの気が引ける",
+        "image": null,
+        "descriptions": [
+          "from [@takker]",
+          "[いずれ切り出されるかも知れない場所]に[行リンク]置くの気が引ける(脱線)[yosider.icon]",
+          "けどいい代替手段が思いつかない",
+          "全文検索でリンクしている箇所をチェックしてから切り出すつもりです[takker.icon]",
+          "[Settingsへの行リンクのリンク切れ問題]と同じことをする"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 2,
+        "created": 1647279788,
+        "updated": 1647279826,
+        "accessed": 1687312778
+      },
+      {
+        "id": "62362e078de360001f30a481",
+        "title": "2022/03/20",
+        "titleLc": "2022/03/20",
+        "image": null,
+        "descriptions": [
+          "第13週: [[日]]月火水木金土",
+          "2022年 21.64％経過",
+          "今日のn年前",
+          "[2021/03/20]",
+          "[Mijinko_SD.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 5,
+        "created": 1647717895,
+        "updated": 1656368600,
+        "accessed": 1691635831
+      },
+      {
+        "id": "6237058f433175001ddb6953",
+        "title": "fragment-link",
+        "titleLc": "fragment-link",
+        "image": null,
+        "descriptions": [
+          "短縮URL　[# [short-fl]]",
+          "表記ゆれ　[# [フラグメントリンク記法]]",
+          "切れにくい[行リンク]を実現するために考えた[hata6502.icon]独自の記法。",
+          "[UserScript]で動きます。",
+          "[/hata6502/fragment-link]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 2,
+        "created": 1647773075,
+        "updated": 1648636410,
+        "accessed": 1687312796
+      },
+      {
+        "id": "623ddbd437a5ab001de5d410",
+        "title": "2022/03/26",
+        "titleLc": "2022/03/26",
+        "image": "https://gyazo.com/a6974cdbf2cda1d2941eedf8e45a2371/raw",
+        "descriptions": [
+          "第13週: 日月火水木金[[土]]",
+          "2022年 23.29％経過",
+          "今日のn年前",
+          "[2021/03/26]",
+          "[Mijinko_SD.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 6,
+        "created": 1648221140,
+        "updated": 1679887419,
+        "accessed": 1688955517
+      },
+      {
+        "id": "624162c923db3800229151ac",
+        "title": "関連ページリストがやたらと伸縮する",
+        "titleLc": "関連ページリストがやたらと伸縮する",
+        "image": "https://gyazo.com/d5f6145b8ad32a78a2dd1c14fe388a3c/raw",
+        "descriptions": [
+          "from [2022/03/28]",
+          "[関連ページリスト]がやたらと伸縮する[Mijinko_SD.icon]",
+          "[https://gyazo.com/d5f6145b8ad32a78a2dd1c14fe388a3c] [https://gyazo.com/37d268dbd443a2f4992da869c856463a]",
+          "通常時は左",
+          "文字入力を始めると右のようになる"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 1,
+        "created": 1648452298,
+        "updated": 1648474439,
+        "accessed": 1690969527
+      },
+      {
+        "id": "62695cd4e028f00021377aac",
+        "title": "2022/04/28",
+        "titleLc": "2022/04/28",
+        "image": "https://gyazo.com/bb43bddef7930c64b730aac7e16d6b09/raw",
+        "descriptions": [
+          "第18週: 日月火水[[木]]金土",
+          "2022年 32.33％経過",
+          "今日のn年前",
+          "[2021/04/28]",
+          "[takker.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 6,
+        "created": 1651072212,
+        "updated": 1651245241,
+        "accessed": 1689407060
+      },
+      {
+        "id": "626bfc7e1a2917001d6e1d2b",
+        "title": "テロメアのメニュー",
+        "titleLc": "テロメアのメニュー",
+        "image": "https://gyazo.com/05ebd49c2332693eb3cca6c48a1a249a/raw",
+        "descriptions": [
+          "from [2022/04/14]",
+          "[https://gyazo.com/05ebd49c2332693eb3cca6c48a1a249a]",
+          "[https://gyazo.com/56c738d1ac2fbed01e8e6041c8fd3a11]",
+          "地味に[テロメア]にメニューが追加されていることに気がついてしまった[Mijinko_SD.icon]",
+          "[/vim-jp-emojis/god.icon] [Mijinko_SD.icon][yosider.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 7,
+        "created": 1651244158,
+        "updated": 1669288719,
+        "accessed": 1688719757
+      },
+      {
+        "id": "629b83198657de0023a2ed85",
+        "title": "2022/06/05",
+        "titleLc": "2022/06/05",
+        "image": "https://gyazo.com/685bdd65307992c622c731a24eda8fc0/raw",
+        "descriptions": [
+          "第24週: [[日]]月火水木金土",
+          "2022年 42.74％経過",
+          "今日のn年前",
+          "[2021/06/05]",
+          "[nishio.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 5,
+        "created": 1654358809,
+        "updated": 1673763816,
+        "accessed": 1690980515
+      },
+      {
+        "id": "62a46ac3ea2844001d39eea7",
+        "title": "行リンクは切り出しの機会",
+        "titleLc": "行リンクは切り出しの機会",
+        "image": null,
+        "descriptions": [
+          "from [/nishio/行リンクは切り出しの機会]",
+          ">Scrapboxで何かに[行リンク]で言及する時、それはページにリンクをしたのではページが大きすぎてどこをみて欲しいかわからないとか、ページ冒頭部の説明が言いたいことに誤解を招くとかって状況だと思うが、それってそもそも1ページになっているのがおかしいのであって、別ページに[切り出す]チャンスをサジェストしているのではないか",
+          "もう既に言われてたのか[Mijinko_SD.icon]",
+          "なるほど [増井俊之.icon][wogikaze.icon]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 11,
+        "created": 1654942403,
+        "updated": 1654988071,
+        "accessed": 1691249427
+      },
+      {
+        "id": "637aa0c0682c50001d0b27d5",
+        "title": "いかがでしょう記法",
+        "titleLc": "いかがでしょう記法",
+        "image": "https://gyazo.com/1d1931929f15c1d6423dfd733059d5f0/raw",
+        "descriptions": [
+          "[https://gyazo.com/1d1931929f15c1d6423dfd733059d5f0]",
+          "[https://gyazo.com/d77371190d3f267c3b7d2ab6be2235b2]",
+          "タイトルを表示するuserscriptを見てみた[wogikaze.icon]",
+          "🙏 [kentnkmr.icon]",
+          "元タイトル：「共同scrapboxプロジェクトにおける罫線をもちいたコラボレーションテンプレートの提案」"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 33,
+        "created": 1668980931,
+        "updated": 1684810217,
+        "accessed": 1692089752
+      },
+      {
+        "id": "6395788803628c001e2ab955",
+        "title": "ページ切り出しを行った時に行リンクが切れ",
+        "titleLc": "ページ切り出しを行った時に行リンクが切れ",
+        "image": null,
+        "descriptions": [
+          "[ページの切り出し]範囲を別のページが[行リンク]で参照していると、切り出しで行リンクが切れてしまう",
+          "[いずれ切り出されるかも知れない場所に行リンク置くの気が引ける]",
+          "from [2023/02/12 ボンカレー]",
+          "[切り出し]が[行リンク]を破壊する[nishio.icon]",
+          "[/shokai/wikiでページのURLをIDにすると絶対にうまくいかない]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 5,
+        "created": 1670740106,
+        "updated": 1676443450,
+        "accessed": 1687312825
+      },
+      {
+        "id": "63a05c7e2b1d5e001eea9b71",
+        "title": "リンクサジェストで本文もサジェストしたらどうなるか",
+        "titleLc": "リンクサジェストで本文もサジェストしたらどうなるか",
+        "image": "https://gyazo.com/bf1b8553a06e7f9a6698563fc4a757af/raw",
+        "descriptions": [
+          "[リンクサジェスト]でタイトルだけでなく本文もサジェストし、[行リンク](とその引用)を埋め込むなど",
+          "行リンクが格段に増えることになるが…",
+          "[Tana]がこの形式で戸惑っている",
+          "Workflowyとかもそうか",
+          "[Craft]やLogseqも似ているが、タイトルと本文という区分けのない純粋なアウトライナーに対し、たいていの場合ページタイトルとブロックという要素は分けられてサジェストされる"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 0,
+        "created": 1671453826,
+        "updated": 1671665908,
+        "accessed": 1692153844
+      },
+      {
+        "id": "63a073bcff602c001ded17c3",
+        "title": "行リンクの先を見たい時",
+        "titleLc": "行リンクの先を見たい時",
+        "image": null,
+        "descriptions": [
+          "[別タブ]で開く",
+          "[同一タブ]で開く",
+          "その他？ #書いてけ",
+          "[行リンク]の先を見たい時"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 0,
+        "created": 1671459778,
+        "updated": 1671459854,
+        "accessed": 1676837240
+      },
+      {
+        "id": "63aa0ca8c6d990001e078e8f",
+        "title": "双方向同期版scrapbox-duplicator",
+        "titleLc": "双方向同期版scrapbox-duplicator",
+        "image": null,
+        "descriptions": [
+          "from [scrapbox-duplicator]",
+          "[双方向同期版scrapbox-duplicator]を考えた[blu3mo.icon]",
+          "exported jsonを特定のgithubリポジトリに同期する仕組み",
+          "各scrapboxプロジェクトにおいて、commit + pushとpull相当の操作を定期的に実行する",
+          "pullする時に、フィルタをかけられるようにする"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 6,
+        "created": 1672088745,
+        "updated": 1682921254,
+        "accessed": 1690260996
+      },
+      {
+        "id": "63de68d72f3a13001eb2260e",
+        "title": "作業進捗、プロジェクトページに書く？日記に書く？",
+        "titleLc": "作業進捗、プロジェクトページに書く？日記に書く？",
+        "image": null,
+        "descriptions": [
+          "プロジェクトページ派[yosider.icon][inajob.icon][yits-khawk'9483.icon][sta.icon]",
+          "「今日やること」（予定）は[日記]に書いて、実際タスクをやるときのメモは[プロジェクトページ]に書いている",
+          "今日はここまでやった、みたいな[記録]は日記ページに書くかも",
+          "「今日」という[日時に重きをおいている情報]は日記ページに書いているのだと思う",
+          "[Logseq]を使ってリストと記録を分けている人"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 4,
+        "created": 1675520217,
+        "updated": 1685864317,
+        "accessed": 1692104703
+      },
+      {
+        "id": "63e26219e90cb0001e4f21d7",
+        "title": "2023/02/08 アムステルダム",
+        "titleLc": "2023/02/08_アムステルダム",
+        "image": "https://gyazo.com/22128282efa1b2069555f95e28b97a9e/raw",
+        "descriptions": [
+          "第6週: 日月火[[水]]木金土",
+          "2023年 10.68％経過",
+          "今日のn年前",
+          "[2022/02/08]",
+          "[2021/02/08]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 4,
+        "created": 1675780636,
+        "updated": 1676085180,
+        "accessed": 1687464882
+      },
+      {
+        "id": "63f768fb3c2a88001ce93f03",
+        "title": "行IDを使わずに行リンクを実現するには？",
+        "titleLc": "行idを使わずに行リンクを実現するには？",
+        "image": null,
+        "descriptions": [
+          "old title: wikiでURLをIDにするとうまくいかない",
+          "文脈 from [ページ切り出しを行った時に行リンクが切れ]",
+          "[切り出し]が[行リンク]を破壊する[nishio.icon]",
+          "[/shokai/wikiでページのURLをIDにすると絶対にうまくいかない]",
+          ">ページIDをURLにすると...人間の善き行いが外部リンクを破壊する悪しき行いになってしまう"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 0,
+        "created": 1677158655,
+        "updated": 1677164957,
+        "accessed": 1686543546
+      },
+      {
+        "id": "64be92295a8f69001cd2bb56",
+        "title": "2023/07/25",
+        "titleLc": "2023/07/25",
+        "image": "https://i.ytimg.com/vi/v6Y3FsmADq8/mqdefault.jpg",
+        "descriptions": [
+          "第30週: 日月[[火]]水木金土",
+          "2023年 56.44％経過",
+          "今日のn年前",
+          "[2022/07/25]",
+          "[2022/07/25#62de5b0b7c8c6d0000a449df]"
+        ],
+        "linksLc": ["行リンク"],
+        "linked": 9,
+        "created": 1690210893,
+        "updated": 1690954700,
+        "accessed": 1692070551
+      }
+    ],
+    "projectLinks1hop": [],
+    "hasBackLinksOrIcons": true,
+    "search": "",
+    "searchBackend": "elasticsearch"
+  },
+  "collaborators": [
+    {
+      "id": "59fb21121207900012774b17",
+      "name": "基素",
+      "displayName": "沃波もとそ",
+      "photo": "https://lh3.googleusercontent.com/a/AAcHTtca61f7ZvkjKYSGNhxs-XTcUyNmlafb6NGo7jI4FieaiWk=s96-c"
+    },
+    {
+      "id": "5c30ba88e98efe0017e5172d",
+      "name": "yosider",
+      "displayName": "yosider",
+      "photo": "https://lh3.googleusercontent.com/a/AAcHTtdmcD92kcfQu6UapsiNRJjfLWTa-kFzhgj_Py4LX43Swg=s96-c"
+    },
+    {
+      "id": "5e8944948a182900174bb2e2",
+      "name": "kuuote",
+      "displayName": "kuuote",
+      "photo": "https://lh3.googleusercontent.com/a/AATXAJwQXY4B4e_jCPr3JFrOODgkrlIQHCJ9t54KEvZG=s96-c"
+    },
+    {
+      "id": "5ee7f26f1c0c850025666872",
+      "name": "yuki_minoh",
+      "displayName": "美濃佑輝",
+      "photo": "https://lh3.googleusercontent.com/a/AAcHTtcRZHBoSukXIrX9RlUmogCBiKHOwf07GDTgdydj=s96-c"
+    },
+    {
+      "id": "616ca537c25a92001e5f1e0d",
+      "name": "wogikaze",
+      "displayName": "荻風",
+      "photo": "https://lh3.googleusercontent.com/a/AAcHTtdv0d0JIM9PryIitFgmBWxRixfsxnuXh4CZvkz_4mWGMmY=s96-c"
+    }
+  ]
+}

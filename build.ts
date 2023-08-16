@@ -86,9 +86,7 @@ const json = {
     lines: [
       title,
       "@takker/ScrapJupyterのbundle済みソースコード",
-      ` [/emoji/warning.icon]このページは[build.ts ${
-        import.meta.url
-      }]によって自動生成されたページです`,
+      ` [/emoji/warning.icon]このページは[build.ts ${import.meta.url}]によって自動生成されたページです`,
       "",
       "使い方",
       " 自分のページの`script.js`に以下を追記して下さい",

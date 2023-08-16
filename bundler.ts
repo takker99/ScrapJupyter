@@ -1,18 +1,53 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
 import { remoteLoader } from "./plugin.ts";
 
-declare const WORKER_URL: string;
-declare const WASM_URL: string;
+type Builder = (contents: string, options: BundleOptions) => Promise<string>;
+
 let initialized: Promise<void> | undefined;
-export async function loadWasm() {
-  if (initialized === undefined) {
-    initialized = initialize({
-      wasmURL: WASM_URL,
-      workerURL: WORKER_URL,
+/** esbuildを読み込み、builderを返す */
+export const load = async (
+  wasm: WebAssembly.Module,
+  workerURL: string | URL,
+): Promise<Builder> => {
+  initialized ??= initialize({
+    wasmModule: wasm,
+    workerURL,
+  });
+  await initialized;
+
+  return async (
+    contents,
+    { extension, fileName, dirURL },
+  ) => {
+    fileName ??= `codeblock-${
+      Math.floor(0xFFFFFE * Math.random()).toString(16)
+    }.${getLoader(extension)}`;
+    const baseURL = `${dirURL}${fileName}`;
+
+    const { outputFiles } = await build({
+      stdin: {
+        contents: `import "${baseURL}";`,
+        loader: getLoader(extension),
+      },
+      format: "esm",
+      bundle: true,
+      minify: true,
+      charset: "utf8",
+      plugins: [
+        remoteLoader({
+          baseURL: new URL(baseURL),
+          sources: [{
+            path: baseURL,
+            contents,
+            loader: getLoader(extension),
+          }],
+        }),
+      ],
+      write: false,
     });
-  }
-  return await initialized;
-}
+    return outputFiles[0].text;
+  };
+};
 
 export type AvailableExtensions =
   | "ts"
@@ -35,38 +70,6 @@ export type BundleOptions = {
   fileName?: string;
   dirURL: string;
 };
-export async function bundle(
-  contents: string,
-  { extension, fileName, dirURL }: BundleOptions,
-) {
-  await loadWasm();
-  fileName ??= `codeblock-${
-    Math.floor(0xFFFFFE * Math.random()).toString(16)
-  }.${getLoader(extension)}`;
-  const baseURL = `${dirURL}${fileName}`;
-  const { outputFiles } = await build({
-    stdin: {
-      contents: `import "${baseURL}";`,
-      loader: getLoader(extension),
-    },
-    format: "esm",
-    bundle: true,
-    minify: true,
-    charset: "utf8",
-    plugins: [
-      remoteLoader({
-        baseURL: new URL(baseURL),
-        sources: [{
-          path: baseURL,
-          contents,
-          loader: getLoader(extension),
-        }],
-      }),
-    ],
-    write: false,
-  });
-  return outputFiles[0].text;
-}
 
 function getLoader(extension: AvailableExtensions) {
   switch (extension) {

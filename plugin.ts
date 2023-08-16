@@ -1,8 +1,8 @@
 /// <reference no-default-lib="true"/>
 /// <reference lib="esnext" />
 /// <reference lib="dom" />
-import type { Loader, Plugin } from "./deps/esbuild-wasm.ts";
-import type { ImportInfo, SkipInfo } from "./deps/protcols.ts";
+import { Loader, Plugin } from "./deps/esbuild-wasm.ts";
+import { ImportInfo, SkipInfo } from "./deps/protcols.ts";
 import {
   ImportMap,
   resolveImportMap,

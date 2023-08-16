@@ -1,5 +1,4 @@
-import { Scrapbox } from "./deps/scrapbox.ts";
-import { encodeTitle } from "./utils.ts";
+import { encodeTitleURI, Scrapbox } from "./deps/scrapbox.ts";
 declare const scrapbox: Scrapbox;
 
 type File = {
@@ -23,7 +22,7 @@ export function getCodeFiles() {
       return [...acc, {
         filename: codeBlock.filename,
         dir: `https://scrapbox.io/api/code/${scrapbox.Project.name}/${
-          encodeTitle(scrapbox.Page.title ?? "")
+          encodeTitleURI(scrapbox.Page.title ?? "")
         }`,
         lang: codeBlock.lang,
         startIds: [id],

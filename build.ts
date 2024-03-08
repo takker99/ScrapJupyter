@@ -1,12 +1,12 @@
 /// <reference lib="deno.ns"/>
 /// <reference lib="deno.unstable"/>
 
-import { Command } from "https://deno.land/x/cliffy@v0.19.2/command/mod.ts";
+import { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts";
 import { build, stop } from "./deps/esbuild.ts";
 import { fromFileUrl, relative } from "./deps/path.ts";
 import { exists } from "./deps/fs.ts";
-import { toLc } from "./utils.ts";
-import { cache } from "https://deno.land/x/esbuild_plugin_cache@v0.2.8/mod.ts";
+import { toTitleLc } from "./deps/scrapbox.ts";
+import { cache } from "https://deno.land/x/esbuild_plugin_cache@v0.2.10/mod.ts";
 
 const { options } = await new Command()
   .name("builder")
@@ -55,7 +55,7 @@ const { outputFiles } = await build({
   write: false,
   define: {
     "WORKER_URL": `"https://scrapbox.io/api/code/${project}/${
-      toLc(title)
+      toTitleLc(title)
     }/worker.js"`,
     "WASM_URL": `"${wasmUrl}"`,
   },
@@ -92,7 +92,7 @@ const json = {
       "使い方",
       " 自分のページの`script.js`に以下を追記して下さい",
       " code:js",
-      `  import "../${toLc(title)}/mod.js";`,
+      `  import "../${toTitleLc(title)}/mod.js";`,
       "",
       "source codes",
       "code:mod.js",

@@ -1,1 +1,1 @@
-export { throttle } from "https://pax.deno.dev/takker99/deno-async-throttle@0.2.0";
+export * from "https://raw.githubusercontent.com/takker99/deno-async-throttle/0.2.0/mod.ts";

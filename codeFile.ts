@@ -1,10 +1,4 @@
-import {
-  BaseLine,
-  convertToBlock,
-  encodeTitleURI,
-  packRows,
-  parseToRows,
-} from "./deps/scrapbox-rest.ts";
+import { BaseLine, encodeTitleURI, parse } from "./deps/scrapbox-rest.ts";
 
 interface File {
   filename?: string;
@@ -22,37 +16,37 @@ export const getCodeFiles = (
 ): File[] => {
   if (lines.length === 0) return [];
   const input = lines.map((line) => line.text).join("\n");
-  const packs = packRows(parseToRows(input), { hasTitle: true });
+  const blocks = parse(input, { hasTitle: true });
 
   /** 分割されたコードブロックを結合するのに使う */
   const codes = new Map<string, Omit<File, "filename">>();
   /** 現在読んでいる`pack.rows[0]`の行番号 */
   let counter = 0;
-  for (const pack of packs) {
-    switch (pack.type) {
+  for (const block of blocks) {
+    switch (block.type) {
       case "title":
-      case "table":
       case "line": {
-        counter += pack.rows.length;
+        counter++;
         break;
       }
+      case "table":
+        counter += block.cells.length + 1;
+        break;
       case "codeBlock": {
-        const codeBlock = convertToBlock(pack);
-        if (codeBlock.type !== "codeBlock") throw SyntaxError();
-        const prev = codes.get(codeBlock.fileName);
+        const prev = codes.get(block.fileName);
         codes.set(
-          codeBlock.fileName,
+          block.fileName,
           {
             dir: prev?.dir ??
               `https://scrapbox.io/api/code/${project}/${
                 encodeTitleURI(title)
               }`,
-            lang: prev?.lang ?? codeBlock.fileName.split(".").pop() ?? "text",
+            lang: prev?.lang ?? block.fileName.split(".").pop() ?? "text",
             startIds: [...(prev?.startIds ?? []), lines[counter].id],
-            lines: [...(prev?.lines ?? []), ...codeBlock.content.split("\n")],
+            lines: [...(prev?.lines ?? []), ...block.content.split("\n")],
           },
         );
-        counter += pack.rows.length;
+        counter += block.content.split("\n").length + 1;
         break;
       }
     }

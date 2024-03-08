@@ -11,6 +11,9 @@ import {
 import { relativeURL } from "./deps/path.ts";
 import { getLoader } from "./deps/loader.ts";
 import { isBareModuleName } from "./utils.ts";
+import { isAllowedConnectSrc } from "./isAllowedConnectSrc.ts";
+
+declare const GM_fetch: (typeof globalThis.fetch) | undefined;
 
 export interface Options {
   importmap?: ImportMap;
@@ -86,7 +89,7 @@ export const remoteLoader = (
           });
           return { contents: source.contents, loader: source.loader };
         }
-        const response = await fetch(path);
+        const response = await fetchCORS(new URL(path));
         progressCallback?.({
           type: "remote",
           url: path,
@@ -106,3 +109,8 @@ export const remoteLoader = (
     });
   },
 });
+
+const fetchCORS = (url: URL, init?: RequestInit): Promise<Response> =>
+  isAllowedConnectSrc(url) || !GM_fetch
+    ? fetch(url, init)
+    : GM_fetch(url, init);

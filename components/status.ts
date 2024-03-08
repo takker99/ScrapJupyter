@@ -38,7 +38,7 @@ export const statusButton = () => {
         } else {
           const { top, left } = a.getBoundingClientRect();
           show(message, {
-            y: top + window.scrollY,
+            y: top + globalThis.scrollY,
             x: left,
           });
         }

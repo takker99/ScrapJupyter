@@ -1,12 +1,10 @@
-/// <reference lib="deno.ns"/>
-/// <reference lib="deno.unstable"/>
+/// <reference lib="dom.iterable"/>
 
 import { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts";
-import { build, stop } from "./deps/esbuild.ts";
+import { build, stop ,denoPlugins} from "./deps/esbuild.ts";
 import { fromFileUrl, relative } from "./deps/path.ts";
 import { exists } from "./deps/fs.ts";
 import { toTitleLc } from "./deps/scrapbox.ts";
-import { cache } from "https://deno.land/x/esbuild_plugin_cache@v0.2.10/mod.ts";
 
 const { options } = await new Command()
   .name("builder")
@@ -60,7 +58,7 @@ const { outputFiles } = await build({
     "WASM_URL": `"${wasmUrl}"`,
   },
   sourcemap: sourceMap ? "inline" : undefined,
-  plugins: [cache({ importmap: { imports: {} }, directory: "./cache" })],
+  plugins: [...denoPlugins()],
 });
 const mainSrc = outputFiles[0].text;
 

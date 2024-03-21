@@ -1,7 +1,7 @@
 /// <reference lib="dom.iterable"/>
 
 import { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts";
-import { build, stop ,denoPlugins} from "./deps/esbuild.ts";
+import { build, denoPlugins, stop } from "./deps/esbuild.ts";
 import { fromFileUrl, relative } from "./deps/path.ts";
 import { exists } from "./deps/fs.ts";
 import { toTitleLc } from "./deps/scrapbox.ts";

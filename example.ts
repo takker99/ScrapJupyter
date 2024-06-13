@@ -8,8 +8,10 @@ await initialize({
   wasmModule: await WebAssembly.compileStreaming(
     fetch("https://cdn.jsdelivr.net/npm/esbuild-wasm@0.21.5/esbuild.wasm"),
   ),
-  workerURL:
-    new URL("https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.21.5/worker.ts",import.meta.url),
+  workerURL: new URL(
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.21.5/worker.ts",
+    import.meta.url,
+  ),
 });
 
 const fetchCORS = async (

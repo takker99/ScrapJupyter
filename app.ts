@@ -1,8 +1,10 @@
 /// <reference no-default-lib="true"/>
 /// <reference lib="esnext"/>
 /// <reference lib="dom"/>
+/// <reference lib="dom.iterable"/>
 import { getCodeFiles } from "./codeFile.ts";
-import { isAvailableExtensions, load } from "./bundler.ts";
+import { load } from "./bundler.ts";
+import { isAvailableExtensions } from "./extension.ts";
 import { eventName, Scrapbox, takeInternalLines } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
 import { throttle } from "./deps/throttle.ts";

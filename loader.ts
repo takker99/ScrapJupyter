@@ -1,4 +1,5 @@
 import { Loader } from "./deps/esbuild-wasm.ts";
+import { basename, extname } from "./deps/url.ts";
 
 const loaderList: Loader[] = [
   "base64",
@@ -22,8 +23,11 @@ const isLoader = (loader: string): loader is Loader =>
 
 export const responseToLoader = (response: Response): Loader => {
   const url = response.url;
-  const ext = url.split(".").pop();
-  if (ext && isLoader(ext)) return ext;
+  const filename = basename(url);
+  if (isLoader(filename)) return filename;
+  if (filename === "mjs") return "js";
+  const ext = extname(url).slice(1);
+  if (isLoader(ext)) return ext;
   if (ext === "mjs") return "js";
   const contentType = response.headers.get("Content-Type") ?? "text/plain";
   const mimeType = contentType.split(";")[0]?.trim?.() ?? "text/plain";

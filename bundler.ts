@@ -1,5 +1,14 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
-import { remoteLoader } from "./plugin.ts";
+import { findLatestCache } from "./deps/scrapbox.ts";
+import { AvailableExtensions, extensionToLoader } from "./extension.ts";
+import { isAllowedConnectSrc } from "./isAllowedConnectSrc.ts";
+import { remoteLoader } from "./remoteLoader.ts";
+
+export interface BundleOptions {
+  extension: AvailableExtensions;
+  fileName?: string;
+  dirURL: string;
+}
 
 type Builder = (contents: string, options: BundleOptions) => Promise<string>;
 
@@ -21,26 +30,19 @@ export const load = async (
   ) => {
     fileName ??= `codeblock-${
       Math.floor(0xFFFFFE * Math.random()).toString(16)
-    }.${getLoader(extension)}`;
+    }.${extensionToLoader(extension)}`;
     const baseURL = `${dirURL}${fileName}`;
 
     const { outputFiles } = await build({
-      stdin: {
-        contents: `import "${baseURL}";`,
-        loader: getLoader(extension),
-      },
+      entryPoints: [baseURL],
       format: "esm",
       bundle: true,
       minify: true,
       charset: "utf8",
       plugins: [
         remoteLoader({
-          baseURL: new URL(baseURL),
-          sources: [{
-            path: baseURL,
-            contents,
-            loader: getLoader(extension),
-          }],
+          fetch: fetchCORS,
+          sources: [{ path: baseURL, contents }],
         }),
       ],
       write: false,
@@ -49,39 +51,26 @@ export const load = async (
   };
 };
 
-export type AvailableExtensions =
-  | "ts"
-  | "js"
-  | "tsx"
-  | "jsx"
-  | "mjs"
-  | "javascript"
-  | "typescript";
-export const isAvailableExtensions = (
-  extension: string,
-): extension is AvailableExtensions =>
-  ["ts", "js", "tsx", "jsx", "mjs", "javascript", "typescript"].includes(
-    extension,
-  );
-
-export type BundleOptions = {
-  extension: AvailableExtensions;
-  fileName?: string;
-  dirURL: string;
-};
-
-function getLoader(extension: AvailableExtensions) {
-  switch (extension) {
-    case "javascript":
-    case "js":
-    case "mjs":
-      return "js" as const;
-    case "typescript":
-    case "ts":
-      return "ts" as const;
-    case "jsx":
-      return "jsx" as const;
-    case "tsx":
-      return "tsx" as const;
+declare const GM_fetch: (typeof globalThis.fetch) | undefined;
+const fetchCORS = async (
+  req: Request,
+  cacheFirst: boolean,
+): Promise<[Response, boolean]> => {
+  const fetch_ = isAllowedConnectSrc(new URL(req.url)) || !GM_fetch
+    ? globalThis.fetch
+    : GM_fetch;
+  if (cacheFirst) {
+    const res = await findLatestCache(req);
+    if (res) return [res, true];
   }
-}
+  try {
+    const res = await fetch_(req);
+    if (res.ok) return [res, false];
+    throw new TypeError(`${res.status} ${res.statusText}`);
+  } catch (e: unknown) {
+    if (!(e instanceof TypeError)) throw e;
+    const res = await findLatestCache(req);
+    if (res) return [res, true];
+    throw e;
+  }
+};

@@ -6,10 +6,10 @@ import { relative as makeRelative } from "https://raw.githubusercontent.com/takk
 await initialize({
   // 0.21.4
   wasmModule: await WebAssembly.compileStreaming(
-    fetch("https://scrapbox.io/files/66592d7d579498001c0388e6.wasm"),
+    fetch("https://cdn.jsdelivr.net/npm/esbuild-wasm@0.21.5/esbuild.wasm"),
   ),
   workerURL:
-    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.21.4/worker.ts",
+    new URL("https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.21.5/worker.ts",import.meta.url),
 });
 
 const fetchCORS = async (

@@ -176,7 +176,7 @@ const load = async (
         isCache: true,
       }),
     });
-    return source;
+    return { contents: source.contents, loader: source.loader };
   }
   const cacheFirst = !reload
     ? true

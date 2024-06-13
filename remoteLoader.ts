@@ -11,8 +11,10 @@ import {
 } from "./deps/importmap.ts";
 import { toFileUrl } from "./deps/path.ts";
 import { escape } from "./deps/regexp.ts";
-import { urlToEsbuildResolution } from "./esbuildResolution.ts";
-import { esbuildResolutionToURL } from "./deps/esbuild.ts";
+import {
+  esbuildResolutionToURL,
+  urlToEsbuildResolution,
+} from "./esbuildResolution.ts";
 import { responseToLoader } from "./loader.ts";
 
 export interface RemoteLoaderInit {

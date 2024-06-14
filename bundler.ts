@@ -42,6 +42,10 @@ export const load = async (
       plugins: [
         remoteLoader({
           fetch: fetchCORS,
+          reload: [
+            new URLPattern({ hostname: location.hostname }),
+            new URLPattern({ hostname: "scrapbox.io" }),
+          ],
           sources: [{ path: baseURL, contents }],
         }),
       ],

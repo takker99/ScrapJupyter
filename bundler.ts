@@ -61,7 +61,10 @@ const fetchCORS = async (
     : GM_fetch;
   if (cacheFirst) {
     const res = await findLatestCache(req);
-    if (res) return [res, true];
+    if (res) {
+      if (!res.url) Object.defineProperty(res, "url", { value: req.url });
+      return [res, true];
+    }
   }
   try {
     const res = await fetch_(req);
@@ -70,7 +73,10 @@ const fetchCORS = async (
   } catch (e: unknown) {
     if (!(e instanceof TypeError)) throw e;
     const res = await findLatestCache(req);
-    if (res) return [res, true];
+    if (res) {
+      if (!res.url) Object.defineProperty(res, "url", { value: req.url });
+      return [res, true];
+    }
     throw e;
   }
 };

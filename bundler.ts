@@ -1,5 +1,5 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
-import { findLatestCache } from "./deps/scrapbox.ts";
+import { findLatestCache, saveApiCache } from "./deps/scrapbox.ts";
 import { AvailableExtensions, extensionToLoader } from "./extension.ts";
 import { isAllowedConnectSrc } from "./isAllowedConnectSrc.ts";
 import { remoteLoader } from "./remoteLoader.ts";
@@ -72,7 +72,10 @@ const fetchCORS = async (
   }
   try {
     const res = await fetch_(req);
-    if (res.ok) return [res, false];
+    if (res.ok) {
+      if (fetch_ === GM_fetch) await saveApiCache(req, res);
+      return [res, false];
+    }
     throw new TypeError(`${res.status} ${res.statusText}`);
   } catch (e: unknown) {
     if (!(e instanceof TypeError)) throw e;

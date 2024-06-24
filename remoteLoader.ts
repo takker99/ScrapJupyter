@@ -182,7 +182,7 @@ const load = async (
     ? true
     : reload === true
     ? false
-    : reload.some((pattern) => pattern.test(href));
+    : !reload.some((pattern) => pattern.test(href));
 
   const result = fetch(new Request(href), cacheFirst);
   progressCallback?.({

@@ -1,5 +1,5 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
-import { findLatestCache, saveApiCache } from "./deps/scrapbox.ts";
+import { downLines, findLatestCache, saveApiCache } from "./deps/scrapbox.ts";
 import { AvailableExtensions, extensionToLoader } from "./extension.ts";
 import { isAllowedConnectSrc } from "./isAllowedConnectSrc.ts";
 import { remoteLoader } from "./remoteLoader.ts";
@@ -9,8 +9,23 @@ export interface BundleOptions {
   fileName?: string;
   dirURL: string;
 }
+export interface ImportGraph {
+  path: string;
+  isCache: boolean;
+  children: ImportGraph[];
+}
 
-type Builder = (contents: string, options: BundleOptions) => Promise<string>;
+export interface BundleResult {
+  /** built code */
+  contents: string;
+
+  graph: ImportGraph;
+}
+
+type Builder = (
+  contents: string,
+  options: BundleOptions,
+) => Promise<BundleResult>;
 
 let initialized: Promise<void> | undefined;
 /** esbuildを読み込み、builderを返す */
@@ -32,6 +47,7 @@ export const load = async (
       Math.floor(0xFFFFFE * Math.random()).toString(16)
     }.${extensionToLoader(extension)}`;
     const baseURL = `${dirURL}${fileName}`;
+    const graphMap = new Map<string, ImportGraph>();
 
     const { outputFiles } = await build({
       entryPoints: [baseURL],
@@ -47,11 +63,44 @@ export const load = async (
             new URLPattern({ hostname: "scrapbox.io" }),
           ],
           sources: [{ path: baseURL, contents }],
+          progressCallback: (message) => {
+            if (message.type === "resolve") {
+              if (!message.parent) return;
+
+              const parent: ImportGraph = graphMap.get(message.parent) ?? {
+                path: message.parent,
+                isCache: false,
+                children: [],
+              };
+              const child: ImportGraph = graphMap.get(message.path) ?? {
+                path: message.path,
+                isCache: false,
+                children: [],
+              };
+              parent.children.push(child);
+              graphMap.set(message.parent, parent);
+              graphMap.set(message.path, child);
+              return;
+            }
+            message.done.then(({ isCache }) => {
+              const graph = graphMap.get(message.path) ?? {
+                path: message.path,
+                isCache,
+                children: [],
+              };
+              graph.isCache = isCache;
+              graphMap.set(message.path, graph);
+            });
+          },
         }),
       ],
       write: false,
     });
-    return outputFiles[0].text;
+
+    return {
+      contents: outputFiles[0].text,
+      graph: graphMap.get(new URL(baseURL).href)!,
+    };
   };
 };
 
@@ -87,3 +136,4 @@ const fetchCORS = async (
     throw e;
   }
 };
+

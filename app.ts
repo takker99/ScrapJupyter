@@ -8,6 +8,7 @@ import { isAvailableExtensions } from "./extension.ts";
 import { eventName, Scrapbox, takeInternalLines } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
 import { throttle } from "./deps/throttle.ts";
+import { makeGraph, viewGraph } from "./viewGraph.ts";
 declare const scrapbox: Scrapbox;
 
 /** ScrapJupyterを起動する
@@ -44,13 +45,17 @@ export const setup = async (
           async () => {
             await setStatus("loading");
             try {
-              const code = await bundle(file.lines.join("\n"), {
-                extension,
-                fileName: file.filename,
-                dirURL: `${file.dir}/`,
-              });
-              console.log("execute:", code);
-              await Function(`return (async()=>{${code}})()`)();
+              const { contents, graph } = await bundle(
+                file.lines.join("\n"),
+                {
+                  extension,
+                  fileName: file.filename,
+                  dirURL: `${file.dir}/`,
+                },
+              );
+              console.debug(viewGraph(graph, true));
+              console.debug("execute:", contents);
+              await Function(`return (async()=>{${contents}})()`)();
               await setStatus("pass");
             } catch (e) {
               await setStatus("fail", e.toString());

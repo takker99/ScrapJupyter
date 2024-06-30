@@ -131,7 +131,7 @@ export const remoteLoader = (
           if (externalRegexp.test(resolved.href)) {
             info.external = true;
             progressCallback?.(info);
-            return info;
+            return { path: info.path, external: info.external };
           }
         }
         progressCallback?.(info);

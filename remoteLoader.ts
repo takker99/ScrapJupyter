@@ -42,6 +42,7 @@ export interface ResolveInfo {
 export interface LoadInfo {
   type: "load";
   path: string;
+  loader: Loader;
   done: Promise<{ size: number; isCache: boolean }>;
 }
 
@@ -171,6 +172,7 @@ const load = async (
     progressCallback?.({
       type: "load",
       path: href,
+      loader: source.loader ?? "text",
       done: Promise.resolve({
         size: new Blob([source.contents]).size,
         isCache: true,
@@ -185,14 +187,16 @@ const load = async (
     : !reload.some((pattern) => pattern.test(href));
 
   const result = fetch(new Request(href), cacheFirst);
+  const [res] = await result;
+  const loader = responseToLoader(res);
   progressCallback?.({
     type: "load",
     path: href,
+    loader,
     done: result.then(([res, isCache]) => ({
       size: parseInt(res.headers.get("Content-Length") ?? "0"),
       isCache,
     })),
   });
-  const [res] = await result;
-  return { contents: await res.text(), loader: responseToLoader(res) };
+  return { contents: await res.text(), loader };
 };

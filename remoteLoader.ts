@@ -42,8 +42,7 @@ export interface ResolveInfo {
 export interface LoadInfo {
   type: "load";
   path: string;
-  loader: Loader;
-  done: Promise<{ size: number; isCache: boolean }>;
+  done: Promise<{ size: number; loader: Loader; isCache: boolean }>;
 }
 
 export const remoteLoader = (
@@ -69,7 +68,11 @@ export const remoteLoader = (
         progressCallback,
       );
       importMap = resolveImportMap(
-        JSON.parse(importMapSource.contents),
+        JSON.parse(
+          importMapSource.contents instanceof Uint8Array
+            ? new TextDecoder().decode(importMapSource.contents)
+            : importMapSource.contents ?? "",
+        ),
         importMapURL,
       );
     });
@@ -165,16 +168,16 @@ const load = async (
   sources: Source[],
   reload?: boolean | URLPattern[],
   progressCallback?: (message: ResolveInfo | LoadInfo) => void,
-): Promise<Omit<Source, "path">> => {
+): Promise<OnLoadResult> => {
   const source = sources.find((source) => source.path === href);
 
   if (source !== undefined) {
     progressCallback?.({
       type: "load",
       path: href,
-      loader: source.loader ?? "text",
       done: Promise.resolve({
         size: new Blob([source.contents]).size,
+        loader: source.loader ?? "text",
         isCache: true,
       }),
     });
@@ -186,17 +189,19 @@ const load = async (
     ? false
     : !reload.some((pattern) => pattern.test(href));
 
-  const result = fetch(new Request(href), cacheFirst);
-  const [res] = await result;
-  const loader = responseToLoader(res);
+  const result = fetch(new Request(href), cacheFirst).then(([res, isCache]) => {
+    const loader = responseToLoader(res);
+    return res.blob().then((blob) => [blob, loader, isCache] as const);
+  });
   progressCallback?.({
     type: "load",
     path: href,
-    loader,
-    done: result.then(([res, isCache]) => ({
-      size: parseInt(res.headers.get("Content-Length") ?? "0"),
+    done: result.then(([blob, loader, isCache]) => ({
+      size: blob.size,
+      loader,
       isCache,
     })),
   });
-  return { contents: await res.text(), loader };
+  const [blob, loader] = await result;
+  return { contents: new Uint8Array(await blob.arrayBuffer()), loader };
 };

@@ -1,7 +1,7 @@
-import { gray } from "https://deno.land/std@0.224.0/fmt/colors.ts";
 import { build, initialize } from "./deps/esbuild-wasm.ts";
 import { remoteLoader } from "./remoteLoader.ts";
-import { relative as makeRelative } from "https://raw.githubusercontent.com/takker99/scrapbox-bundler/632c749a6287d628bb8bed5cf21c5d9b6f15f58e/path.ts";
+import { viewGraph } from "./viewGraph.ts";
+import { ImportGraph } from "./bundler.ts";
 
 await initialize({
   // 0.21.4
@@ -23,8 +23,7 @@ const fetchCORS = async (
   throw new TypeError(`${res.status} ${res.statusText}`);
 };
 
-/** keyが親ファイルパス, valueがそのファイルでimportしたファイルのパスリスト */
-const ancestors = new Map<string, string[]>();
+const graphMap = new Map<string, ImportGraph>();
 const entryPoints = [
   "https://scrapbox.io/api/code/takker/for-any-project/script.ts",
   "https://scrapbox.io/api/code/shokai/shokai/script.js",
@@ -45,50 +44,40 @@ const result = await build({
       "https://scrapbox.io/api/code/takker/for-any-project/import_map.json",
     ),
     progressCallback: (message) => {
-      if (message.type !== "resolve") return;
-      if (!message.parent) return;
+      if (message.type === "resolve") {
+        if (!message.parent) return;
 
-      ancestors.set(message.parent, [
-        ...(ancestors.get(message.parent) ?? []),
-        message.path,
-      ]);
+        const parent: ImportGraph = graphMap.get(message.parent) ?? {
+          path: message.parent,
+          isCache: false,
+          children: [],
+        };
+        const child: ImportGraph = graphMap.get(message.path) ?? {
+          path: message.path,
+          isCache: false,
+          children: [],
+        };
+        parent.children.push(child);
+        graphMap.set(message.parent, parent);
+        graphMap.set(message.path, child);
+        return;
+      }
+      message.done.then(({ isCache }) => {
+        const graph = graphMap.get(message.path) ?? {
+          path: message.path,
+          isCache,
+          children: [],
+        };
+        graph.isCache = isCache;
+        graphMap.set(message.path, graph);
+      });
     },
   })],
   write: false,
 });
 
-function* makeTree(
-  parent: string,
-  relative?: boolean,
-  viewedPath?: Set<string>,
-): Generator<string> {
-  const childs = ancestors.get(parent);
-  if (!childs) return;
-  viewedPath ??= new Set<string>();
-  viewedPath.add(parent);
-  for (let i = 0; i < childs.length; i++) {
-    const child = childs[i];
-    const relativePath = decodeURIComponent(
-      relative ? makeRelative(new URL(parent), new URL(child)) : child,
-    );
-    const lastOne = i + 1 === childs.length;
-    const branch = lastOne ? "└─ " : "├─ ";
-    // 一度読み込んだものは灰色で表示する
-    if (viewedPath.has(child)) {
-      yield `${branch}${gray(relativePath)}`;
-      continue;
-    }
-    yield `${branch}${relativePath}`;
-    viewedPath.add(child);
-    const indent = lastOne ? "   " : "│  ";
-    for (const line of makeTree(child, relative ?? false, viewedPath)) {
-      yield `${indent}${line}`;
-    }
-  }
-}
-
 for (const entryPoint of entryPoints) {
-  console.log([entryPoint, ...makeTree(entryPoint, true)].join("\n"));
+  console.log(viewGraph(graphMap.get(entryPoint)!));
 }
 
 // // 2つのファイルが配列される

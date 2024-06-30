@@ -8,7 +8,7 @@ import { isAvailableExtensions } from "./extension.ts";
 import { eventName, Scrapbox, takeInternalLines } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
 import { throttle } from "./deps/throttle.ts";
-import { makeGraph, viewGraph } from "./viewGraph.ts";
+import { viewGraph } from "./viewGraph.ts";
 declare const scrapbox: Scrapbox;
 
 /** ScrapJupyterを起動する

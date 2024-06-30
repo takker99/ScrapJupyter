@@ -1,5 +1,5 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
-import { downLines, findLatestCache, saveApiCache } from "./deps/scrapbox.ts";
+import { findLatestCache, saveApiCache } from "./deps/scrapbox.ts";
 import { AvailableExtensions, extensionToLoader } from "./extension.ts";
 import { isAllowedConnectSrc } from "./isAllowedConnectSrc.ts";
 import { remoteLoader } from "./remoteLoader.ts";
@@ -136,4 +136,3 @@ const fetchCORS = async (
     throw e;
   }
 };
-

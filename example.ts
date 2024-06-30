@@ -1,7 +1,7 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
 import { remoteLoader } from "./remoteLoader.ts";
-import { makeGraph, viewGraph } from "./viewGraph.ts";
-import { Graph, ImportGraph } from "./bundler.ts";
+import { viewGraph } from "./viewGraph.ts";
+import { ImportGraph } from "./bundler.ts";
 
 await initialize({
   // 0.21.4

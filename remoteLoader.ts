@@ -11,10 +11,12 @@ import {
 } from "./deps/importmap.ts";
 import { toFileUrl } from "./deps/path.ts";
 import { escape } from "./deps/regexp.ts";
+import { basename, extname } from "./deps/url.ts";
 import {
   esbuildResolutionToURL,
   urlToEsbuildResolution,
 } from "./esbuildResolution.ts";
+import { extensionToLoader, isAvailableExtensions } from "./extension.ts";
 import { responseToLoader } from "./loader.ts";
 
 export interface RemoteLoaderInit {
@@ -172,16 +174,22 @@ const load = async (
   const source = sources.find((source) => source.path === href);
 
   if (source !== undefined) {
+    const extension = extname(href) || basename(href);
+
+    const loader = source.loader ??
+      (isAvailableExtensions(extension)
+        ? extensionToLoader(extension)
+        : "text");
     progressCallback?.({
       type: "load",
       path: href,
       done: Promise.resolve({
         size: new Blob([source.contents]).size,
-        loader: source.loader ?? "text",
+        loader,
         isCache: true,
       }),
     });
-    return { contents: source.contents, loader: source.loader };
+    return { contents: source.contents, loader };
   }
   const cacheFirst = !reload
     ? true

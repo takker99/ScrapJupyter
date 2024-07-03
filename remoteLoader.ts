@@ -174,7 +174,7 @@ const load = async (
   const source = sources.find((source) => source.path === href);
 
   if (source !== undefined) {
-    const extension = extname(href) || basename(href);
+    const extension = extname(href).slice(1) || basename(href);
 
     const loader = source.loader ??
       (isAvailableExtensions(extension)

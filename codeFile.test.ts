@@ -1,3 +1,5 @@
+/// <reference lib="deno.ns" />
+
 import { getCodeFiles } from "./codeFile.ts";
 import { assertSnapshot } from "./deps/testing.ts";
 import json from "./sample-page.json" with { type: "json" };

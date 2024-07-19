@@ -1,6 +1,7 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
+import { resolver } from "./deps/esbuild_deno_loader.ts";
 import { findLatestCache, saveApiCache } from "./deps/scrapbox.ts";
-import { AvailableExtensions, extensionToLoader } from "./extension.ts";
+import { AvailableExtensions } from "./extension.ts";
 import { isAllowedConnectSrc } from "./isAllowedConnectSrc.ts";
 import { remoteLoader } from "./remoteLoader.ts";
 
@@ -9,25 +10,15 @@ export interface BundleOptions {
   fileName?: string;
   dirURL: string;
 }
-export interface ImportGraph {
-  path: string;
-  isCache: boolean;
-  children: ImportGraph[];
-}
 
 export interface BundleResult {
   /** built code */
   contents: string;
-
-  graph: ImportGraph;
 }
 
-type Builder = (
-  contents: string,
-  options: BundleOptions,
-) => Promise<BundleResult>;
-
+type Builder = (entryPoint: string) => Promise<BundleResult>;
 let initialized: Promise<void> | undefined;
+
 /** esbuildを読み込み、builderを返す */
 export const load = async (
   wasm: WebAssembly.Module,
@@ -39,59 +30,21 @@ export const load = async (
   });
   await initialized;
 
-  return async (
-    contents,
-    { extension, fileName, dirURL },
-  ) => {
-    fileName ??= `codeblock-${
-      Math.floor(0xFFFFFE * Math.random()).toString(16)
-    }.${extensionToLoader(extension)}`;
-    const baseURL = `${dirURL}${fileName}`;
-    const graphMap = new Map<string, ImportGraph>();
-
+  return async (entryPoint) => {
     const { outputFiles } = await build({
-      entryPoints: [baseURL],
+      entryPoints: [entryPoint],
       format: "esm",
       bundle: true,
       minify: true,
       charset: "utf8",
       plugins: [
+        resolver(),
         remoteLoader({
           fetch: fetchCORS,
           reload: [
             new URLPattern({ hostname: location.hostname }),
             new URLPattern({ hostname: "scrapbox.io" }),
           ],
-          sources: [{ path: baseURL, contents }],
-          progressCallback: (message) => {
-            if (message.type === "resolve") {
-              if (!message.parent) return;
-
-              const parent: ImportGraph = graphMap.get(message.parent) ?? {
-                path: message.parent,
-                isCache: false,
-                children: [],
-              };
-              const child: ImportGraph = graphMap.get(message.path) ?? {
-                path: message.path,
-                isCache: false,
-                children: [],
-              };
-              parent.children.push(child);
-              graphMap.set(message.parent, parent);
-              graphMap.set(message.path, child);
-              return;
-            }
-            message.done.then(({ isCache }) => {
-              const graph = graphMap.get(message.path) ?? {
-                path: message.path,
-                isCache,
-                children: [],
-              };
-              graph.isCache = isCache;
-              graphMap.set(message.path, graph);
-            });
-          },
         }),
       ],
       write: false,
@@ -99,7 +52,6 @@ export const load = async (
 
     return {
       contents: outputFiles[0].text,
-      graph: graphMap.get(new URL(baseURL).href)!,
     };
   };
 };

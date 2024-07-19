@@ -1,3 +1,4 @@
+/// <reference lib="deno.ns" />
 import { extensionToLoader, isAvailableExtensions } from "./extension.ts";
 import { assertEquals } from "./deps/testing.ts";
 

@@ -3,13 +3,15 @@
 /// <reference lib="dom"/>
 /// <reference lib="dom.iterable"/>
 import { getCodeFiles } from "./codeFile.ts";
-import { load } from "./bundler.ts";
+import { Builder, load } from "./bundler.ts";
 import { isAvailableExtensions } from "./extension.ts";
 import { eventName, Scrapbox, takeInternalLines } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
 import { throttle } from "./deps/throttle.ts";
 import { viewGraph } from "./viewGraph.ts";
 declare const scrapbox: Scrapbox;
+
+let bundle: Builder | undefined;
 
 /** ScrapJupyterを起動する
  *
@@ -21,7 +23,6 @@ export const setup = async (
   wasm: WebAssembly.Module,
   workerURL: string | URL,
 ) => {
-  const bundle = await load(wasm, workerURL);
   const menus = [] as ReturnType<typeof execMenu>[];
 
   const update = async () => {
@@ -35,6 +36,7 @@ export const setup = async (
       setStatus("none");
       menu.remove();
     });
+
     files.forEach((file) => {
       const extension = file.lang.toLowerCase();
       // TS/JS以外は無視
@@ -45,6 +47,7 @@ export const setup = async (
           async () => {
             await setStatus("loading");
             try {
+              bundle ??= await load(wasm, workerURL);
               const { contents, graph } = await bundle(
                 file.lines.join("\n"),
                 {

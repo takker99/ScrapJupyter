@@ -22,7 +22,7 @@ export interface BundleResult {
   graph: ImportGraph;
 }
 
-type Builder = (
+export type Builder = (
   contents: string,
   options: BundleOptions,
 ) => Promise<BundleResult>;

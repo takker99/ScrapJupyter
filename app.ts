@@ -8,7 +8,6 @@ import { isAvailableExtensions } from "./extension.ts";
 import { eventName, Scrapbox, takeInternalLines } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
 import { throttle } from "./deps/throttle.ts";
-import { viewGraph } from "./viewGraph.ts";
 declare const scrapbox: Scrapbox;
 
 let bundle: Builder | undefined;
@@ -48,7 +47,7 @@ export const setup = async (
             await setStatus("loading");
             try {
               bundle ??= await load(wasm, workerURL);
-              const { contents, graph } = await bundle(
+              const { contents } = await bundle(
                 file.lines.join("\n"),
                 {
                   extension,
@@ -56,7 +55,6 @@ export const setup = async (
                   dirURL: `${file.dir}/`,
                 },
               );
-              console.debug(viewGraph(graph, true));
               console.debug("execute:", contents);
               await Function(`return (async()=>{${contents}})()`)();
               await setStatus("pass");

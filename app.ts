@@ -61,7 +61,8 @@ export const setup = async (
               await Function(`return (async()=>{${contents}})()`)();
               await setStatus("pass");
             } catch (e) {
-              await setStatus("fail", e.toString());
+              console.error(e);
+              await setStatus("fail", `${e}`);
             }
           },
         );

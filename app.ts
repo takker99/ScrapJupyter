@@ -3,12 +3,14 @@
 /// <reference lib="dom"/>
 /// <reference lib="dom.iterable"/>
 import { getCodeFiles } from "./codeFile.ts";
-import { load } from "./bundle.ts";
+import { Builder, load } from "./bundle.ts";
 import { isAvailableExtensions } from "./extension.ts";
 import { eventName, Scrapbox, takeInternalLines } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
 import { throttle } from "./deps/throttle.ts";
 declare const scrapbox: Scrapbox;
+
+let bundle: Builder | undefined;
 
 /** ScrapJupyterを起動する
  *
@@ -19,8 +21,7 @@ declare const scrapbox: Scrapbox;
 export const setup = async (
   wasm: WebAssembly.Module,
   workerURL: string | URL,
-): Promise<() => void> => {
-  const bundle = await load(wasm, workerURL);
+) => {
   const menus = [] as ReturnType<typeof execMenu>[];
 
   const update = async () => {
@@ -29,6 +30,7 @@ export const setup = async (
       setStatus("none");
       menu.remove();
     });
+
     const files = getCodeFiles(
       scrapbox.Project.name,
       scrapbox.Page.title ?? "",
@@ -44,13 +46,14 @@ export const setup = async (
           async () => {
             await setStatus("loading");
             try {
+              bundle ??= await load(wasm, workerURL);
               const { contents } = await bundle(file.path);
               console.debug("execute:", contents);
               await Function(`return (async()=>{${contents}})()`)();
               await setStatus("pass");
             } catch (e) {
               console.error(e);
-              await setStatus("fail", e.toString());
+              await setStatus("fail", `${e}`);
             }
           },
         );

@@ -16,7 +16,8 @@ export interface BundleResult {
   contents: string;
 }
 
-type Builder = (entryPoint: string) => Promise<BundleResult>;
+export type Builder = (entryPoint: string) => Promise<BundleResult>;
+
 let initialized: Promise<void> | undefined;
 
 /** esbuildを読み込み、builderを返す */

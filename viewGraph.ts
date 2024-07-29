@@ -1,57 +1,45 @@
 import { relative as makeRelative } from "https://raw.githubusercontent.com/takker99/scrapbox-bundler/632c749a6287d628bb8bed5cf21c5d9b6f15f58e/path.ts";
-import { ImportGraph } from "./bundler.ts";
 
+export interface ImportGraph {
+  isCache: boolean;
+  children: string[];
+}
 export type GraphView = { [key: string]: GraphView };
 
 export const viewGraph = (
-  graph: ImportGraph,
+  path: string,
+  graphMap: Map<string, ImportGraph>,
   relative?: boolean,
-): GraphView => {
-  const view: GraphView = {};
-  const text = `[${graph.isCache ? "Cache" : "Network"}] ${
-    decodeURIComponent(graph.path)
-  }`;
-  view[text] = {};
-  const viewedPath = new Map<string, GraphView>();
-  viewedPath.set(graph.path, view[text]);
-  for (const child of graph.children) {
-    Object.assign(
-      view[text],
-      viewGraphImpl(
-        child,
-        graph.path,
-        relative ?? false,
-        viewedPath,
-      ),
-    );
-  }
-  return view;
-};
+): GraphView => viewGraphImpl(path, graphMap, new Map(), relative ?? false);
+
 const viewGraphImpl = (
-  graph: ImportGraph,
-  parent: string,
-  relative: boolean,
+  path: string,
+  graphMap: Map<string, ImportGraph>,
   viewedPath: Map<string, GraphView>,
+  relative: boolean,
+  parent?: string,
 ): GraphView => {
-  const text = `[${graph.isCache ? "Cache" : "Network"}] ${
-    relative
-      ? makeRelative(new URL(parent), new URL(graph.path))
-      : decodeURIComponent(graph.path)
+  const graph = graphMap.get(path);
+  const text = `[${graph?.isCache ? "Cache" : "Network"}] ${
+    relative && parent
+      ? decodeURIComponent(makeRelative(new URL(parent), new URL(path)))
+      : decodeURIComponent(path)
   }`;
   {
-    const view = viewedPath.get(graph.path);
+    const view = viewedPath.get(path);
     if (view) return view;
   }
-  const view: GraphView = {};
-  view[text] = {};
-  for (const child of graph.children) {
+  const view: GraphView = { [text]: {} };
+  viewedPath.set(path, view);
+  for (const childPath of graph?.children ?? []) {
     Object.assign(
       view[text],
       viewGraphImpl(
-        child,
-        graph.path,
-        relative,
+        childPath,
+        graphMap,
         viewedPath,
+        relative,
+        path,
       ),
     );
   }

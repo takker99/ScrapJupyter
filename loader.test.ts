@@ -1,3 +1,5 @@
+/// <reference lib="deno.ns" />
+
 import { assertEquals } from "./deps/testing.ts";
 import { responseToLoader } from "./loader.ts";
 

@@ -3,7 +3,7 @@
 /// <reference lib="dom"/>
 /// <reference lib="dom.iterable"/>
 import { getCodeFiles } from "./codeFile.ts";
-import { Builder, load } from "./bundler.ts";
+import { Builder, load } from "./bundle.ts";
 import { isAvailableExtensions } from "./extension.ts";
 import { eventName, Scrapbox, takeInternalLines } from "./deps/scrapbox.ts";
 import { execMenu } from "./components/execMenu.ts";
@@ -25,36 +25,29 @@ export const setup = async (
   const menus = [] as ReturnType<typeof execMenu>[];
 
   const update = async () => {
-    const files = getCodeFiles(
-      scrapbox.Project.name,
-      scrapbox.Page.title ?? "",
-      takeInternalLines(),
-    );
     // ボタンを全部リセットする
     menus.forEach(({ menu, setStatus }) => {
       setStatus("none");
       menu.remove();
     });
 
-    files.forEach((file) => {
+    const files = getCodeFiles(
+      scrapbox.Project.name,
+      scrapbox.Page.title ?? "",
+      takeInternalLines(),
+    );
+    for (const file of files) {
       const extension = file.lang.toLowerCase();
       // TS/JS以外は無視
-      if (!isAvailableExtensions(extension)) return;
-      file.startIds.forEach((id) => {
+      if (!isAvailableExtensions(extension)) continue;
+      for (const id of file.startIds) {
         const line = document.getElementById(`L${id}`);
         const { menu, setStatus } = execMenu(
           async () => {
             await setStatus("loading");
             try {
               bundle ??= await load(wasm, workerURL);
-              const { contents } = await bundle(
-                file.lines.join("\n"),
-                {
-                  extension,
-                  fileName: file.filename,
-                  dirURL: `${file.dir}/`,
-                },
-              );
+              const { contents } = await bundle(file.path);
               console.debug("execute:", contents);
               await Function(`return (async()=>{${contents}})()`)();
               await setStatus("pass");
@@ -66,8 +59,8 @@ export const setup = async (
         );
         menus.push({ menu, setStatus });
         line?.insertBefore?.(menu, line?.firstElementChild);
-      });
-    });
+      }
+    }
     await Promise.resolve();
   };
   const callback = throttle(update, {

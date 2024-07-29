@@ -1,25 +1,24 @@
+import { parseCodeTitle } from "./codeTitle.ts";
 import { BaseLine, encodeTitleURI, parse } from "./deps/scrapbox-rest.ts";
 
 interface File {
-  filename?: string;
-  dir: string;
+  path: string;
   lang: string;
   /** コードブロックの開始行のid */
   startIds: string[];
-  lines: string[];
 }
 
 export const getCodeFiles = (
   project: string,
   title: string,
   lines: readonly BaseLine[],
-): File[] => {
+): Iterable<File> => {
   if (lines.length === 0) return [];
   const input = lines.map((line) => line.text).join("\n");
   const blocks = parse(input, { hasTitle: true });
 
   /** 分割されたコードブロックを結合するのに使う */
-  const codes = new Map<string, Omit<File, "filename">>();
+  const codes = new Map<string, File>();
   /** 現在読んでいる`pack.rows[0]`の行番号 */
   let counter = 0;
   for (const block of blocks) {
@@ -33,17 +32,17 @@ export const getCodeFiles = (
         counter += block.cells.length + 1;
         break;
       case "codeBlock": {
-        const prev = codes.get(block.fileName);
+        const { fileName, lang } = parseCodeTitle(block.fileName);
+        const prev = codes.get(fileName);
         codes.set(
-          block.fileName,
+          fileName,
           {
-            dir: prev?.dir ??
+            path: prev?.path ??
               `https://scrapbox.io/api/code/${project}/${
                 encodeTitleURI(title)
-              }`,
-            lang: prev?.lang ?? block.fileName.split(".").pop() ?? "text",
+              }/${encodeTitleURI(fileName)}`,
+            lang: prev?.lang ?? lang,
             startIds: [...(prev?.startIds ?? []), lines[counter].id],
-            lines: [...(prev?.lines ?? []), ...block.content.split("\n")],
           },
         );
         counter += block.content.split("\n").length + 1;
@@ -52,8 +51,5 @@ export const getCodeFiles = (
     }
   }
 
-  return [...codes.entries()].map(([filename, file]) => ({
-    filename,
-    ...file,
-  }));
+  return codes.values();
 };

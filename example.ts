@@ -1,12 +1,15 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
-import { remoteLoader } from "./remoteLoader.ts";
-import { viewGraph } from "./viewGraph.ts";
-import { ImportGraph } from "./bundler.ts";
+import { remoteLoader, RobustFetch } from "./remoteLoader.ts";
+import { createErr, createOk } from "./deps/option-t.ts";
+import { resolver } from "./deps/esbuild_deno_loader.ts";
+import { ImportGraph, viewGraph } from "./viewGraph.ts";
 
 await initialize({
   // 0.21.4
   wasmModule: await WebAssembly.compileStreaming(
-    fetch("https://cdn.jsdelivr.net/npm/esbuild-wasm@0.21.5/esbuild.wasm"),
+    globalThis.fetch(
+      "https://cdn.jsdelivr.net/npm/esbuild-wasm@0.21.5/esbuild.wasm",
+    ),
   ),
   workerURL: new URL(
     "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.21.5/worker.ts",
@@ -14,23 +17,39 @@ await initialize({
   ),
 });
 
-const fetchCORS = async (
-  req: Request,
-  _: boolean,
-): Promise<[Response, boolean]> => {
-  const res = await fetch(req);
-  if (res.ok) return [res, false];
-  throw new TypeError(`${res.status} ${res.statusText}`);
+const fetchCORS: RobustFetch = async (req, _) => {
+  try {
+    const res = await fetch(req);
+    return res.ok ? createOk([res, false]) : createErr({
+      name: "HTTPError",
+      message: `${res.status} ${res.statusText}`,
+      response: res,
+    });
+  } catch (e: unknown) {
+    if (e instanceof TypeError) {
+      return createErr({
+        name: "NetworkError",
+        message: e.message,
+        request: req,
+      });
+    }
+    if (e instanceof DOMException) {
+      return createErr({
+        name: "AbortError",
+        message: e.message,
+        request: req,
+      });
+    }
+    throw e;
+  }
 };
 
-const graphMap = new Map<string, ImportGraph>();
 const entryPoints = [
   "https://scrapbox.io/api/code/takker/for-any-project/script.ts",
   "https://scrapbox.io/api/code/shokai/shokai/script.js",
   "https://scrapbox.io/api/code/nishio/nishio/script.js",
 ];
 
-// deno-lint-ignore no-unused-vars
 const result = await build({
   entryPoints,
   format: "esm",
@@ -38,46 +57,31 @@ const result = await build({
   bundle: true,
   outdir: "out", // https://scrapbox.io/api/code が /out に置換される
   charset: "utf8",
-  plugins: [remoteLoader({
-    fetch: fetchCORS,
-    importMapURL: new URL(
-      "https://scrapbox.io/api/code/takker/for-any-project/import_map.json",
-    ),
-    progressCallback: (message) => {
-      if (message.type === "resolve") {
-        if (!message.parent) return;
-
-        const parent: ImportGraph = graphMap.get(message.parent) ?? {
-          path: message.parent,
-          isCache: false,
-          children: [],
-        };
-        const child: ImportGraph = graphMap.get(message.path) ?? {
-          path: message.path,
-          isCache: false,
-          children: [],
-        };
-        parent.children.push(child);
-        graphMap.set(message.parent, parent);
-        graphMap.set(message.path, child);
-        return;
-      }
-      message.done.then(({ isCache }) => {
-        const graph = graphMap.get(message.path) ?? {
-          path: message.path,
-          isCache,
-          children: [],
-        };
-        graph.isCache = isCache;
-        graphMap.set(message.path, graph);
-      });
-    },
-  })],
+  metafile: true,
+  plugins: [
+    resolver({
+      importMapURL:
+        "https://scrapbox.io/api/code/takker/for-any-project/import_map.json",
+    }),
+    remoteLoader({
+      fetch: fetchCORS,
+      reload: [new URLPattern({ hostname: "scrapbox.io" })],
+    }),
+  ],
   write: false,
 });
 
+const graphMap = new Map<string, ImportGraph>();
+for (const [path, { imports }] of Object.entries(result.metafile.inputs)) {
+  graphMap.set(path, {
+    isCache: false,
+    children: imports.flatMap((imp) =>
+      imp.external ? [] : [new URL(imp.path).href]
+    ),
+  });
+}
 for (const entryPoint of entryPoints) {
-  console.log(viewGraph(graphMap.get(entryPoint)!));
+  console.debug(viewGraph(entryPoint, graphMap));
 }
 
 // // 2つのファイルが配列される

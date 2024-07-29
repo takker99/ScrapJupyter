@@ -1,9 +1,10 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
 import { resolver } from "./deps/esbuild_deno_loader.ts";
+import { createErr, createOk } from "./deps/option-t.ts";
 import { findLatestCache, saveApiCache } from "./deps/scrapbox.ts";
 import { AvailableExtensions } from "./extension.ts";
 import { isAllowedConnectSrc } from "./isAllowedConnectSrc.ts";
-import { remoteLoader } from "./remoteLoader.ts";
+import { remoteLoader, RobustFetch } from "./remoteLoader.ts";
 
 export interface BundleOptions {
   extension: AvailableExtensions;
@@ -58,34 +59,54 @@ export const load = async (
 };
 
 declare const GM_fetch: (typeof globalThis.fetch) | undefined;
-const fetchCORS = async (
-  req: Request,
-  cacheFirst: boolean,
-): Promise<[Response, boolean]> => {
+const fetchCORS: RobustFetch = async (
+  req,
+  cacheFirst,
+) => {
   const fetch_ = isAllowedConnectSrc(new URL(req.url)) || !GM_fetch
     ? globalThis.fetch
     : GM_fetch;
   if (cacheFirst) {
-    const res = await findLatestCache(req);
-    if (res) {
-      if (!res.url) Object.defineProperty(res, "url", { value: req.url });
-      return [res, true];
-    }
+    const result = await attemptFromCache(req);
+    if (result) return result;
   }
   try {
     const res = await fetch_(req);
     if (res.ok) {
       if (fetch_ === GM_fetch) await saveApiCache(req, res);
-      return [res, false];
+      return createOk([res, false]);
     }
-    throw new TypeError(`${res.status} ${res.statusText}`);
+    const result = await attemptFromCache(req);
+    return result ?? createErr({
+      name: "HTTPError",
+      message: `${res.status} ${res.statusText}`,
+      response: res,
+    });
   } catch (e: unknown) {
-    if (!(e instanceof TypeError)) throw e;
-    const res = await findLatestCache(req);
-    if (res) {
-      if (!res.url) Object.defineProperty(res, "url", { value: req.url });
-      return [res, true];
+    const result = await attemptFromCache(req);
+    if (result) return result;
+    if (e instanceof TypeError) {
+      return createErr({
+        name: "NetworkError",
+        message: e.message,
+        request: req,
+      });
+    }
+    if (e instanceof DOMException) {
+      return createErr({
+        name: "AbortError",
+        message: e.message,
+        request: req,
+      });
     }
     throw e;
+  }
+};
+
+const attemptFromCache = async (req: Request) => {
+  const res = await findLatestCache(req);
+  if (res) {
+    if (!res.url) Object.defineProperty(res, "url", { value: req.url });
+    return createOk([res, true] as [Response, boolean]);
   }
 };

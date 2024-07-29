@@ -1,5 +1,6 @@
 import { build, initialize } from "./deps/esbuild-wasm.ts";
-import { remoteLoader } from "./remoteLoader.ts";
+import { remoteLoader, RobustFetch } from "./remoteLoader.ts";
+import { createErr, createOk } from "./deps/option-t.ts";
 import { resolver } from "./deps/esbuild_deno_loader.ts";
 import { ImportGraph, viewGraph } from "./viewGraph.ts";
 
@@ -16,13 +17,31 @@ await initialize({
   ),
 });
 
-const fetch = async (
-  req: Request,
-  _: boolean,
-): Promise<[Response, boolean]> => {
-  const res = await globalThis.fetch(req);
-  if (res.ok) return [res, false];
-  throw new TypeError(`${res.status} ${res.statusText}`);
+const fetchCORS: RobustFetch = async (req, _) => {
+  try {
+    const res = await fetch(req);
+    return res.ok ? createOk([res, false]) : createErr({
+      name: "HTTPError",
+      message: `${res.status} ${res.statusText}`,
+      response: res,
+    });
+  } catch (e: unknown) {
+    if (e instanceof TypeError) {
+      return createErr({
+        name: "NetworkError",
+        message: e.message,
+        request: req,
+      });
+    }
+    if (e instanceof DOMException) {
+      return createErr({
+        name: "AbortError",
+        message: e.message,
+        request: req,
+      });
+    }
+    throw e;
+  }
 };
 
 const entryPoints = [
@@ -45,7 +64,7 @@ const result = await build({
         "https://scrapbox.io/api/code/takker/for-any-project/import_map.json",
     }),
     remoteLoader({
-      fetch,
+      fetch: fetchCORS,
       reload: [new URLPattern({ hostname: "scrapbox.io" })],
     }),
   ],

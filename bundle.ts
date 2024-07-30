@@ -4,7 +4,9 @@ import { createErr, createOk } from "./deps/option-t.ts";
 import { findLatestCache, saveApiCache } from "./deps/scrapbox.ts";
 import { AvailableExtensions } from "./extension.ts";
 import { isAllowedConnectSrc } from "./isAllowedConnectSrc.ts";
-import { remoteLoader, RobustFetch } from "./remoteLoader.ts";
+import { remoteLoader } from "./remoteLoader.ts";
+import { RobustFetch } from "./robustFetch.ts";
+import "./deps/urlpattern-polyfill.ts";
 
 export interface BundleOptions {
   extension: AvailableExtensions;
@@ -73,7 +75,9 @@ const fetchCORS: RobustFetch = async (
   try {
     const res = await fetch_(req);
     if (res.ok) {
-      if (fetch_ === GM_fetch) await saveApiCache(req, res);
+      if (fetch_ === GM_fetch && !req.url.startsWith("data:")) {
+        await saveApiCache(req, res);
+      }
       return createOk([res, false]);
     }
     const result = await attemptFromCache(req);
@@ -104,6 +108,7 @@ const fetchCORS: RobustFetch = async (
 };
 
 const attemptFromCache = async (req: Request) => {
+  if (req.url.startsWith("data:")) return;
   const res = await findLatestCache(req);
   if (res) {
     if (!res.url) Object.defineProperty(res, "url", { value: req.url });

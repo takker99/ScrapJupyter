@@ -1,4 +1,5 @@
 // ported from https://github.com/lucacasonato/esbuild_deno_loader/blob/0.10.3/src/shared.ts
+// Copyright 2021 Luca Casonato. All rights reserved. MIT license.
 
 import { fromFileUrl, toFileUrl } from "./deps/path.ts";
 

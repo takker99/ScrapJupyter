@@ -21,6 +21,10 @@ const loaderList: Loader[] = [
 const isLoader = (loader: string): loader is Loader =>
   (loaderList as string[]).includes(loader);
 
+export const isLoaderWhichCanIncludeSourceMappingURL = (
+  loader: Loader,
+): boolean => /^js|^ts|css$/.test(loader);
+
 export const responseToLoader = (response: Response): Loader => {
   const url = response.url;
   const filename = basename(url);

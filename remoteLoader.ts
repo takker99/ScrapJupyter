@@ -1,110 +1,165 @@
 import {
   Loader,
-  OnLoadArgs,
   OnLoadResult,
   OnResolveArgs,
   OnResolveResult,
   Plugin,
 } from "./deps/esbuild-wasm.ts";
 import { isErr, isOk, Result, unwrapErr, unwrapOk } from "./deps/option-t.ts";
-import { esbuildResolutionToURL } from "./esbuildResolution.ts";
+import {
+  esbuildResolutionToURL,
+  urlToEsbuildResolution,
+} from "./esbuildResolution.ts";
 import { extractSourceMapURL } from "./extractSourceMapURL.ts";
-import { responseToLoader } from "./loader.ts";
+import {
+  isLoaderWhichCanIncludeSourceMappingURL,
+  responseToLoader,
+} from "./loader.ts";
+import {
+  packageVersionMapping,
+  resolveJsrSpecifier,
+  resolveNpmSpecifier,
+} from "./resolve.ts";
+import { RobustFetch, robustFetch } from "./robustFetch.ts";
+import {
+  NotJsrProtocolError,
+  NotNpmProtocolError,
+  NpmSpecifier,
+  OnlyScopeProvidedError,
+  PackageNotFoundError,
+  parseJsrSpecifier,
+  parseNpmSpecifier,
+  ScopeNotFoundError,
+} from "./specifiers.ts";
 import { toDataURL } from "./toDataURL.ts";
 
 export interface RemoteLoaderInit {
   importMapURL?: URL;
   reload?: boolean | URLPattern[];
-  fetch: RobustFetch;
+  fetch?: RobustFetch;
 
   onProgress?: (message: LoadEvent) => void;
 }
 
-export interface NetworkError {
-  name: "NetworkError";
-  message: string;
-  request: Request;
-}
-export interface AbortError {
-  name: "AbortError";
-  message: string;
-  request: Request;
-}
-export interface HTTPError {
-  name: "HTTPError";
-  message: string;
-  response: Response;
-}
-
-export type RobustFetch = (
-  req: Request,
-  cacheFirst: boolean,
-) => Promise<
-  Result<[Response, boolean], NetworkError | AbortError | HTTPError>
->;
-
 export interface LoadEvent {
-  path: string;
+  path: URL;
   done: Promise<{ size: number; loader: Loader; isCache: boolean }>;
 }
 export const remoteLoader = (
-  options: RemoteLoaderInit,
-): Plugin => ({
-  name: "remote-loader",
-  setup({ onLoad, onResolve }) {
-    const handleResolve = (args: OnResolveArgs): OnResolveResult => ({
-      path: args.path,
-      namespace: args.namespace,
-    });
-    for (const protocol of [...supportedProtocols, ...notSupportedProtocols]) {
-      onResolve(
-        { filter: /.*/, namespace: protocol.slice(0, -1) },
-        handleResolve,
-      );
+  init: RemoteLoaderInit,
+): Plugin => {
+  const resolvedVersions: packageVersionMapping = new Map();
+
+  const proxy = async (
+    args: OnResolveArgs,
+  ): Promise<OnResolveResult> => {
+    const isNpm = args.namespace === "npm";
+    const result: Result<
+      NpmSpecifier,
+      | NotNpmProtocolError
+      | OnlyScopeProvidedError
+      | PackageNotFoundError
+      | NotJsrProtocolError
+      | ScopeNotFoundError
+    > = (isNpm ? parseNpmSpecifier : parseJsrSpecifier)(
+      esbuildResolutionToURL(args),
+    );
+    if (isErr(result)) {
+      const detail = unwrapErr(result);
+      return { errors: [{ text: detail.name, detail }] };
     }
-    const handleLoad = (
-      args: OnLoadArgs,
-    ): Promise<OnLoadResult | undefined> =>
-      load(
-        esbuildResolutionToURL(args).href,
-        options.fetch,
-        options.reload,
-        options.onProgress,
-      );
-    for (const protocol of supportedProtocols) {
-      onLoad({ filter: /.*/, namespace: protocol.slice(0, -1) }, handleLoad);
+    const result2 = await (isNpm ? resolveNpmSpecifier : resolveJsrSpecifier)(
+      unwrapOk(result),
+      { resolvedVersions, ...init },
+    );
+
+    if (isErr(result2)) {
+      const detail = unwrapErr(result2);
+      return {
+        errors: [{ text: `${detail.name} ${detail.message}`, detail }],
+      };
     }
-    for (const protocol of notSupportedProtocols) {
-      onLoad({ filter: /.*/, namespace: protocol.slice(0, -1) }, () => {
-        throw new Error(`${protocol} import is not supported yet.`);
-      });
-    }
-  },
+
+    return urlToEsbuildResolution(unwrapOk(result2));
+  };
+
+  return {
+    name: "remote-loader",
+    setup({ onLoad, onResolve, initialOptions }) {
+      for (
+        const protocol of [...supportedProtocols, ...notSupportedProtocols]
+      ) {
+        onResolve(
+          { filter: /.*/, namespace: protocol.slice(0, -1) },
+          handleResolve,
+        );
+      }
+
+      onResolve({ filter: /.*/, namespace: "npm" }, proxy);
+      onResolve({ filter: /.*/, namespace: "jsr" }, proxy);
+
+      for (const protocol of supportedProtocols) {
+        onLoad(
+          { filter: /.*/, namespace: protocol.slice(0, -1) },
+          (args) =>
+            load(esbuildResolutionToURL(args), {
+              ...init,
+              sourcemap: initialOptions.sourcemap !== false &&
+                initialOptions.sourcemap !== undefined,
+            }),
+        );
+      }
+      for (const protocol of notSupportedProtocols) {
+        onLoad({ filter: /.*/, namespace: protocol.slice(0, -1) }, () => {
+          throw new Error(`${protocol} import is not supported yet.`);
+        });
+      }
+    },
+  };
+};
+
+const handleResolve = (
+  args: OnResolveArgs,
+): OnResolveResult | Promise<OnResolveResult> => ({
+  path: args.path,
+  namespace: args.namespace,
 });
 
-const supportedProtocols = ["http:", "https:", "data:"] as const;
-const notSupportedProtocols = ["npm:", "jsr:", "node:"] as const;
+const supportedProtocols = [
+  "http:",
+  "https:",
+  "data:",
+] as const;
+const notSupportedProtocols = ["node:"] as const;
 
+interface LoadInit extends RemoteLoaderInit {
+  sourcemap: boolean;
+}
 const load = async (
-  href: string,
-  fetch: RobustFetch,
-  reload?: boolean | URLPattern[],
-  onProgress?: (message: LoadEvent) => void,
+  url: URL,
+  init: LoadInit,
 ): Promise<OnLoadResult> => {
-  const cacheFirst = !reload
+  const cacheFirst = !init.reload
     ? true
-    : reload === true
+    : init.reload === true
     ? false
-    : !reload.some((pattern) => pattern.test(href));
+    : !init.reload.some((pattern) => pattern.test(url));
+  const fetch = init.fetch ?? robustFetch;
 
-  const result = await fetch(new Request(href), cacheFirst);
+  const result = await fetch(new Request(url), cacheFirst);
   if (isErr(result)) {
-    return { errors: [{ text: unwrapErr(result).message }] };
+    const detail = unwrapErr(result);
+    return {
+      errors: [{
+        text: `[${detail.message}] Failed to fetch ${url}`,
+        detail: unwrapErr(result),
+      }],
+    };
   }
   const [res, isCache] = unwrapOk(result);
   const loader = responseToLoader(res);
-  onProgress?.({
-    path: href,
+  init.onProgress?.({
+    path: url,
     done: res.clone().blob().then((blob) => ({
       size: blob.size,
       loader,
@@ -112,25 +167,25 @@ const load = async (
     })),
   });
   const blob = await res.blob();
-  {
+  if (init.sourcemap && isLoaderWhichCanIncludeSourceMappingURL(loader)) {
     const contents = await blob.text();
-    const result = extractSourceMapURL(contents, new URL(href));
+    const result = extractSourceMapURL(contents, url);
     if (isOk(result)) {
-      const { url, start, end } = unwrapOk(result);
-      if (url.protocol !== "data:") {
-        const res = await fetch(new Request(url), cacheFirst);
+      const { url: sourceMappingURL, start, end } = unwrapOk(result);
+      if (sourceMappingURL.protocol !== "data:") {
+        const res = await fetch(new Request(sourceMappingURL), cacheFirst);
         if (isErr(res)) {
           return {
-            contents: new Uint8Array(await blob.arrayBuffer()),
+            contents,
             loader,
             warnings: [{
               text: `[${
                 unwrapErr(res).message
               }] Failed to fetch the source map URL`,
               notes: [{
-                text: `Source map URL: ${url}`,
+                text: `Source map URL: ${sourceMappingURL}`,
               }, {
-                text: `Original URL: ${href}`,
+                text: `Original URL: ${url}`,
               }],
               detail: unwrapErr(res),
             }],

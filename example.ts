@@ -1,8 +1,6 @@
-import { build, initialize } from "./deps/esbuild-wasm.ts";
-import { remoteLoader, RobustFetch } from "./remoteLoader.ts";
-import { createErr, createOk } from "./deps/option-t.ts";
+import { analyzeMetafile, build, initialize } from "./deps/esbuild-wasm.ts";
+import { remoteLoader } from "./remoteLoader.ts";
 import { resolver } from "./deps/esbuild_deno_loader.ts";
-import { ImportGraph, viewGraph } from "./viewGraph.ts";
 
 await initialize({
   // 0.21.4
@@ -17,37 +15,13 @@ await initialize({
   ),
 });
 
-const fetchCORS: RobustFetch = async (req, _) => {
-  try {
-    const res = await fetch(req);
-    return res.ok ? createOk([res, false]) : createErr({
-      name: "HTTPError",
-      message: `${res.status} ${res.statusText}`,
-      response: res,
-    });
-  } catch (e: unknown) {
-    if (e instanceof TypeError) {
-      return createErr({
-        name: "NetworkError",
-        message: e.message,
-        request: req,
-      });
-    }
-    if (e instanceof DOMException) {
-      return createErr({
-        name: "AbortError",
-        message: e.message,
-        request: req,
-      });
-    }
-    throw e;
-  }
-};
-
 const entryPoints = [
-  "https://scrapbox.io/api/code/takker/for-any-project/script.ts",
   "https://scrapbox.io/api/code/shokai/shokai/script.js",
-  "https://scrapbox.io/api/code/nishio/nishio/script.js",
+  "https://jsr.io/@luca/esbuild-deno-loader/0.10.3/mod.ts",
+  "jsr:@core/match@0.3.1",
+  "npm:glslCanvas@0",
+  // not supported yet because this package includes node.js built-in modules
+  //"jsr:@deno/dnt@^0.41.1",
 ];
 
 const result = await build({
@@ -63,28 +37,17 @@ const result = await build({
       importMapURL:
         "https://scrapbox.io/api/code/takker/for-any-project/import_map.json",
     }),
-    remoteLoader({
-      fetch: fetchCORS,
-      reload: [new URLPattern({ hostname: "scrapbox.io" })],
-    }),
+    remoteLoader({ reload: [new URLPattern({ hostname: "scrapbox.io" })] }),
   ],
   write: false,
 });
 
-const graphMap = new Map<string, ImportGraph>();
-for (const [path, { imports }] of Object.entries(result.metafile.inputs)) {
-  graphMap.set(path, {
-    isCache: false,
-    children: imports.flatMap((imp) =>
-      imp.external ? [] : [new URL(imp.path).href]
-    ),
-  });
-}
-for (const entryPoint of entryPoints) {
-  console.debug(viewGraph(entryPoint, graphMap));
-}
+console.log(
+  await analyzeMetafile(result.metafile, { color: true, verbose: true }),
+);
 
-// // 2つのファイルが配列される
 // for (const text of result.outputFiles.map((f) => f.text)) {
 //   console.debug(text);
 // }
+
+close();

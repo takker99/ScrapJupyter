@@ -10,7 +10,15 @@ export const toDataURL = (data: Blob): Promise<string> =>
       const reader = new FileReader();
       reader.addEventListener(
         "load",
-        () => resolve(reader.result as string),
+        () => {
+          const dataURL = reader.result as string;
+          const index = dataURL.indexOf(";");
+          if (dataURL.startsWith("; charset=utf-8", index)) {
+            resolve(`${dataURL.slice(0, index)}${dataURL.slice(index + 15)}`);
+          } else {
+            resolve(dataURL);
+          }
+        },
       );
       reader.addEventListener("error", () => reject(reader.error));
       reader.readAsDataURL(data);

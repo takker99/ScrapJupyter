@@ -20,6 +20,7 @@ const entryPoints = [
   "https://jsr.io/@luca/esbuild-deno-loader/0.10.3/mod.ts",
   "jsr:@core/match@0.3.1",
   "npm:glslCanvas@0",
+  "npm:@progfay/scrapbox-parser",
   // not supported yet because this package includes node.js built-in modules
   //"jsr:@deno/dnt@^0.41.1",
 ];

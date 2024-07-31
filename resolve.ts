@@ -104,7 +104,7 @@ export const resolveNpmSpecifier = async (
     const versions = new Map(options.resolvedVersions.get(npm.name) ?? []);
     const version = maxSatisfying([...versions.keys()], npm.range);
     if (version) {
-      const exports = versions.get(version) ?? {};
+      const exports = versions.get(version) ?? defaultExports;
       const path = exports[npm.entryPoint];
 
       if (typeof path !== "string") console.log(path);
@@ -121,7 +121,7 @@ export const resolveNpmSpecifier = async (
   const versions = new Map(
     Object.entries(metadata.versions).flatMap(([v, { exports }]) => {
       const version = tryParse(v);
-      return version ? [[version, exports ?? { ".": "./" }]] : [];
+      return version ? [[version, exports ?? defaultExports]] : [];
     }),
   );
   const version = maxSatisfying([...versions.keys()], npm.range);
@@ -130,8 +130,8 @@ export const resolveNpmSpecifier = async (
       invalidPackageVersionError(npm, Object.keys(metadata.versions)),
     );
   }
-  const exports: Record<string, string> = {};
-  for (const key of Object.keys(versions.get(version) ?? {})) {
+  const exports: Record<string, string> = { ...defaultExports };
+  for (const key of Object.keys(versions.get(version) ?? defaultExports)) {
     exports[key] = key;
   }
   const path = exports[npm.entryPoint];
@@ -165,7 +165,7 @@ export const resolveJsrSpecifier = async (
     const versions = new Map(options.resolvedVersions.get(jsr.name) ?? []);
     const version = maxSatisfying([...versions.keys()], jsr.range);
     if (version) {
-      const exports = versions.get(version) ?? {};
+      const exports = versions.get(version) ?? defaultExports;
       const path = exports[jsr.entryPoint];
       return path
         ? createOk(toJsrUrl(jsr.name, format(version), path))
@@ -222,3 +222,5 @@ const resolveJsrVersion = async (
     invalidPackageVersionError(jsr, Object.keys(metadata.versions)),
   );
 };
+
+const defaultExports: Record<string, string> = { ".": "./" };

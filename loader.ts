@@ -1,5 +1,5 @@
 import { Loader } from "./deps/esbuild-wasm.ts";
-import { basename, extname } from "./deps/url.ts";
+import { basename, extname } from "./deps/path.ts";
 
 const loaderList: Loader[] = [
   "base64",

@@ -1,2 +1,4 @@
-export * from "https://deno.land/std@0.224.0/path/mod.ts";
-export { relative as relativeURL } from "https://raw.githubusercontent.com/takker99/scrapbox-bundler/0.1.0/path.ts";
+export * from "jsr:@std/path@1/unstable-extname";
+export * from "jsr:@std/path@1/unstable-basename";
+export * from "jsr:@std/path@1/from-file-url";
+export * from "jsr:@std/path@1/to-file-url";

@@ -69,7 +69,9 @@ export const parseNpmSpecifier = (
   }
 
   const name = path.slice(startIndex, versionStartIndex);
-  const tag = path.slice(versionStartIndex + 1, pathStartIndex);
+  const tag = decodeURIComponent(
+    path.slice(versionStartIndex + 1, pathStartIndex),
+  );
   const range = tag ? tryParseRange(tag) ?? [[ALL]] : [[ALL]];
   const rawEntryPoint = path.slice(pathStartIndex + 1);
   const entryPoint = rawEntryPoint
@@ -115,7 +117,9 @@ export const parseJsrSpecifier = (
 
   versionStartIndex = Math.min(versionStartIndex, pathStartIndex);
   const name = path.slice(startIndex, versionStartIndex);
-  const tag = path.slice(versionStartIndex + 1, pathStartIndex);
+  const tag = decodeURIComponent(
+    path.slice(versionStartIndex + 1, pathStartIndex),
+  );
   const range = tag ? tryParseRange(tag) ?? [[ALL]] : [[ALL]];
   const rawEntryPoint = path.slice(pathStartIndex + 1);
   const entryPoint = rawEntryPoint

@@ -1,34 +1,69 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@core/unknownutil@4": "4.3.0",
     "jsr:@cosense/std@0.29": "0.29.1",
     "jsr:@cosense/types@0.10": "0.10.1",
+    "jsr:@luca/esbuild-deno-loader@0.10": "0.10.3",
     "jsr:@progfay/scrapbox-parser@9": "9.1.5",
     "jsr:@std/assert@1": "1.0.6",
     "jsr:@std/assert@^1.0.6": "1.0.6",
+    "jsr:@std/assert@~0.213.1": "0.213.1",
+    "jsr:@std/async@1": "1.0.8",
+    "jsr:@std/encoding@0.213": "0.213.1",
     "jsr:@std/fs@^1.0.4": "1.0.4",
     "jsr:@std/internal@^1.0.4": "1.0.4",
+    "jsr:@std/json@~0.213.1": "0.213.1",
+    "jsr:@std/jsonc@0.213": "0.213.1",
+    "jsr:@std/path@0.213": "0.213.1",
     "jsr:@std/path@1": "1.0.6",
     "jsr:@std/path@^1.0.6": "1.0.6",
+    "jsr:@std/regexp@1": "1.0.0",
     "jsr:@std/semver@1": "1.0.3",
     "jsr:@std/testing@1": "1.0.3",
-    "npm:option-t@50": "50.0.0"
+    "npm:option-t@50": "50.0.0",
+    "npm:urlpattern-polyfill@10": "10.0.0"
   },
   "jsr": {
+    "@core/unknownutil@4.3.0": {
+      "integrity": "538a3687ffa81028e91d148818047df219663d0da671d906cecd165581ae55cc"
+    },
     "@cosense/std@0.29.1": {
-      "integrity": "797c393fe9874079d42b18055c0c1b754e1d771f29c0dd2d21f9d8530b618ae6"
+      "integrity": "797c393fe9874079d42b18055c0c1b754e1d771f29c0dd2d21f9d8530b618ae6",
+      "dependencies": [
+        "jsr:@core/unknownutil",
+        "jsr:@cosense/types",
+        "jsr:@std/async"
+      ]
     },
     "@cosense/types@0.10.1": {
       "integrity": "13d2488a02c7b0b035a265bc3299affbdab1ea5b607516379685965cd37b2058"
     },
+    "@luca/esbuild-deno-loader@0.10.3": {
+      "integrity": "32fc93f7e7f78060234fd5929a740668aab1c742b808c6048b57f9aaea514921",
+      "dependencies": [
+        "jsr:@std/encoding",
+        "jsr:@std/jsonc",
+        "jsr:@std/path@0.213"
+      ]
+    },
     "@progfay/scrapbox-parser@9.1.5": {
       "integrity": "729a086b6675dd4a216875757c918c6bbea329d6e35e410516a16bbd6c468369"
+    },
+    "@std/assert@0.213.1": {
+      "integrity": "24c28178b30c8e0782c18e8e94ea72b16282207569cdd10ffb9d1d26f2edebfe"
     },
     "@std/assert@1.0.6": {
       "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207",
       "dependencies": [
         "jsr:@std/internal"
       ]
+    },
+    "@std/async@1.0.8": {
+      "integrity": "c057c5211a0f1d12e7dcd111ab430091301b8d64b4250052a79d277383bc3ba7"
+    },
+    "@std/encoding@0.213.1": {
+      "integrity": "fcbb6928713dde941a18ca5db88ca1544d0755ec8fb20fe61e2dc8144b390c62"
     },
     "@std/fs@1.0.4": {
       "integrity": "2907d32d8d1d9e540588fd5fe0ec21ee638134bd51df327ad4e443aaef07123c",
@@ -39,8 +74,27 @@
     "@std/internal@1.0.4": {
       "integrity": "62e8e4911527e5e4f307741a795c0b0a9e6958d0b3790716ae71ce085f755422"
     },
+    "@std/json@0.213.1": {
+      "integrity": "f572b1de605d07c4a5602445dac54bfc51b1fb87a3710a17aed2608bfca54e68"
+    },
+    "@std/jsonc@0.213.1": {
+      "integrity": "5578f21aa583b7eb7317eed077ffcde47b294f1056bdbb9aacec407758637bfe",
+      "dependencies": [
+        "jsr:@std/assert@~0.213.1",
+        "jsr:@std/json"
+      ]
+    },
+    "@std/path@0.213.1": {
+      "integrity": "f187bf278a172752e02fcbacf6bd78a335ed320d080a7ed3a5a59c3e88abc673",
+      "dependencies": [
+        "jsr:@std/assert@~0.213.1"
+      ]
+    },
     "@std/path@1.0.6": {
       "integrity": "ab2c55f902b380cf28e0eec501b4906e4c1960d13f00e11cfbcd21de15f18fed"
+    },
+    "@std/regexp@1.0.0": {
+      "integrity": "158628d134c49a0858afe05017c4666f5f73d3a56602c346549ca42f3fab244a"
     },
     "@std/semver@1.0.3": {
       "integrity": "7c139c6076a080eeaa4252c78b95ca5302818d7eafab0470d34cafd9930c13c8"
@@ -58,9 +112,22 @@
   "npm": {
     "option-t@50.0.0": {
       "integrity": "sha512-zHw9Et+SfAx3Xtl9LagyAjyyzC3pNONEinTAOmZN2IKL0dYa6dthjzwuSRueJ2gLkaTiinQjRDGo/1mKSl70hg=="
+    },
+    "urlpattern-polyfill@10.0.0": {
+      "integrity": "sha512-H/A06tKD7sS1O1X2SshBVeA5FLycRpjqiBeqGKmBwBDBy28EnRjORxTNe269KSSr5un5qyWi1iL61wLxpd+ZOg=="
     }
   },
+  "redirects": {
+    "https://esm.sh/urlpattern-polyfill@10": "https://esm.sh/urlpattern-polyfill@10.0.0",
+    "https://esm.sh/urlpattern-polyfill@10?no-check": "https://esm.sh/urlpattern-polyfill@10.0.0?no-check"
+  },
   "remote": {
+    "https://esm.sh/urlpattern-polyfill@10.0.0": "0ce4f50fdc654ad20a87343589d23f97800106cb3fcae4965dc4005c461e126d",
+    "https://esm.sh/urlpattern-polyfill@10.0.0?no-check": "0ce4f50fdc654ad20a87343589d23f97800106cb3fcae4965dc4005c461e126d",
+    "https://esm.sh/v135/urlpattern-polyfill@10.0.0/denonext/urlpattern-polyfill.mjs": "b4c1376bf78453a21c3b41e54a26c73a2d0d273ea79826b0c9ac3acf6b8f33a4",
+    "https://esm.sh/v135/urlpattern-polyfill@10.0.0/denonext/urlpattern.js": "e3bc87a3be6e6a707c1c173ff20951ef2839a5ef7b7d385b608d3f2a8bbfd167",
+    "https://raw.githubusercontent.com/takker99/deno-async-throttle/0.2.0/mod.ts": "43d25fb30a25959ee93decb16710c41aad17dd328f96573b2621f8aebd8d83fd",
+    "https://raw.githubusercontent.com/takker99/deno-async-throttle/0.2.0/sleep.ts": "f5f8fd4dd3e4048061326a704e2888f74c4e3fbb1127a775e7360cf566ca3906",
     "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/common.ts": "cc5da746a610bac9a958b263894314e15458cadfffee3e92ad2b9f59d0ead49e",
     "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/mod.ts": "be014901d8a66b2fbb5b8ff5304953520fc466db935958bd7f317caefd80b9d0",
     "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/stdio_protocol.ts": "7f41e8fc04649d84d055889e2b4b0d55b0372d85e608ffe6b8620ccccb9764d0",

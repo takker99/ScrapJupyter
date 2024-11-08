@@ -1,2 +1,2 @@
 // @ts-ignore firefox/safari polyfill
-import "npm:urlpattern-polyfill@10";
+import "https://esm.sh/urlpattern-polyfill@10.0.0?no-check";

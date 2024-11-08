@@ -1,2 +1,2 @@
-export * from "https://esm.sh/option-t@50.0.0/plain_result";
-export * from "https://esm.sh/option-t@50.0.0/maybe";
+export * from "npm:option-t@50/plain_result";
+export * from "npm:option-t@50/maybe";

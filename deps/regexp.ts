@@ -1,1 +1,1 @@
-export * from "https://deno.land/std@0.224.0/regexp/mod.ts";
+export * from "jsr:@std/regexp@1";

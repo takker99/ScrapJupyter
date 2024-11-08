@@ -90,4 +90,17 @@ Deno.test("responseToLoader", async (t) => {
       assertEquals(responseToLoader(response), "text");
     },
   );
+
+  await t.step(
+    "With URL query string and hash fragment",
+    () => {
+      const response = new Response("Test response", {
+        headers: { "Content-Type": "application/javascript" },
+      });
+      Object.defineProperty(response, "url", {
+        value: "https://example.com/script.js?query#fragment",
+      });
+      assertEquals(responseToLoader(response), "js");
+    },
+  );
 });

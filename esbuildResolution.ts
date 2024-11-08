@@ -38,6 +38,7 @@ export const urlToEsbuildResolution = (url: URL): EsbuildResolution => {
  * representing a file.
  */
 export const esbuildResolutionToURL = (specifier: EsbuildResolution): URL => {
+  specifier.path = decodeURIComponent(specifier.path);
   if (specifier.namespace === "file") {
     return toFileUrl(specifier.path);
   }

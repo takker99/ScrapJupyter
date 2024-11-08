@@ -1,6 +1,6 @@
 import "./deno-mock.js";
 import { Plugin } from "./esbuild-wasm.ts";
-import { denoResolverPlugin } from "https://deno.land/x/esbuild_deno_loader@0.9.0/mod.ts";
+import { denoResolverPlugin } from "jsr:@luca/esbuild-deno-loader@0.10";
 
 // ported from https://deno.land/x/esbuild_deno_loader@0.9.0/src/plugin_deno_resolver.ts
 export interface DenoResolverPluginOptions {

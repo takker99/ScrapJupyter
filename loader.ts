@@ -1,5 +1,5 @@
 import { Loader } from "./deps/esbuild-wasm.ts";
-import { basename, extname } from "./deps/url.ts";
+import { basename, extname } from "./deps/path.ts";
 
 const loaderList: Loader[] = [
   "base64",
@@ -30,7 +30,11 @@ export const responseToLoader = (response: Response): Loader => {
   const filename = basename(url);
   if (isLoader(filename)) return filename;
   if (filename === "mjs") return "js";
-  const ext = extname(url).slice(1);
+  // remove query string and hash fragment
+  const pure = new URL(url);
+  pure.search = "";
+  pure.hash = "";
+  const ext = extname(pure.href).slice(1);
   if (isLoader(ext)) return ext;
   if (ext === "mjs") return "js";
   const contentType = response.headers.get("Content-Type") ?? "text/plain";

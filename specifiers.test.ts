@@ -104,6 +104,18 @@ const NPM_SPECIFIER: NpmSpecifierTestCase[] = [
     }),
   },
   {
+    specifier: "npm:test@%5E1.2",
+    ...createOk({
+      name: "test",
+      range: [[
+        { major: 1, minor: 2, operator: ">=", patch: 0 },
+        { major: 2, minor: 0, operator: "<", patch: 0 },
+      ]],
+      tag: "^1.2",
+      entryPoint: ".",
+    }),
+  },
+  {
     specifier: "npm:test@~1.1/sub_path",
     ...createOk({
       name: "test",
@@ -223,6 +235,19 @@ const JSR_SPECIFIER_VALID: JsrSpecifierTestCase[] = [
       ]],
       tag: "~1.1",
       entryPoint: "./sub_path",
+    }),
+  },
+
+  {
+    specifier: "jsr:@scope/test@%5E1.2",
+    ...createOk({
+      name: "@scope/test",
+      range: [[
+        { major: 1, minor: 2, operator: ">=", patch: 0 },
+        { major: 2, minor: 0, operator: "<", patch: 0 },
+      ]],
+      tag: "^1.2",
+      entryPoint: ".",
     }),
   },
   {

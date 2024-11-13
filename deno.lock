@@ -5,12 +5,15 @@
     "jsr:@cosense/std@0.29": "0.29.1",
     "jsr:@cosense/types@0.10": "0.10.1",
     "jsr:@luca/esbuild-deno-loader@0.10": "0.10.3",
+    "jsr:@luca/esbuild-deno-loader@0.11": "0.11.0",
     "jsr:@progfay/scrapbox-parser@9": "9.1.5",
     "jsr:@std/assert@1": "1.0.6",
     "jsr:@std/assert@^1.0.6": "1.0.6",
     "jsr:@std/assert@~0.213.1": "0.213.1",
     "jsr:@std/async@1": "1.0.8",
+    "jsr:@std/bytes@^1.0.2": "1.0.3",
     "jsr:@std/encoding@0.213": "0.213.1",
+    "jsr:@std/encoding@^1.0.5": "1.0.5",
     "jsr:@std/fs@^1.0.4": "1.0.4",
     "jsr:@std/internal@^1.0.4": "1.0.4",
     "jsr:@std/json@~0.213.1": "0.213.1",
@@ -21,6 +24,8 @@
     "jsr:@std/regexp@1": "1.0.0",
     "jsr:@std/semver@1": "1.0.3",
     "jsr:@std/testing@1": "1.0.3",
+    "jsr:@takker/esbuild-wasm-no-blob@0.24": "0.24.0",
+    "jsr:@takker/esbuild-wasm-no-blob@0.24.0": "0.24.0",
     "npm:option-t@50": "50.0.0",
     "npm:urlpattern-polyfill@10": "10.0.0"
   },
@@ -42,9 +47,17 @@
     "@luca/esbuild-deno-loader@0.10.3": {
       "integrity": "32fc93f7e7f78060234fd5929a740668aab1c742b808c6048b57f9aaea514921",
       "dependencies": [
-        "jsr:@std/encoding",
+        "jsr:@std/encoding@0.213",
         "jsr:@std/jsonc",
         "jsr:@std/path@0.213"
+      ]
+    },
+    "@luca/esbuild-deno-loader@0.11.0": {
+      "integrity": "c05a989aa7c4ee6992a27be5f15cfc5be12834cab7ff84cabb47313737c51a2c",
+      "dependencies": [
+        "jsr:@std/bytes",
+        "jsr:@std/encoding@^1.0.5",
+        "jsr:@std/path@^1.0.6"
       ]
     },
     "@progfay/scrapbox-parser@9.1.5": {
@@ -62,8 +75,14 @@
     "@std/async@1.0.8": {
       "integrity": "c057c5211a0f1d12e7dcd111ab430091301b8d64b4250052a79d277383bc3ba7"
     },
+    "@std/bytes@1.0.3": {
+      "integrity": "e5d5b9e685966314e4edb4be60dfc4bd7624a075bfd4ec8109252b4320f76452"
+    },
     "@std/encoding@0.213.1": {
       "integrity": "fcbb6928713dde941a18ca5db88ca1544d0755ec8fb20fe61e2dc8144b390c62"
+    },
+    "@std/encoding@1.0.5": {
+      "integrity": "ecf363d4fc25bd85bd915ff6733a7e79b67e0e7806334af15f4645c569fefc04"
     },
     "@std/fs@1.0.4": {
       "integrity": "2907d32d8d1d9e540588fd5fe0ec21ee638134bd51df327ad4e443aaef07123c",
@@ -107,6 +126,9 @@
         "jsr:@std/internal",
         "jsr:@std/path@^1.0.6"
       ]
+    },
+    "@takker/esbuild-wasm-no-blob@0.24.0": {
+      "integrity": "bd2759316cedf971addcea7cfba27dd7b0b66d28877fba6088ee2b3ea7799be6"
     }
   },
   "npm": {
@@ -132,6 +154,13 @@
     "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/mod.ts": "be014901d8a66b2fbb5b8ff5304953520fc466db935958bd7f317caefd80b9d0",
     "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/stdio_protocol.ts": "7f41e8fc04649d84d055889e2b4b0d55b0372d85e608ffe6b8620ccccb9764d0",
     "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/types.ts": "d8706beb586cf416545aeb492f9ba5cca5e6c3bf894caabf754e408aa9d6a2b6",
-    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/version.ts": "85c58b6210e39222a81253273e15bcc76ccc3fe162fc2d888f2b1fe2fddd3a4e"
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/version.ts": "85c58b6210e39222a81253273e15bcc76ccc3fe162fc2d888f2b1fe2fddd3a4e",
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.24.0/common.ts": "9cd2d4babcfd7deb7d323ceba76e986047847da2d4d471ef328ad69f4c0018dd",
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.24.0/mod.ts": "ce0d3cd2cbbf76f033bac44010416b493a583bc5f21e1cb6a99b9f8ef50046c3",
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.24.0/stdio_protocol.ts": "63dc508a3167e111934dd6056017526c72041e2b867682843536e3b566e60354",
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.24.0/types.ts": "c7cb8b3d9130161ce9482b9b1e0a7f200d80ca5354d633756242b8df1dd18aa4",
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.24.0/vendor/wasm_exec.js": "9818f5e3984a3709aef718c26964d0734749a16f8acd9a0a196fb720e208dc6d",
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.24.0/version.ts": "d33ec6b8db18ea88df4956015bae98bc8e1eab98a630e3bbd0ea60c1e5ad9e91",
+    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.24.0/worker.ts": "02f9cf3912ddfdc953e21cdf765fac952197a5dd70f0562115f6e0934857a536"
   }
 }

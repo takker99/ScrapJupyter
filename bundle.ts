@@ -26,11 +26,11 @@ let initialized: Promise<void> | undefined;
 /** esbuildを読み込み、builderを返す */
 export const load = async (
   wasm: WebAssembly.Module,
-  workerURL: string | URL,
+  worker: string | URL,
 ): Promise<Builder> => {
   initialized ??= initialize({
-    wasmModule: wasm,
-    workerURL,
+    wasm,
+    worker,
   });
   await initialized;
 

@@ -3,14 +3,14 @@ import { remoteLoader } from "./remoteLoader.ts";
 import { resolver } from "./deps/esbuild_deno_loader.ts";
 
 await initialize({
-  // 0.21.4
-  wasmModule: await WebAssembly.compileStreaming(
+  // 0.24.0
+  wasm: await WebAssembly.compileStreaming(
     globalThis.fetch(
-      "https://cdn.jsdelivr.net/npm/esbuild-wasm@0.21.5/esbuild.wasm",
+      "https://cdn.jsdelivr.net/npm/esbuild-wasm@0.24.0/esbuild.wasm",
     ),
   ),
-  workerURL: new URL(
-    "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.21.5/worker.ts",
+  worker: new URL(
+    "jsr:@takker/esbuild-wasm-no-blob@0.24.0/worker",
     import.meta.url,
   ),
 });

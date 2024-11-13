@@ -6,5 +6,5 @@ export {
   stop,
   transform,
   version,
-} from "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/mod.ts";
-export * from "https://raw.githubusercontent.com/takker99/esbuild-wasm-no-blob/0.23.0/types.ts";
+} from "jsr:@takker/esbuild-wasm-no-blob@0.24";
+export * from "jsr:@takker/esbuild-wasm-no-blob@0.24";
